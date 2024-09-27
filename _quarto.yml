@@ -15,8 +15,8 @@ website:
 format:
   html:
     theme: 
-      light: Solar
-      dark: Vapor
+      light: Vapor
+      dark: Solar
     css: styles.css
     toc: true
     page-layout: article
