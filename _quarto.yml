@@ -3,18 +3,23 @@ project:
   output-dir: docs
 
 website:
-  title: "imsibaja.github.io"
+  title: "Morris-Sibaja"
   navbar:
     left:
       - href: index.qmd
         text: Home
       - about.qmd
+      - href: resources.qmd
+        text: Resources
 
 format:
   html:
-    theme: cosmo
+    theme: 
+      light: solar
+      dark: vapor
     css: styles.css
     toc: true
+    page-layout: article
 
-editor: visual
+
 
