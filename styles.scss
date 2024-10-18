@@ -1,0 +1,55 @@
+/*-- scss:defaults --*/
+
+// Import Google Fonts
+@import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300..900&family=Kelly+Slab&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+//Create font variables
+$kelly-slab: "Kelly Slab", serif;
+$quantico: "Quantico", sans-serif;
+$darker-grotesque: "Darker Grotesque", serif;
+
+
+// Colors
+$blue: #002359;
+$black: #0a0a08;
+$lblue: #62b3ad;
+$red: #ba0e00;
+$gray: #c2c5d9;
+$green: #305535;
+$orange: #f88f3b;
+
+// Quarto Sass Variables
+$body-bg: $gray;
+$navbar-bg: $blue;
+$navbar-fg: $lblue;
+$navbar-hl: $orange;
+
+/*-- scss:rules --*/
+
+h1, h2, h3, h4, h5, h6{
+  letter-spacing: 3px;
+  font-weight: 800;
+  font: $quantico;
+}
+
+.title {
+  color: $black;
+}
+
+.center-text{
+  text-align: center;
+}
+
+.orange-text{
+  color: $orange;
+}
+
+.center-orange{
+  text-align: center;
+  color: $orange;
+}
+
+.navbar-brand img {
+  max-height: 40px;
+  width: auto;
+}
