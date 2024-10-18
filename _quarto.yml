@@ -15,6 +15,7 @@ website:
       - about.qmd
       - href: resources.qmd
         text: Resources
+      - posts.qmd
       - href: CV/my-cv.pdf
         text: CV
   page-footer: 
@@ -26,7 +27,7 @@ format:
     theme: 
       - styles.scss
     mainfont: Darker Grotesque
-    toc: true
+    toc: false
     page-layout: article
 
 

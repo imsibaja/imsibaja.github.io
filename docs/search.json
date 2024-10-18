@@ -33,5 +33,40 @@
     "title": "Ian Morris-Sibaja",
     "section": "",
     "text": "Drawing on his research and fieldwork experiences, Ian is now pursuing a Master of Environmental Data Science from the UCSB Bren School. His ultimate goal is to utilize his analytical toolkit to develop data-driven solutions that measure and mediate human impacts on the natural environments of Southern California."
+  },
+  {
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Hello World!\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nMy first blog\n\n\n\nIMS\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "posts/2024-10-18-hello-world/index.html",
+    "href": "posts/2024-10-18-hello-world/index.html",
+    "title": "Hello World!",
+    "section": "",
+    "text": "I’m going to insert a footnote here 1"
+  },
+  {
+    "objectID": "posts/2024-10-18-hello-world/index.html#this-is-my-first-section",
+    "href": "posts/2024-10-18-hello-world/index.html#this-is-my-first-section",
+    "title": "Hello World!",
+    "section": "",
+    "text": "I’m going to insert a footnote here 1"
+  },
+  {
+    "objectID": "posts/2024-10-18-hello-world/index.html#this-is-my-second",
+    "href": "posts/2024-10-18-hello-world/index.html#this-is-my-second",
+    "title": "Hello World!",
+    "section": "This is my second",
+    "text": "This is my second\nHere’s my next paragraph2\nI’m citing Sam Csik (Csik 2022).\nHere is more random text. I’m going to cite a journal article now (Gaynor et al. 2022)."
+  },
+  {
+    "objectID": "posts/2024-10-18-hello-world/index.html#footnotes",
+    "href": "posts/2024-10-18-hello-world/index.html#footnotes",
+    "title": "Hello World!",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nHere is a new footnote↩︎\nHere is my second footnote↩︎"
   }
 ]
