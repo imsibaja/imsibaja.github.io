@@ -1,10 +1,10 @@
 [
   {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Ian Morris-Sibaja",
+    "objectID": "delete-later/practice.html",
+    "href": "delete-later/practice.html",
+    "title": "Here is my level one header",
     "section": "",
-    "text": "Drawing on his research and fieldwork experiences, Ian is now pursuing a Master of Environmental Data Science from the UCSB Bren School. His ultimate goal is to utilize his analytical toolkit to develop data-driven solutions that measure and mediate human impacts on the natural environments of Southern California."
+    "text": "Here is my level one header\nHere is my first paragraph\nHere is my second paragraph, where you can read more about MEDS.\nThis is very important text!"
   },
   {
     "objectID": "about.html",
@@ -12,13 +12,6 @@
     "title": "About",
     "section": "",
     "text": "some text goes here"
-  },
-  {
-    "objectID": "delete-later/practice.html",
-    "href": "delete-later/practice.html",
-    "title": "Here is my level one header",
-    "section": "",
-    "text": "Here is my level one header\nHere is my first paragraph\nHere is my second paragraph, where you can read more about MEDS.\nThis is very important text!"
   },
   {
     "objectID": "about.html#what-i-do-for-work",
@@ -33,5 +26,12 @@
     "title": "About",
     "section": "What I do for fun",
     "text": "What I do for fun\n\nfun stuff\n\nHere is some more text\n\nHere is a line\nHere is another line"
+  },
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Ian Morris-Sibaja",
+    "section": "",
+    "text": "Drawing on his research and fieldwork experiences, Ian is now pursuing a Master of Environmental Data Science from the UCSB Bren School. His ultimate goal is to utilize his analytical toolkit to develop data-driven solutions that measure and mediate human impacts on the natural environments of Southern California."
   }
 ]
