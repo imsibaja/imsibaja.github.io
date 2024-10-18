@@ -7,9 +7,11 @@ about:
   image-width: 13em
   links: 
     - text: LinkedIn
+      icon: linkedin-in
       href: https://www.linkedin.com/in/imsibaja/
       target: _blank
     - text: Github
+      icon: github-alt
       href: https://github.com/imsibaja
       target: _blank
     - text: Email
