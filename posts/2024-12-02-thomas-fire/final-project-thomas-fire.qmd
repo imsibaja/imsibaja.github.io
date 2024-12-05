@@ -5,9 +5,9 @@ python: /opt/anaconda3/python
 author: Ian Morris-Sibaja
 date: last-modified
 ---
-This project can be found at [https://github.com/imsibaja/eds222-final-project](https://github.com/imsibaja/eds222-final-project)
+The full project repository can be found at [https://github.com/imsibaja/eds222-final-project](https://github.com/imsibaja/eds222-final-project)
 
-##  About: 
+##  About 
 
 ### Purpose:
 
