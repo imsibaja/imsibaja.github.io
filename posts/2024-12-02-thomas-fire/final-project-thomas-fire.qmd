@@ -5,7 +5,7 @@ python: /opt/anaconda3/python
 author: Ian Morris-Sibaja
 date: last-modified
 ---
-The full project repository can be found at [https://github.com/imsibaja/eds222-final-project](https://github.com/imsibaja/eds222-final-project)
+The full project repository can be found at [https://github.com/imsibaja/thomas-fire-analysis](https://github.com/imsibaja/thomas-fire-analysis)
 
 ##  About 
 
