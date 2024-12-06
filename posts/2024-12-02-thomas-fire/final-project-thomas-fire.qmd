@@ -17,7 +17,7 @@ This notebook explores the 2017 Thomas Fire, one of California's largest wildfir
 
 - Import and explore AQI and Landsat data to analyze the Thomas Fires
 - Create time series maps to explore the impact of the wildfires on AQI
-- Create true and false color images to highlight the fire's bredth
+- Create true and false color images to highlight the fire's breadth
 - Visualize the false color fire scar alongside perimeter data for detailed analysis
 
 ### About the data: 
