@@ -11,7 +11,7 @@
     "href": "posts.html",
     "title": "Blog",
     "section": "",
-    "text": "The Environmental Effects of the 2017 Thomas Fire\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nDec 13, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nThe Environmental Effects of the 2017 Thomas Fire\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nDec 5, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHello World!\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nMy first blog\n\n\n\nIMS\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Microplastic Distribution Analysis\n\n\n\nQuarto\n\n\nMEDS\n\n\nEDS222\n\n\n\nEDS 222 Final\n\n\n\nIMS\n\n\nDec 13, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nThe Environmental Effects of the 2017 Thomas Fire\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nDec 13, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHello World!\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nMy first blog\n\n\n\nIMS\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
@@ -116,7 +116,7 @@
     "href": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#load-and-clean-datasets",
     "title": "Microplastic Distribution Analysis",
     "section": "Load and Clean Datasets",
-    "text": "Load and Clean Datasets\n\n\nLoad Data\nmp &lt;- read_csv(here(\"data/Marine_Microplastics_NOAA.csv\"))\n\n\n\n\nClean Data\nmp &lt;- mp %&gt;% \n  mutate(Year = year(mdy_hms(mp$Date))) %&gt;%\n  mutate(Date = mdy_hms(mp$Date)) %&gt;% \n  filter(Unit==\"pieces/m3\") %&gt;%\n  select(c(\"Oceans\", \"Regions\", \"Measurement\",\n           \"Latitude\", \"Longitude\", \"Date\", \"Year\")) %&gt;%  \n  filter(Year %in% 2000:2020) %&gt;% \n  filter(Oceans!=\"Arctic Ocean\") %&gt;% \n  mutate(Oceans=as.factor(Oceans)) %&gt;% \n  clean_names()\n\nmp_gamma &lt;- mp %&gt;% \n  filter(!is.na(measurement), !is.na(year), measurement &gt; 0)"
+    "text": "Load and Clean Datasets\n\n\nLoad Data\nmp &lt;- read_csv(here(\"posts/2024-12-13-microplastic-distribution-analysis/data/Marine_Microplastics_NOAA.csv\"))\n\n\n\n\nClean Data\nmp &lt;- mp %&gt;% \n  mutate(Year = year(mdy_hms(mp$Date))) %&gt;%\n  mutate(Date = mdy_hms(mp$Date)) %&gt;% \n  filter(Unit==\"pieces/m3\") %&gt;%\n  select(c(\"Oceans\", \"Regions\", \"Measurement\",\n           \"Latitude\", \"Longitude\", \"Date\", \"Year\")) %&gt;%  \n  filter(Year %in% 2000:2020) %&gt;% \n  filter(Oceans!=\"Arctic Ocean\") %&gt;% \n  mutate(Oceans=as.factor(Oceans)) %&gt;% \n  clean_names()\n\nmp_gamma &lt;- mp %&gt;% \n  filter(!is.na(measurement), !is.na(year), measurement &gt; 0)"
   },
   {
     "objectID": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#preliminary-explorations",

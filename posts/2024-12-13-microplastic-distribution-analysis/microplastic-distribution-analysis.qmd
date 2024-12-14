@@ -1,0 +1,424 @@
+---
+title: "Microplastic Distribution Analysis"
+description: "EDS 222 Final"
+author: 
+  - name: "IMS"
+    url: https://imsibaja.github.io/
+    affiliation: MEDS
+    affiliation-url: https://bren.ucsb.edu/masters-programs/master-environmental-data-science
+date: last-modified
+categories: [Quarto, MEDS, EDS222]
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+editor: 
+  markdown: 
+    wrap: sentence
+execute: 
+  eval: true
+  warning: false
+  message: false
+format:
+  html:
+    toc: true
+editor_options: 
+  chunk_output_type: console
+toc: true
+---
+
+The full repository for this analysis can be found [here](https://github.com/imsibaja/eds222-final-project).
+
+```{r setup, include=FALSE}
+library(tidyverse)
+library(here)
+library(janitor)
+library(lubridate)
+library(patchwork)
+library(kableExtra)
+```
+
+# Background
+
+Microplastics are plastic particles smaller than 5 millimeters.
+They are known to pose a significant threat to marine ecosystems and human health.
+In fact, they are ingested by marine organisms, potentially leading to starvation, entanglement, and the transfer of harmful chemicals up the food chain.
+75 % of fish are estimated to have ingested microplastics, with each individual fish containing 2.5 individual particles on average (Clere et al. 2022).
+These microplastics can end up on our plates, posing potential risks to human health.
+
+In fact, 60% and 25% of commercial fishing are caught in the Pacific and Atlantic oceans, respectively (Rao, 2024).
+This is important to consider when attempting to understand the distribution patterns and trends of microplastics in our oceans.
+This is crucial for effective mitigation strategies, as when we begin identifying areas and periods with high microplastic concentrations, we can target cleanup efforts and implement policies to reduce plastic pollution at its source.
+With this information, I would like to explore the spatial and temporal trends of microplastics in the Pacific and Atlantic Ocean, the two most fished oceans in the world.
+
+------------------------------------------------------------------------
+
+# Data Preparation
+
+To begin this study, I utilized the NOAA National Centers for Environmental Information’s (NCEI) Marine Microplastics Dataset (Nyadjro, et al. 2023) to investigate temporal and spatial trends in microplastic density.
+This database includes over 22,000 in-situ measured marine microplastic concentrations in our Oceans.
+Data is aggregated from large ocean surveys, citizen-science initiatives, and published literature.
+For our study, this data includes important information on microplastic concentrations, dates, and geographic locations, and was preprocessed to ensure consistency within analysis, as seen below. I used data from 2000-2020 and filtered to only the Atlantic and Pacific Oceans.
+
+## Load and Clean Datasets
+
+```{r}
+#| code-fold: true
+#| code-summary: "Load Data"
+mp <- read_csv(here("posts/2024-12-13-microplastic-distribution-analysis/data/Marine_Microplastics_NOAA.csv"))
+```
+
+```{r}
+#| code-fold: true
+#| code-summary: "Clean Data"
+mp <- mp %>% 
+  mutate(Year = year(mdy_hms(mp$Date))) %>%
+  mutate(Date = mdy_hms(mp$Date)) %>% 
+  filter(Unit=="pieces/m3") %>%
+  select(c("Oceans", "Regions", "Measurement",
+           "Latitude", "Longitude", "Date", "Year")) %>%  
+  filter(Year %in% 2000:2020) %>% 
+  filter(Oceans!="Arctic Ocean") %>% 
+  mutate(Oceans=as.factor(Oceans)) %>% 
+  clean_names()
+
+mp_gamma <- mp %>% 
+  filter(!is.na(measurement), !is.na(year), measurement > 0) 
+```
+
+## Preliminary explorations
+
+### Visualize Data Distribution
+
+```{r, echo=FALSE}
+ggplot(mp, aes(x = longitude, y = latitude, fill = oceans, alpha = measurement)) +
+  geom_point(shape = 21) +
+  labs(title = "Microplastic Distribution Measurements", x = "Longitude", y = "Latitude")
+```
+
+We can see the distributions of microplastic densities across the Pacific and Atlantic Oceans. There are more observations in the Atlantic, however, there are very dense measurements in the Pacific.
+
+Two primary questions are addressed:
+
+1.  Is the probability of encountering microplastics increasing over time?
+2.  When microplastics are present, how much is there?
+
+To answer these, logistic regression is used for presence/absence data, and gamma regression is applied to continuous measurement data.
+
+------------------------------------------------------------------------
+
+# Analysis Plan
+
+Our null hypotheses are:
+
+-   N0: Microplastic density does not change over time in either the Atlantic or Pacific Oceans.
+    -   Failing to reject this implies that the probability of encountering microplastics in the ocean remains constant across different years.
+
+- N0: Microplastic density does not differ across oceans/change over time.
+    -   Failing to reject this implies that neither the year of observation nor the ocean region (Atlantic or Pacific) has a significant effect on the density of microplastics.
+
+Statistical models are used to analyze the data: Logistic regression to assess the probability of microplastic presence over time, gamma regression to investigate the relationship between microplastic density, time, and ocean region.
+
+Logistic regression was used because the response variable is binary (presence or absence of microplastics).
+Gamma regression is suitable for analyzing our microplastic densities because the response variable is continuous, positive, and skewed.
+
+------------------------------------------------------------------------
+
+## Logistic Regression 
+#### Probability of Microplastic Presence
+
+- Model: measurement_bool ~ year
+- Formula: logit(p) = β₀ + β₁ * year
+
+Variables:
+
+- measurement_bool: Binary variable indicating the presence or absence of microplastics.
+
+- year: Year of observation.
+
+### Prepare Presence/Absence Data
+
+```{r}
+#| code-fold: true
+#| code-summary: "Prepare Data"
+mp_logi <- mp %>% 
+  mutate(measurement_bool = as.integer(as.logical(measurement)))
+```
+
+### Logistic Model
+
+```{r}
+logi_fit <- glm(measurement_bool ~ year, data = mp_logi, family = "binomial")
+logi_sum <- summary(logi_fit)
+```
+
+```{r, echo=FALSE}
+paste0("The slope is ", signif(logi_sum$coefficients[2,1], 2), " and the P-Value is <2e-16.", "The AIC is ", signif(AIC(logi_fit),4))
+```
+
+
+### Visualization
+
+```{r, echo=FALSE}
+mp_logi$predicted <- predict(logi_fit, type = "response")
+mp_logi$group <- "Both Oceans"
+
+ggplot(mp_logi, aes(x = year, y = measurement_bool, color = oceans)) +
+  geom_point() +
+  geom_smooth(method = "glm", method.args = list(family = "binomial"), se = FALSE) +
+  geom_line(aes(y=predicted, color=group)) +
+  ggtitle("Estimated Microplastic Measurement over Time",
+          subtitle = "By Both and Each Ocean") +
+  labs(x = "Year", y = "Probability") +
+  scale_color_manual(values = c("blue", "red", "black")) 
+```
+
+------------------------------------------------------------------------
+
+# Gamma Regression: Microplastic Density
+
+- Models: 
+  -   density ~ year
+  -   density ~ year + oceans
+  -   density ~ year * oceans
+
+- Formula: 
+  -   E(y) = exp(β₀ + β₁ * year)
+  -   E(y) = exp(β₀ + β₁ * year + β₂ * oceans)
+  -   E(y) = exp(β₀ + β₁ * year + β₂ * oceans + β₃ * year * oceans)
+
+- Variables:
+  -   measurement: Log-linked microplastic density.
+  -   year: Year of observation.
+  -   oceans: Categorical variable representing either the Atlantic or Pacific.
+
+## Density by Year Model Fit
+
+When plastic is collected, does its concentration change depending on the year?
+
+#### Microplastic Density Change Over Time Across all Oceans
+
+Our first model (measurement ~ year) is included in the model to investigate the effect on the year on microplastic densities. This model considers only the temporal trend, assuming the rate of change in microplastic density over time is constant across all ocean regions.
+
+- Model: density ~ year
+- Formula: E(y) = exp(β₀ + β₁ * year)
+
+```{r}
+# Fit Gamma regression with starting values
+year_density <- glm(measurement ~ year, 
+             data = mp_gamma, 
+             family = Gamma(link = "log"),
+             control = glm.control(epsilon = 1))
+year_density_sum <- summary(year_density)
+```
+
+```{r, echo=FALSE}
+paste0("The slope is ", signif(year_density_sum$coefficients[2,1], 2), " and the P-Value is <2e-16.", "The AIC is ", signif(AIC(year_density),5))
+```
+
+```{r, echo=FALSE}
+#| code-fold: true
+#| code-summary: "Visualization"
+# Make predictions from the fitted model
+mp_gamma$predicted1 <- predict(year_density, type = "response")
+
+gamma1 <- ggplot(mp_gamma, aes(x = year, y=predicted1)) +
+  geom_line() + 
+  # Add lines to connect the predicted points
+  geom_point(aes(y=measurement, color=oceans)) +
+  geom_point(alpha = 0.5) +         # Add points for individual observations
+  labs(title = "Estimated Microplastic Measurement over Time",
+       x = "Year", 
+       y = "Microplastic Measurement (log transformed)") +
+  theme_light() +
+  scale_y_log10() +
+  scale_color_manual(values = c("blue", "red")) +  # Customize colors if needed
+  theme(legend.title = element_blank())  # Optionally remove legend title
+
+```
+
+## Parrallel Model Fit 
+#### Microplastic Density Change over time across Oceans
+
+- Model: density ~ year + oceans
+- Formula: E(y) = exp(β₀ + β₁ * year + β₂ * oceans)
+
+Our second model utilizes parallel terms, as it assesses microplastic density changes both over time and across different oceans, allowing for the possibility that the rate of change might differ between the Atlantic and Pacific. However, it assumes that the difference between the oceans remains constant across all years.
+
+```{r}
+# Fit Gamma regression with starting values
+year_ocean_density <- glm(measurement ~ year+oceans, 
+             data = mp_gamma, 
+             family = Gamma(link = "log"),
+             control = glm.control(epsilon = 1))
+year_ocean_density_sum <- summary(year_ocean_density)
+```
+
+```{r, echo=FALSE}
+paste0("The slope is ", signif(year_ocean_density_sum$coefficients[2,1], 2), " and the P-Value is <2e-16.", "The AIC is ", signif(AIC(year_ocean_density),5))
+```
+
+```{r, echo=FALSE}
+#| code-fold: true
+#| code-summary: "Visualization"
+# Make predictions from the fitted model
+mp_gamma$predicted2 <- exp(predict(year_ocean_density))
+mp_gamma$group <- "Both Oceans"
+# Plot the predicted values over time for each ocean
+gamma2 <- ggplot(mp_gamma, aes(x = year, y = predicted2, color = oceans)) +
+  geom_point(aes(y=measurement)) +
+  geom_point(alpha = 0.5) +  # Transparency for better visibility of points
+  geom_line() +              # Line to show the predicted trend
+  geom_line(aes(y=predicted1, color=group)) +
+  ggtitle("Estimated Microplastic Measurement over Time",
+          subtitle = "By Both and Each Ocean") +
+  labs(x = "Year", 
+       y = "Predicted Microplastic Measurement") +
+  scale_color_manual(values = c("blue", "red", "black")) +  # Customize colors
+  theme_minimal() +
+  scale_y_log10() +
+  theme(legend.title = element_blank())
+```
+
+## Interaction Model Fit
+#### Microplastic Density Change over time by Oceans
+
+- Model: density ~ year + oceans
+- Formula: E(y) = exp(β₀ + β₁ * year + β₂ * oceans + β₃ * year * oceans)
+
+Interaction terms (measurement ~ year*oceans) are included in the model to investigate potential combined effects of time and ocean region on microplastic density. This model also allows for different rates of change in different ocean regions. But unlike the previous model, it allows the difference between the oceans to vary over time. This means that the impact of the ocean region on microplastic density might increase or decrease over the years. For example, microplastic density in the Atlantic might be increasing at a faster rate than in the Pacific in recent years.
+
+```{r}
+# Fit Gamma regression with starting values
+year_oceanXdensity <- glm(measurement ~ year*oceans, 
+             data = mp_gamma, 
+             family = Gamma(link = "log"),
+             control = glm.control(epsilon = 1))
+year_oceanXdensity_sum <- summary(year_oceanXdensity)
+```
+
+```{r, echo=FALSE}
+paste0("The slope is ", signif(year_oceanXdensity_sum$coefficients[2,1], 2), " and the P-Value is <2e-16.", "The AIC is ", signif(AIC(year_oceanXdensity),5))
+```
+
+```{r, echo=FALSE}
+#| code-fold: true
+#| code-summary: "Visualization"
+# Make predictions from the fitted model
+mp_gamma$predicted3 <- exp(predict(year_oceanXdensity))
+
+# Plot the predicted values over time for each ocean
+gamma3 <- ggplot(mp_gamma, aes(x = year, y = predicted3, color = oceans)) +
+  geom_point(alpha = 0.5) +  # Transparency for better visibility of points
+  geom_line() +              # Line to show the predicted trend
+  geom_point(aes(y=measurement)) +
+  ggtitle("Estimated Microplastic Measurement over Time",
+          subtitle = "Interactive Slopes of Oceans") +
+  labs(x = "Year", 
+       y = "Predicted Microplastic Measurement") +
+  scale_color_manual(values = c("blue", "red")) +  # Customize colors
+  theme_minimal() +
+  scale_y_log10() +
+  theme(legend.title = element_blank())
+```
+
+### Visualize
+
+```{r, echo=FALSE}
+gamma2
+gamma3
+```
+
+
+------------------------------------------------------------------------
+
+# Results
+
+## Logistic Regression
+#### Increasing Probability of Microplastic Encounter
+
+The logistic regression analysis suggests a statistically significant positive relationship between time and the probability of encountering microplastics. The slope is increasing by 0.1 pieces/m3 per year and the P-Value is <2e-16. This finding indicates that the likelihood of finding microplastics in the ocean is increasing over time, both in the Pacific and the Atlantic.
+
+## Gamma Regression
+#### Temporal and Spatial Trends in Density
+
+The gamma regression results reveal significant main effects of both year and ocean region on microplastic density. Specifically, the analysis indicates that microplastic density is increasing over time and is generally higher in the Pacific Ocean compared to the Atlantic Ocean. This stems from our p-value for each model at <2e-16. Our slope for modeling only the year yields an increase of 0.29 microplastic pieces per m^3. Our parallel slope of the year and oceans yields an increase of 0.28 microplastic pieces per m^3. Our interactive slopes of the year and oceans yields an increase of 0.24 microplastic pieces per m^3. 
+
+In our models, however, we find an AIC of 58,263, 60,989, and 63,136. While relatively close to each other, we see that this gamma model does not fit the data as well as the logistic model, with an AIC of 8524. If we are to continue with this analysis, this suggests that the rate of increase in microplastic density over time is similar in both the Atlantic and Pacific Oceans. Though all of our P-Values are significant (less than 2e-16), we know to take this analysis with a grain of salt. The AICs suggest the model does not fit well on our data. We can speculate why in the next section.
+
+---
+
+# Limitations and Next Steps
+
+#### Limitations
+
+The analysis presented here provides valuable insights into temporal and spatial trends in microplastic density. However, it is essential to acknowledge the limitations of the study.
+
+Data Availability:
+
+- The Marine Microplastics Dataset may not be fully representative of all ocean regions, and there could be gaps in data collection. Though we can see in our early distribution gap there are alot of samples, it is not randomly distributed as would be ideal.
+
+Model Complexity:
+
+- While the chosen models provide a good starting point, more complex models could be explored to capture potential non-linear relationships or account for other environmental factors. There are more variables that influence the spread of microplastics besides the ocean and the year, though no extra data in our dataset was relevant to our analysis.
+
+Environmental Variability:
+
+- Microplastic distribution is influenced by complex oceanographic processes, which are not fully captured in the current analysis. There is no data on seasonality, areas of where rivers feed into the ocean, and population density along the oceans.
+
+#### Next Steps
+
+Future research could address these limitations by:
+
+Expanding data collection:
+
+- Gathering more data from diverse ocean regions and depths to enhance the representativeness of the analysis.
+
+Refining statistical models:
+
+- Exploring alternative models, such as generalized linear mixed models (GLMMs) or time series models, to better account for data structure and environmental variability.
+
+Investigating drivers of microplastic distribution:
+
+- Incorporating variables like ocean currents, wind patterns, and proximity to coastal populations to gain a deeper understanding of the factors influencing microplastic density.
+
+One idea may be to include geospatial fishing data as a way to understand how the fishery industry is contributing the microplastics in the ocean if at all. Additionally, we could model population density, proximity to major rivers, and the river water flow into the oceans. This may give us an idea on how our daily activities may be leading to mciroplastic densities.
+
+---
+
+# Conclusion
+
+This analysis demonstrates an increasing trend in both the probability of encountering microplastics and the density of microplastics over time. While the Pacific Ocean exhibits higher microplastic densities overall, the rate of increase over time appears to be similar across both the Atlantic and Pacific Oceans.
+
+Though our p-values imply statistically significant results, our AICs should give us pause when coming to conclusions. A more robust model, like those stated in next steps, should be applied to truly understand the leading drivers of microplastics.  
+
+The findings underscore the urgency of addressing microplastic pollution. Targeted mitigation efforts, including reducing plastic waste at its source, improving waste management systems, and developing innovative cleanup technologies, are crucial to protect our oceans and safeguard human health. Further research, incorporating more comprehensive data and advanced modeling techniques, is essential to refine our understanding of microplastic distribution and inform effective mitigation strategies.
+
+---
+
+# Data Availability
+
+The NOAA National Centers for Environmental Information's (NCEI) marine microplastics database is a crucial resource for understanding the global distribution and impact of microplastics (plastic particles less than 5mm in size). The database compiles data from various sources, including ocean surveys and citizen science initiatives, to provide a comprehensive, publicly accessible archive of microplastic concentrations in various marine environments. Its purpose is to support research, inform policy decisions, and facilitate international collaboration on addressing this widespread environmental pollutant by standardizing data collection and promoting data sharing. The database's open-access nature is highlighted as vital for a broad assessment of the environmental problem and effective management strategies.
+
+---
+
+# Citations
+
+```{r, echo=FALSE}
+tribble(
+  ~Reference, ~Citation, ~Link,
+  "Quantification and characterization of microplastics in commercial fish from southern New Zealand. Marine Pollution Bulletin, 184, 114121.", 
+  "Clere, I. K., Ahmmed, F., Remoto, P. I., Fraser-Miller, S. J., Gordon, K. C., Komyakova, V., & Allan, B. J. M. (2022).", "[Marine Pollution Bulletin](https://doi.org/10.1016/j.marpolbul.2022.114121)", 
+  "Mapped: Where the world’s fish are caught, by ocean. Visual Capitalist.",
+  "Rao, P. (2024, September 15).",
+  "[Fishing Locations](https://www.visualcapitalist.com/mapped-where-the-worlds-fish-are-caught-by-ocean/)",
+  "The NOAA NCEI marine microplastics database. Sci Data 10, 726 (2023).",
+  "Nyadjro, E.S., Webster, J.A.B., Boyer, T.P., Cebrian, J., Collazo, L., Kaltenberger, G., Larsen, K., Lau, Y., Mickle, P., Toft, T., Wang, Z.", "[NOAA NCEI](https://doi.org/10.1038/s41597-023-02632-y)"
+) %>% 
+  kable()
+```
+
+   
+  
+    
+
