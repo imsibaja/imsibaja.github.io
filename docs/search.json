@@ -11,7 +11,7 @@
     "href": "posts.html",
     "title": "Blog",
     "section": "",
-    "text": "The Environmental Effects of the 2017 Thomas Fire\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nDec 5, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHello World!\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nMy first blog\n\n\n\nIMS\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "Microplastic Distribution Analysis\n\n\n\nQuarto\n\n\nMEDS\n\n\nEDS222\n\n\n\nEDS 222 Final\n\n\n\nIMS\n\n\nDec 13, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nThe Environmental Effects of the 2017 Thomas Fire\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nDec 5, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHello World!\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nMy first blog\n\n\n\nIMS\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "index.html",
@@ -103,5 +103,68 @@
     "title": "About",
     "section": "What I do for fun",
     "text": "What I do for fun\n\nfun stuff\n\nHere is some more text\n\nHere is a line\nHere is another line"
+  },
+  {
+    "objectID": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html",
+    "href": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html",
+    "title": "Microplastic Distribution Analysis",
+    "section": "",
+    "text": "The full repository for this analysis can be found here."
+  },
+  {
+    "objectID": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#load-and-clean-datasets",
+    "href": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#load-and-clean-datasets",
+    "title": "Microplastic Distribution Analysis",
+    "section": "Load and Clean Datasets",
+    "text": "Load and Clean Datasets\n\n\nLoad Data\nmp &lt;- read_csv(here(\"data/Marine_Microplastics_NOAA.csv\"))\n\n\n\n\nClean Data\nmp &lt;- mp %&gt;% \n  mutate(Year = year(mdy_hms(mp$Date))) %&gt;%\n  mutate(Date = mdy_hms(mp$Date)) %&gt;% \n  filter(Unit==\"pieces/m3\") %&gt;%\n  select(c(\"Oceans\", \"Regions\", \"Measurement\",\n           \"Latitude\", \"Longitude\", \"Date\", \"Year\")) %&gt;%  \n  filter(Year %in% 2000:2020) %&gt;% \n  filter(Oceans!=\"Arctic Ocean\") %&gt;% \n  mutate(Oceans=as.factor(Oceans)) %&gt;% \n  clean_names()\n\nmp_gamma &lt;- mp %&gt;% \n  filter(!is.na(measurement), !is.na(year), measurement &gt; 0)"
+  },
+  {
+    "objectID": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#preliminary-explorations",
+    "href": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#preliminary-explorations",
+    "title": "Microplastic Distribution Analysis",
+    "section": "Preliminary explorations",
+    "text": "Preliminary explorations\n\nVisualize Data Distribution\n\n\n\n\n\n\n\n\n\nWe can see the distributions of microplastic densities across the Pacific and Atlantic Oceans. There are more observations in the Atlantic, however, there are very dense measurements in the Pacific.\nTwo primary questions are addressed:\n\nIs the probability of encountering microplastics increasing over time?\nWhen microplastics are present, how much is there?\n\nTo answer these, logistic regression is used for presence/absence data, and gamma regression is applied to continuous measurement data."
+  },
+  {
+    "objectID": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#logistic-regression",
+    "href": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#logistic-regression",
+    "title": "Microplastic Distribution Analysis",
+    "section": "Logistic Regression",
+    "text": "Logistic Regression\n\nProbability of Microplastic Presence\n\nModel: measurement_bool ~ year\nFormula: logit(p) = β₀ + β₁ * year\n\nVariables:\n\nmeasurement_bool: Binary variable indicating the presence or absence of microplastics.\nyear: Year of observation.\n\n\n\nPrepare Presence/Absence Data\n\n\nPrepare Data\nmp_logi &lt;- mp %&gt;% \n  mutate(measurement_bool = as.integer(as.logical(measurement)))\n\n\n\n\nLogistic Model\n\nlogi_fit &lt;- glm(measurement_bool ~ year, data = mp_logi, family = \"binomial\")\nlogi_sum &lt;- summary(logi_fit)\n\n\n\n[1] \"The slope is 0.1 and the P-Value is &lt;2e-16.The AIC is 8524\"\n\n\n\n\nVisualization"
+  },
+  {
+    "objectID": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#density-by-year-model-fit",
+    "href": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#density-by-year-model-fit",
+    "title": "Microplastic Distribution Analysis",
+    "section": "Density by Year Model Fit",
+    "text": "Density by Year Model Fit\nWhen plastic is collected, does its concentration change depending on the year?\n\nMicroplastic Density Change Over Time Across all Oceans\nOur first model (measurement ~ year) is included in the model to investigate the effect on the year on microplastic densities. This model considers only the temporal trend, assuming the rate of change in microplastic density over time is constant across all ocean regions.\n\nModel: density ~ year\nFormula: E(y) = exp(β₀ + β₁ * year)\n\n\n# Fit Gamma regression with starting values\nyear_density &lt;- glm(measurement ~ year, \n             data = mp_gamma, \n             family = Gamma(link = \"log\"),\n             control = glm.control(epsilon = 1))\nyear_density_sum &lt;- summary(year_density)\n\n\n\n[1] \"The slope is 0.29 and the P-Value is &lt;2e-16.The AIC is 58263\""
+  },
+  {
+    "objectID": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#parrallel-model-fit",
+    "href": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#parrallel-model-fit",
+    "title": "Microplastic Distribution Analysis",
+    "section": "Parrallel Model Fit",
+    "text": "Parrallel Model Fit\n\nMicroplastic Density Change over time across Oceans\n\nModel: density ~ year + oceans\nFormula: E(y) = exp(β₀ + β₁ * year + β₂ * oceans)\n\nOur second model utilizes parallel terms, as it assesses microplastic density changes both over time and across different oceans, allowing for the possibility that the rate of change might differ between the Atlantic and Pacific. However, it assumes that the difference between the oceans remains constant across all years.\n\n# Fit Gamma regression with starting values\nyear_ocean_density &lt;- glm(measurement ~ year+oceans, \n             data = mp_gamma, \n             family = Gamma(link = \"log\"),\n             control = glm.control(epsilon = 1))\nyear_ocean_density_sum &lt;- summary(year_ocean_density)\n\n\n\n[1] \"The slope is 0.28 and the P-Value is &lt;2e-16.The AIC is 60989\""
+  },
+  {
+    "objectID": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#interaction-model-fit",
+    "href": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#interaction-model-fit",
+    "title": "Microplastic Distribution Analysis",
+    "section": "Interaction Model Fit",
+    "text": "Interaction Model Fit\n\nMicroplastic Density Change over time by Oceans\n\nModel: density ~ year + oceans\nFormula: E(y) = exp(β₀ + β₁ * year + β₂ * oceans + β₃ * year * oceans)\n\nInteraction terms (measurement ~ year*oceans) are included in the model to investigate potential combined effects of time and ocean region on microplastic density. This model also allows for different rates of change in different ocean regions. But unlike the previous model, it allows the difference between the oceans to vary over time. This means that the impact of the ocean region on microplastic density might increase or decrease over the years. For example, microplastic density in the Atlantic might be increasing at a faster rate than in the Pacific in recent years.\n\n# Fit Gamma regression with starting values\nyear_oceanXdensity &lt;- glm(measurement ~ year*oceans, \n             data = mp_gamma, \n             family = Gamma(link = \"log\"),\n             control = glm.control(epsilon = 1))\nyear_oceanXdensity_sum &lt;- summary(year_oceanXdensity)\n\n\n\n[1] \"The slope is 0.24 and the P-Value is &lt;2e-16.The AIC is 63136\"\n\n\n\n\nVisualize"
+  },
+  {
+    "objectID": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#logistic-regression-1",
+    "href": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#logistic-regression-1",
+    "title": "Microplastic Distribution Analysis",
+    "section": "Logistic Regression",
+    "text": "Logistic Regression\n\nIncreasing Probability of Microplastic Encounter\nThe logistic regression analysis suggests a statistically significant positive relationship between time and the probability of encountering microplastics. The slope is increasing by 0.1 pieces/m3 per year and the P-Value is &lt;2e-16. This finding indicates that the likelihood of finding microplastics in the ocean is increasing over time, both in the Pacific and the Atlantic."
+  },
+  {
+    "objectID": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#gamma-regression",
+    "href": "posts/2024-12-13-microplastic-distribution-analysis/microplastic-distribution-analysis.html#gamma-regression",
+    "title": "Microplastic Distribution Analysis",
+    "section": "Gamma Regression",
+    "text": "Gamma Regression\n\nTemporal and Spatial Trends in Density\nThe gamma regression results reveal significant main effects of both year and ocean region on microplastic density. Specifically, the analysis indicates that microplastic density is increasing over time and is generally higher in the Pacific Ocean compared to the Atlantic Ocean. This stems from our p-value for each model at &lt;2e-16. Our slope for modeling only the year yields an increase of 0.29 microplastic pieces per m^3. Our parallel slope of the year and oceans yields an increase of 0.28 microplastic pieces per m^3. Our interactive slopes of the year and oceans yields an increase of 0.24 microplastic pieces per m^3.\nIn our models, however, we find an AIC of 58,263, 60,989, and 63,136. While relatively close to each other, we see that this gamma model does not fit the data as well as the logistic model, with an AIC of 8524. If we are to continue with this analysis, this suggests that the rate of increase in microplastic density over time is similar in both the Atlantic and Pacific Oceans. Though all of our P-Values are significant (less than 2e-16), we know to take this analysis with a grain of salt. The AICs suggest the model does not fit well on our data. We can speculate why in the next section."
   }
 ]
