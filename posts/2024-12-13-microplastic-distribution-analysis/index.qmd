@@ -25,6 +25,7 @@ format:
 editor_options: 
   chunk_output_type: console
 toc: true
+published: false
 ---
 
 The full repository for this analysis can be found [here](https://github.com/imsibaja/eds222-final-project).
