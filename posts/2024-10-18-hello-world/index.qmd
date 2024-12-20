@@ -9,17 +9,15 @@ author:
 date: 2024-10-18
 categories: [Quarto, MEDS]
 toc: true
-bibliography: references.bib
 image: minions-hello.gif
 citation:
   url: httpls://imsibaja.github.io/posts/2024-10-18-hello-world
-draft: false
 ---
 
 ## Hello World
 
-In my first language:
-``` {C++}
+In my first language, C++
+``` C++
 #include <iostream>
 
 int main(){
@@ -28,13 +26,13 @@ int main(){
 }
 ```
 
-In my favorite language:
-```{python}
+In my favorite language, Python:
+```python
 print("Hello, World!")
 ```
 
-In a language I am forced to use: 
-```{r}
+In a language I am forced to use, R:
+```r
 print("Hello, World!")
 ```
 Erm... How original...
