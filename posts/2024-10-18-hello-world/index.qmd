@@ -16,22 +16,28 @@ citation:
 draft: false
 ---
 
-## This is my first section
+## Hello World
 
-I'm going to insert a footnote here [^1]
+In my first language:
+``` {C++}
+#include <iostream>
 
-[^1]: Here is a new footnote
-
-## This is my second
-
-Here's my next paragraph[^2]
-
-[^2]: Here is my second footnote
-
-I'm citing Sam Csik [@csik2022].
-
-Here is more random text. I'm going to cite a journal article now [@gaynor2022].
-
-```{r}
-#| 
+int main(){
+  std::cout<<"Hello, World!"<<std::endl;
+  return 0;
+}
 ```
+
+In my favorite language:
+```{python}
+print("Hello, World!")
+```
+
+In a language I am forced to use: 
+```{r}
+print("Hello, World!")
+```
+Erm... How original...
+
+No programmer is complete without the proverbial "Hello World!". Now that that is done, I'll the rest of the blog will be dedicated to Environmental Data Science. What is that you say? Why don't you check out my other posts and find out!
+
