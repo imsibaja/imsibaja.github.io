@@ -12,10 +12,13 @@ website:
     right:
       - href: index.qmd
         text: Home
-      - posts.qmd
+      - href: posts.qmd
+        text: Blog
       - href: resume/IMS_Resume.pdf
         text: Resume
-      - about.qmd
+      - href: about.qmd
+        text: About
+        
   page-footer: 
     background: dark
     left: Copyright 2024, Ian Morris-Sibaja

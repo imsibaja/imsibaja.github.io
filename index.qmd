@@ -19,3 +19,4 @@ about:
 ---
 
 Drawing on his research and fieldwork experiences, Ian is now pursuing a Master of Environmental Data Science from the UCSB Bren School. His ultimate goal is to utilize his analytical toolkit to develop data-driven solutions that measure and mediate human impacts on the natural environments of Southern California.
+
