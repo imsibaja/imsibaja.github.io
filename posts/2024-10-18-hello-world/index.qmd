@@ -37,5 +37,5 @@ print("Hello, World!")
 ```
 Erm... How original...
 
-No programmer is complete without the proverbial "Hello World!". Now that that is done, I'll the rest of the blog will be dedicated to Environmental Data Science. What is that you say? Why don't you check out my other posts and find out!
+No programmer is complete without the proverbial "Hello World!". Now that that is done, I'll the rest of the blog will be dedicated to Environmental Data Science. What's that you say? Why don't you check out my other posts and find out!
 

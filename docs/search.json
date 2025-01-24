@@ -74,14 +74,14 @@
     "href": "posts/2024-10-18-hello-world/index.html",
     "title": "Hello World!",
     "section": "",
-    "text": "In my first language, C++\n#include &lt;iostream&gt;\n\nint main(){\n  std::cout&lt;&lt;\"Hello, World!\"&lt;&lt;std::endl;\n  return 0;\n}\nIn my favorite language, Python:\nprint(\"Hello, World!\")\nIn a language I am forced to use, R:\nprint(\"Hello, World!\")\nErm… How original…\nNo programmer is complete without the proverbial “Hello World!”. Now that that is done, I’ll the rest of the blog will be dedicated to Environmental Data Science. What is that you say? Why don’t you check out my other posts and find out!"
+    "text": "In my first language, C++\n#include &lt;iostream&gt;\n\nint main(){\n  std::cout&lt;&lt;\"Hello, World!\"&lt;&lt;std::endl;\n  return 0;\n}\nIn my favorite language, Python:\nprint(\"Hello, World!\")\nIn a language I am forced to use, R:\nprint(\"Hello, World!\")\nErm… How original…\nNo programmer is complete without the proverbial “Hello World!”. Now that that is done, I’ll the rest of the blog will be dedicated to Environmental Data Science. What’s that you say? Why don’t you check out my other posts and find out!"
   },
   {
     "objectID": "posts/2024-10-18-hello-world/index.html#hello-world",
     "href": "posts/2024-10-18-hello-world/index.html#hello-world",
     "title": "Hello World!",
     "section": "",
-    "text": "In my first language, C++\n#include &lt;iostream&gt;\n\nint main(){\n  std::cout&lt;&lt;\"Hello, World!\"&lt;&lt;std::endl;\n  return 0;\n}\nIn my favorite language, Python:\nprint(\"Hello, World!\")\nIn a language I am forced to use, R:\nprint(\"Hello, World!\")\nErm… How original…\nNo programmer is complete without the proverbial “Hello World!”. Now that that is done, I’ll the rest of the blog will be dedicated to Environmental Data Science. What is that you say? Why don’t you check out my other posts and find out!"
+    "text": "In my first language, C++\n#include &lt;iostream&gt;\n\nint main(){\n  std::cout&lt;&lt;\"Hello, World!\"&lt;&lt;std::endl;\n  return 0;\n}\nIn my favorite language, Python:\nprint(\"Hello, World!\")\nIn a language I am forced to use, R:\nprint(\"Hello, World!\")\nErm… How original…\nNo programmer is complete without the proverbial “Hello World!”. Now that that is done, I’ll the rest of the blog will be dedicated to Environmental Data Science. What’s that you say? Why don’t you check out my other posts and find out!"
   },
   {
     "objectID": "index.html",
