@@ -18,6 +18,8 @@ website:
         text: Resume
       - href: about.qmd
         text: About
+      - href: https://imsibaja.github.io/applied-python-portfolio-2022/
+        text: Applied Python Portfolio
         
   page-footer: 
     background: dark
