@@ -1,0 +1,2957 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.55">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ian Morris-Sibaja">
+<meta name="dcterms.date" content="2025-01-27">
+
+<title>Bloom Shift – Morris-Sibaja</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<link href="../../images/hackerman.png" rel="icon" type="image/png">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
+
+
+</head>
+
+<body class="nav-fixed fullcontent">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/hackerman.png" alt="IMS logo - a triangle containg an i, m, and s" class="navbar-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> 
+<span class="menu-text">Blog</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../resume/IMS_Resume.pdf"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://imsibaja.github.io/applied-python-portfolio-2022/"> 
+<span class="menu-text">Applied Python Portfolio</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Bloom Shift</h1>
+                      </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ian Morris-Sibaja </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">January 27, 2025</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="bloom-shift-climate-change-and-flowering-patterns-of-californias-native-and-invasive-forbs" class="level1">
+<h1>Bloom Shift: Climate Change and Flowering Patterns of California’s Native and Invasive Forbs</h1>
+<p>Author: Ian Morris-Sibaja</p>
+<section id="about" class="level2">
+<h2 class="anchored" data-anchor-id="about">About</h2>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="images/Sedgwick.jpg" class="img-fluid figure-img"></p>
+<figcaption>Sedgewick Reserve</figcaption>
+</figure>
+</div>
+<p>Image credits: <a href="hhttps://sedgwick.nrs.ucsb.edu/media/photo-gallery/">UCNRS</a></p>
+<section id="purpose" class="level3">
+<h3 class="anchored" data-anchor-id="purpose">Purpose</h3>
+<p>This study investigates how climate change influences the flowering phenology of native and invasive Californian annual forbs. Given California’s status as a biodiversity hotspot and the region’s susceptibility to hotter and drier conditions, this research aims to understand how shifts in temperature and precipitation affect plant communities. Specifically, we address two primary questions:</p>
+<ol type="1">
+<li>Does the average flowering observation date correlate with changes in annual temperature or precipitation?</li>
+<li>Are particular climate zones, such as coastal Southern California, experiencing more pronounced phenological shifts compared to the state as a whole?</li>
+</ol>
+<p>By analyzing 50 years of data on nine plant species and correlating it with climate trends, this research seeks to highlight the potential impacts of climate change on native and invasive species, with implications for ecosystem stability and conservation planning.</p>
+</section>
+<section id="highlights-and-objectives" class="level3">
+<h3 class="anchored" data-anchor-id="highlights-and-objectives">Highlights and Objectives</h3>
+<ul>
+<li>Phenological Shifts: Investigate if flowering times correlate with changes in temperature and precipitation over time.</li>
+<li>Spatial Analysis: Determine if shifts are more pronounced in certain climate zones, e.g., coastal Southern California.</li>
+<li>Conservation Implications: Understand how these changes impact the ecosystem dynamics and inform conservation strategies for native biodiversity.</li>
+<li>Focused on California, a biodiversity hotspot particularly sensitive to climate changes.</li>
+<li>Identified trends for each species using statistical models (OLS regression) to link phenology with climate trends.</li>
+<li>Highlights differences between native and invasive species in their response to environmental changes.</li>
+</ul>
+</section>
+<section id="about-the-data" class="level3">
+<h3 class="anchored" data-anchor-id="about-the-data">About the data</h3>
+<p>The study relies on 50 years of data (1966–2016) on flowering observations for nine Californian annual forb species, including both native and invasive types. This dataset integrates:</p>
+<ul>
+<li>Flowering data: Derived from occurrence records supplied, focusing on observations from California.</li>
+<li>Climate data: Compiled from the National Weather Service Cooperative Observer Program (NWS COOP), including annual temperature and precipitation records.</li>
+<li>Spatial data: Uses shapefiles from NOAA to map flowering data to specific climate divisions in California.</li>
+<li>Data preprocessing ensured temporal consistency and excluded irrelevant records.</li>
+</ul>
+</section>
+</section>
+<section id="import-libraries" class="level2">
+<h2 class="anchored" data-anchor-id="import-libraries">Import Libraries</h2>
+<div id="0a8cd6ae" class="cell" data-execution_count="300">
+<details class="code-fold">
+<summary>Import Modules</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import modules</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotly <span class="im">import</span> express <span class="im">as</span> px</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> plotly.graph_objects <span class="im">as</span> go</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> geopandas <span class="im">as</span> gpd</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotly.offline <span class="im">import</span> iplot</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> plotly.subplots <span class="im">import</span> make_subplots</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sb</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.formula.api <span class="im">as</span> smf</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.patches <span class="im">as</span> mpatches</span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="climate-data" class="level2">
+<h2 class="anchored" data-anchor-id="climate-data">Climate Data</h2>
+<div id="34e8238c" class="cell" data-execution_count="301">
+<details class="code-fold">
+<summary>Load Climate Data</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set the directory to the climate data</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>directory <span class="op">=</span> <span class="st">'./data/climate/'</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dictionary to store all files in this directory</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>d <span class="op">=</span> {}</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over files in this directory, add each name of file and its contents into a dictionary</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> filename <span class="kw">in</span> os.listdir(directory):</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>        d[filename] <span class="op">=</span> pd.read_csv(<span class="ss">f'./data/climate/</span><span class="sc">{</span>filename<span class="sc">}</span><span class="ss">'</span>, encoding<span class="op">=</span> <span class="st">'unicode_escape'</span>)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> d[<span class="st">'.DS_Store'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="560ba576" class="cell" data-execution_count="302">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over the dictionary and add the COOP_ID and type of data to each dataframe</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>maxMinT <span class="op">=</span> []</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>maxMinP <span class="op">=</span> []</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> key, value <span class="kw">in</span> d.items():</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> key[<span class="dv">7</span>:<span class="dv">8</span>] <span class="op">==</span> <span class="st">'p'</span>:</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        maxMinP.append(d[key][<span class="st">'YEAR(S)'</span>].<span class="bu">min</span>())</span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">else</span>:</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>        maxMinT.append(d[key][<span class="st">'YEAR(S)'</span>].<span class="bu">min</span>())</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    value[<span class="st">'COOP_ID'</span>] <span class="op">=</span> key[<span class="dv">1</span>:<span class="dv">6</span>]</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>    value[<span class="st">'type'</span>] <span class="op">=</span> key[<span class="dv">7</span>:<span class="dv">8</span>]</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    d[key] <span class="op">=</span> d[key].loc[:, <span class="op">~</span>d[key].columns.<span class="bu">str</span>.contains(<span class="st">'^Unnamed'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>The National Weather Service (NWS) Cooperative Observer Program (COOP) is a network of daily weather observations taken by more than 8,500 volunteers. Here we import and clean the data to be manipulated in out dataset.</p>
+<div id="b4bb0451" class="cell" data-execution_count="303">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe with COOP information </span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>coopNames <span class="op">=</span> pd.read_csv(<span class="st">'./data/Coopnames.csv'</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>coopNames <span class="op">=</span> coopNames.drop([<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>coopNames <span class="op">=</span> coopNames[[<span class="st">'COOP_ID'</span>, <span class="st">'COOP_NAME'</span>, <span class="st">'DIV'</span>, <span class="st">'LATITUDE'</span>, <span class="st">'LONGITUDE'</span>]]</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># convert COOP_ID to int</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>coopNames.COOP_ID <span class="op">=</span> coopNames.COOP_ID.astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="567a9ea7" class="cell" data-execution_count="304">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># merge the COOP information with the climate data</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> pd.concat(d.values(), ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co"># filter the data to only include years 1966-2016</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop[coop[<span class="st">'YEAR(S)'</span>]<span class="op">&gt;=</span><span class="dv">1966</span>]</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop[coop[<span class="st">'YEAR(S)'</span>]<span class="op">&lt;=</span><span class="dv">2016</span>]</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># drop rows with irrelevant data</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop.replace([<span class="st">'-----'</span>], np.nan).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop.loc[:, <span class="op">~</span>coop.columns.<span class="bu">str</span>.contains(<span class="st">'^Unnamed'</span>)]</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop.drop([<span class="st">'January'</span>], axis <span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="f0148b17" class="cell" data-execution_count="305">
+<details class="code-fold">
+<summary>COOP Data</summary>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>coop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display" data-execution_count="305">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">YEAR(S)</th>
+<th data-quarto-table-cell-role="th">JAN</th>
+<th data-quarto-table-cell-role="th">FEB</th>
+<th data-quarto-table-cell-role="th">MAR</th>
+<th data-quarto-table-cell-role="th">APR</th>
+<th data-quarto-table-cell-role="th">MAY</th>
+<th data-quarto-table-cell-role="th">JUN</th>
+<th data-quarto-table-cell-role="th">JUL</th>
+<th data-quarto-table-cell-role="th">AUG</th>
+<th data-quarto-table-cell-role="th">SEP</th>
+<th data-quarto-table-cell-role="th">OCT</th>
+<th data-quarto-table-cell-role="th">NOV</th>
+<th data-quarto-table-cell-role="th">DEC</th>
+<th data-quarto-table-cell-role="th">ANN</th>
+<th data-quarto-table-cell-role="th">COOP_ID</th>
+<th data-quarto-table-cell-role="th">type</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1966</td>
+<td>38.29</td>
+<td>42.33</td>
+<td>48.13</td>
+<td>57.52</td>
+<td>64.40</td>
+<td>64.77</td>
+<td>70.23</td>
+<td>75.16</td>
+<td>67.30</td>
+<td>58.00</td>
+<td>47.87</td>
+<td>42.13</td>
+<td>57.64</td>
+<td>40738</td>
+<td>t</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1967</td>
+<td>39.70</td>
+<td>45.12</td>
+<td>45.50</td>
+<td>44.10</td>
+<td>60.74</td>
+<td>68.47</td>
+<td>75.90</td>
+<td>77.66</td>
+<td>71.48</td>
+<td>57.37</td>
+<td>51.82</td>
+<td>34.60</td>
+<td>70.18</td>
+<td>40738</td>
+<td>t</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1968</td>
+<td>37.07</td>
+<td>47.96</td>
+<td>48.62</td>
+<td>NaN</td>
+<td>58.58</td>
+<td>67.92</td>
+<td>75.92</td>
+<td>70.52</td>
+<td>68.95</td>
+<td>57.45</td>
+<td>44.73</td>
+<td>37.63</td>
+<td>60.21</td>
+<td>40738</td>
+<td>t</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1969</td>
+<td>36.94</td>
+<td>40.71</td>
+<td>46.44</td>
+<td>52.65</td>
+<td>64.53</td>
+<td>68.70</td>
+<td>74.35</td>
+<td>72.60</td>
+<td>69.97</td>
+<td>54.28</td>
+<td>48.15</td>
+<td>43.06</td>
+<td>57.21</td>
+<td>40738</td>
+<td>t</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1970</td>
+<td>42.75</td>
+<td>47.15</td>
+<td>49.00</td>
+<td>48.63</td>
+<td>61.53</td>
+<td>70.80</td>
+<td>76.71</td>
+<td>74.50</td>
+<td>65.97</td>
+<td>56.77</td>
+<td>47.27</td>
+<td>36.48</td>
+<td>59.85</td>
+<td>40738</td>
+<td>t</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5929</td>
+<td>2012</td>
+<td>0.62</td>
+<td>0.45</td>
+<td>1.73</td>
+<td>1.39</td>
+<td>0.03</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.28</td>
+<td>0.49</td>
+<td>1.90</td>
+<td>4.09</td>
+<td>43747</td>
+<td>p</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5930</td>
+<td>2013</td>
+<td>0.22</td>
+<td>0.48</td>
+<td>0.79</td>
+<td>0.08</td>
+<td>0.17</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.01</td>
+<td>0.00</td>
+<td>0.33</td>
+<td>0.16</td>
+<td>2.24</td>
+<td>43747</td>
+<td>p</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5931</td>
+<td>2014</td>
+<td>0.30</td>
+<td>1.38</td>
+<td>0.27</td>
+<td>0.35</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.03</td>
+<td>0.00</td>
+<td>0.94</td>
+<td>2.52</td>
+<td>5.79</td>
+<td>43747</td>
+<td>p</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5932</td>
+<td>2015</td>
+<td>0.08</td>
+<td>0.72</td>
+<td>0.02</td>
+<td>0.77</td>
+<td>0.10</td>
+<td>0.00</td>
+<td>0.45</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.38</td>
+<td>0.91</td>
+<td>1.40</td>
+<td>4.83</td>
+<td>43747</td>
+<td>p</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">5933</td>
+<td>2016</td>
+<td>2.56</td>
+<td>0.58</td>
+<td>1.99</td>
+<td>0.57</td>
+<td>0.02</td>
+<td>0.09</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.00</td>
+<td>0.76</td>
+<td>0.40</td>
+<td>1.60</td>
+<td>8.57</td>
+<td>43747</td>
+<td>p</td>
+</tr>
+</tbody>
+</table>
+
+<p>5934 rows × 16 columns</p>
+</div>
+</div>
+</div>
+<div id="802f6319" class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assign the correct data types to the columns</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop.astype({col: <span class="bu">float</span> <span class="cf">for</span> col <span class="kw">in</span> coop.columns[<span class="dv">1</span>:<span class="op">-</span><span class="dv">2</span>]})</span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop.astype({col: <span class="bu">int</span> <span class="cf">for</span> col <span class="kw">in</span> coop.columns[:<span class="dv">1</span>]})</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop.astype({col: <span class="bu">int</span> <span class="cf">for</span> col <span class="kw">in</span> coop.columns[<span class="op">-</span><span class="dv">2</span>:<span class="op">-</span><span class="dv">1</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="339f2912" class="cell" data-execution_count="307">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># merge the COOP names with COOP data</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop.merge(coopNames, left_on<span class="op">=</span><span class="st">'COOP_ID'</span>, right_on<span class="op">=</span><span class="st">'COOP_ID'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="fb62eb78" class="cell" data-execution_count="308">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assign percipitation and temperature data to separate dataframes</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>coopT <span class="op">=</span> coop[coop[<span class="st">'type'</span>] <span class="op">==</span> <span class="st">'t'</span>]</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>coopP <span class="op">=</span> coop[coop[<span class="st">'type'</span>] <span class="op">==</span> <span class="st">'p'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e8fdd12e" class="cell" data-execution_count="309">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>coopT.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="309">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">YEAR(S)</th>
+<th data-quarto-table-cell-role="th">JAN</th>
+<th data-quarto-table-cell-role="th">FEB</th>
+<th data-quarto-table-cell-role="th">MAR</th>
+<th data-quarto-table-cell-role="th">APR</th>
+<th data-quarto-table-cell-role="th">MAY</th>
+<th data-quarto-table-cell-role="th">JUN</th>
+<th data-quarto-table-cell-role="th">JUL</th>
+<th data-quarto-table-cell-role="th">AUG</th>
+<th data-quarto-table-cell-role="th">SEP</th>
+<th data-quarto-table-cell-role="th">OCT</th>
+<th data-quarto-table-cell-role="th">NOV</th>
+<th data-quarto-table-cell-role="th">DEC</th>
+<th data-quarto-table-cell-role="th">ANN</th>
+<th data-quarto-table-cell-role="th">COOP_ID</th>
+<th data-quarto-table-cell-role="th">type</th>
+<th data-quarto-table-cell-role="th">COOP_NAME</th>
+<th data-quarto-table-cell-role="th">DIV</th>
+<th data-quarto-table-cell-role="th">LATITUDE</th>
+<th data-quarto-table-cell-role="th">LONGITUDE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1966</td>
+<td>38.29</td>
+<td>42.33</td>
+<td>48.13</td>
+<td>57.52</td>
+<td>64.40</td>
+<td>64.77</td>
+<td>70.23</td>
+<td>75.16</td>
+<td>67.30</td>
+<td>58.00</td>
+<td>47.87</td>
+<td>42.13</td>
+<td>57.64</td>
+<td>40738</td>
+<td>t</td>
+<td>BIG BAR 4</td>
+<td>1</td>
+<td>40 44 27</td>
+<td>-123 12 33</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1967</td>
+<td>39.70</td>
+<td>45.12</td>
+<td>45.50</td>
+<td>44.10</td>
+<td>60.74</td>
+<td>68.47</td>
+<td>75.90</td>
+<td>77.66</td>
+<td>71.48</td>
+<td>57.37</td>
+<td>51.82</td>
+<td>34.60</td>
+<td>70.18</td>
+<td>40738</td>
+<td>t</td>
+<td>BIG BAR 4</td>
+<td>1</td>
+<td>40 44 27</td>
+<td>-123 12 33</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1968</td>
+<td>37.07</td>
+<td>47.96</td>
+<td>48.62</td>
+<td>NaN</td>
+<td>58.58</td>
+<td>67.92</td>
+<td>75.92</td>
+<td>70.52</td>
+<td>68.95</td>
+<td>57.45</td>
+<td>44.73</td>
+<td>37.63</td>
+<td>60.21</td>
+<td>40738</td>
+<td>t</td>
+<td>BIG BAR 4</td>
+<td>1</td>
+<td>40 44 27</td>
+<td>-123 12 33</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1969</td>
+<td>36.94</td>
+<td>40.71</td>
+<td>46.44</td>
+<td>52.65</td>
+<td>64.53</td>
+<td>68.70</td>
+<td>74.35</td>
+<td>72.60</td>
+<td>69.97</td>
+<td>54.28</td>
+<td>48.15</td>
+<td>43.06</td>
+<td>57.21</td>
+<td>40738</td>
+<td>t</td>
+<td>BIG BAR 4</td>
+<td>1</td>
+<td>40 44 27</td>
+<td>-123 12 33</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1970</td>
+<td>42.75</td>
+<td>47.15</td>
+<td>49.00</td>
+<td>48.63</td>
+<td>61.53</td>
+<td>70.80</td>
+<td>76.71</td>
+<td>74.50</td>
+<td>65.97</td>
+<td>56.77</td>
+<td>47.27</td>
+<td>36.48</td>
+<td>59.85</td>
+<td>40738</td>
+<td>t</td>
+<td>BIG BAR 4</td>
+<td>1</td>
+<td>40 44 27</td>
+<td>-123 12 33</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="1e21dc4d" class="cell" data-execution_count="310">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>coopP.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="310">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">YEAR(S)</th>
+<th data-quarto-table-cell-role="th">JAN</th>
+<th data-quarto-table-cell-role="th">FEB</th>
+<th data-quarto-table-cell-role="th">MAR</th>
+<th data-quarto-table-cell-role="th">APR</th>
+<th data-quarto-table-cell-role="th">MAY</th>
+<th data-quarto-table-cell-role="th">JUN</th>
+<th data-quarto-table-cell-role="th">JUL</th>
+<th data-quarto-table-cell-role="th">AUG</th>
+<th data-quarto-table-cell-role="th">SEP</th>
+<th data-quarto-table-cell-role="th">OCT</th>
+<th data-quarto-table-cell-role="th">NOV</th>
+<th data-quarto-table-cell-role="th">DEC</th>
+<th data-quarto-table-cell-role="th">ANN</th>
+<th data-quarto-table-cell-role="th">COOP_ID</th>
+<th data-quarto-table-cell-role="th">type</th>
+<th data-quarto-table-cell-role="th">COOP_NAME</th>
+<th data-quarto-table-cell-role="th">DIV</th>
+<th data-quarto-table-cell-role="th">LATITUDE</th>
+<th data-quarto-table-cell-role="th">LONGITUDE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">102</td>
+<td>1966</td>
+<td>1.35</td>
+<td>1.40</td>
+<td>1.16</td>
+<td>0.05</td>
+<td>0.07</td>
+<td>0.22</td>
+<td>0.39</td>
+<td>0.19</td>
+<td>0.20</td>
+<td>0.46</td>
+<td>0.83</td>
+<td>NaN</td>
+<td>6.32</td>
+<td>41424</td>
+<td>p</td>
+<td>CAMPO</td>
+<td>6</td>
+<td>32 37 24</td>
+<td>-116 28 22</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">103</td>
+<td>1967</td>
+<td>1.42</td>
+<td>0.00</td>
+<td>1.03</td>
+<td>3.54</td>
+<td>0.48</td>
+<td>0.06</td>
+<td>0.34</td>
+<td>0.49</td>
+<td>0.82</td>
+<td>0.00</td>
+<td>3.65</td>
+<td>4.23</td>
+<td>16.06</td>
+<td>41424</td>
+<td>p</td>
+<td>CAMPO</td>
+<td>6</td>
+<td>32 37 24</td>
+<td>-116 28 22</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">104</td>
+<td>1968</td>
+<td>0.58</td>
+<td>0.73</td>
+<td>2.19</td>
+<td>0.85</td>
+<td>0.28</td>
+<td>0.03</td>
+<td>1.88</td>
+<td>0.06</td>
+<td>0.00</td>
+<td>0.05</td>
+<td>0.72</td>
+<td>1.66</td>
+<td>9.03</td>
+<td>41424</td>
+<td>p</td>
+<td>CAMPO</td>
+<td>6</td>
+<td>32 37 24</td>
+<td>-116 28 22</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">105</td>
+<td>1969</td>
+<td>8.30</td>
+<td>5.67</td>
+<td>1.96</td>
+<td>0.10</td>
+<td>0.43</td>
+<td>0.12</td>
+<td>0.01</td>
+<td>0.00</td>
+<td>0.20</td>
+<td>0.02</td>
+<td>1.85</td>
+<td>0.26</td>
+<td>18.92</td>
+<td>41424</td>
+<td>p</td>
+<td>CAMPO</td>
+<td>6</td>
+<td>32 37 24</td>
+<td>-116 28 22</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">106</td>
+<td>1970</td>
+<td>0.85</td>
+<td>0.96</td>
+<td>3.95</td>
+<td>1.18</td>
+<td>0.00</td>
+<td>0.03</td>
+<td>0.03</td>
+<td>2.66</td>
+<td>0.08</td>
+<td>0.12</td>
+<td>1.28</td>
+<td>2.66</td>
+<td>13.80</td>
+<td>41424</td>
+<td>p</td>
+<td>CAMPO</td>
+<td>6</td>
+<td>32 37 24</td>
+<td>-116 28 22</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="2fd6f54d" class="cell" data-execution_count="311">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop the type column from the dataframes</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>coopP <span class="op">=</span> coopP.drop([<span class="st">'type'</span>], axis <span class="op">=</span><span class="dv">1</span>).reset_index(drop <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>coopT <span class="op">=</span> coopT.drop([<span class="st">'type'</span>], axis <span class="op">=</span><span class="dv">1</span>).reset_index(drop <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="e2eda71d" class="cell" data-execution_count="312">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>coopT.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="312">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">YEAR(S)</th>
+<th data-quarto-table-cell-role="th">JAN</th>
+<th data-quarto-table-cell-role="th">FEB</th>
+<th data-quarto-table-cell-role="th">MAR</th>
+<th data-quarto-table-cell-role="th">APR</th>
+<th data-quarto-table-cell-role="th">MAY</th>
+<th data-quarto-table-cell-role="th">JUN</th>
+<th data-quarto-table-cell-role="th">JUL</th>
+<th data-quarto-table-cell-role="th">AUG</th>
+<th data-quarto-table-cell-role="th">SEP</th>
+<th data-quarto-table-cell-role="th">OCT</th>
+<th data-quarto-table-cell-role="th">NOV</th>
+<th data-quarto-table-cell-role="th">DEC</th>
+<th data-quarto-table-cell-role="th">ANN</th>
+<th data-quarto-table-cell-role="th">COOP_ID</th>
+<th data-quarto-table-cell-role="th">COOP_NAME</th>
+<th data-quarto-table-cell-role="th">DIV</th>
+<th data-quarto-table-cell-role="th">LATITUDE</th>
+<th data-quarto-table-cell-role="th">LONGITUDE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1966</td>
+<td>38.29</td>
+<td>42.33</td>
+<td>48.13</td>
+<td>57.52</td>
+<td>64.40</td>
+<td>64.77</td>
+<td>70.23</td>
+<td>75.16</td>
+<td>67.30</td>
+<td>58.00</td>
+<td>47.87</td>
+<td>42.13</td>
+<td>57.64</td>
+<td>40738</td>
+<td>BIG BAR 4</td>
+<td>1</td>
+<td>40 44 27</td>
+<td>-123 12 33</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1967</td>
+<td>39.70</td>
+<td>45.12</td>
+<td>45.50</td>
+<td>44.10</td>
+<td>60.74</td>
+<td>68.47</td>
+<td>75.90</td>
+<td>77.66</td>
+<td>71.48</td>
+<td>57.37</td>
+<td>51.82</td>
+<td>34.60</td>
+<td>70.18</td>
+<td>40738</td>
+<td>BIG BAR 4</td>
+<td>1</td>
+<td>40 44 27</td>
+<td>-123 12 33</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1968</td>
+<td>37.07</td>
+<td>47.96</td>
+<td>48.62</td>
+<td>NaN</td>
+<td>58.58</td>
+<td>67.92</td>
+<td>75.92</td>
+<td>70.52</td>
+<td>68.95</td>
+<td>57.45</td>
+<td>44.73</td>
+<td>37.63</td>
+<td>60.21</td>
+<td>40738</td>
+<td>BIG BAR 4</td>
+<td>1</td>
+<td>40 44 27</td>
+<td>-123 12 33</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1969</td>
+<td>36.94</td>
+<td>40.71</td>
+<td>46.44</td>
+<td>52.65</td>
+<td>64.53</td>
+<td>68.70</td>
+<td>74.35</td>
+<td>72.60</td>
+<td>69.97</td>
+<td>54.28</td>
+<td>48.15</td>
+<td>43.06</td>
+<td>57.21</td>
+<td>40738</td>
+<td>BIG BAR 4</td>
+<td>1</td>
+<td>40 44 27</td>
+<td>-123 12 33</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1970</td>
+<td>42.75</td>
+<td>47.15</td>
+<td>49.00</td>
+<td>48.63</td>
+<td>61.53</td>
+<td>70.80</td>
+<td>76.71</td>
+<td>74.50</td>
+<td>65.97</td>
+<td>56.77</td>
+<td>47.27</td>
+<td>36.48</td>
+<td>59.85</td>
+<td>40738</td>
+<td>BIG BAR 4</td>
+<td>1</td>
+<td>40 44 27</td>
+<td>-123 12 33</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="cc968a81" class="cell" data-execution_count="313">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>coopP.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="313">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">YEAR(S)</th>
+<th data-quarto-table-cell-role="th">JAN</th>
+<th data-quarto-table-cell-role="th">FEB</th>
+<th data-quarto-table-cell-role="th">MAR</th>
+<th data-quarto-table-cell-role="th">APR</th>
+<th data-quarto-table-cell-role="th">MAY</th>
+<th data-quarto-table-cell-role="th">JUN</th>
+<th data-quarto-table-cell-role="th">JUL</th>
+<th data-quarto-table-cell-role="th">AUG</th>
+<th data-quarto-table-cell-role="th">SEP</th>
+<th data-quarto-table-cell-role="th">OCT</th>
+<th data-quarto-table-cell-role="th">NOV</th>
+<th data-quarto-table-cell-role="th">DEC</th>
+<th data-quarto-table-cell-role="th">ANN</th>
+<th data-quarto-table-cell-role="th">COOP_ID</th>
+<th data-quarto-table-cell-role="th">COOP_NAME</th>
+<th data-quarto-table-cell-role="th">DIV</th>
+<th data-quarto-table-cell-role="th">LATITUDE</th>
+<th data-quarto-table-cell-role="th">LONGITUDE</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>1966</td>
+<td>1.35</td>
+<td>1.40</td>
+<td>1.16</td>
+<td>0.05</td>
+<td>0.07</td>
+<td>0.22</td>
+<td>0.39</td>
+<td>0.19</td>
+<td>0.20</td>
+<td>0.46</td>
+<td>0.83</td>
+<td>NaN</td>
+<td>6.32</td>
+<td>41424</td>
+<td>CAMPO</td>
+<td>6</td>
+<td>32 37 24</td>
+<td>-116 28 22</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>1967</td>
+<td>1.42</td>
+<td>0.00</td>
+<td>1.03</td>
+<td>3.54</td>
+<td>0.48</td>
+<td>0.06</td>
+<td>0.34</td>
+<td>0.49</td>
+<td>0.82</td>
+<td>0.00</td>
+<td>3.65</td>
+<td>4.23</td>
+<td>16.06</td>
+<td>41424</td>
+<td>CAMPO</td>
+<td>6</td>
+<td>32 37 24</td>
+<td>-116 28 22</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>1968</td>
+<td>0.58</td>
+<td>0.73</td>
+<td>2.19</td>
+<td>0.85</td>
+<td>0.28</td>
+<td>0.03</td>
+<td>1.88</td>
+<td>0.06</td>
+<td>0.00</td>
+<td>0.05</td>
+<td>0.72</td>
+<td>1.66</td>
+<td>9.03</td>
+<td>41424</td>
+<td>CAMPO</td>
+<td>6</td>
+<td>32 37 24</td>
+<td>-116 28 22</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>1969</td>
+<td>8.30</td>
+<td>5.67</td>
+<td>1.96</td>
+<td>0.10</td>
+<td>0.43</td>
+<td>0.12</td>
+<td>0.01</td>
+<td>0.00</td>
+<td>0.20</td>
+<td>0.02</td>
+<td>1.85</td>
+<td>0.26</td>
+<td>18.92</td>
+<td>41424</td>
+<td>CAMPO</td>
+<td>6</td>
+<td>32 37 24</td>
+<td>-116 28 22</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>1970</td>
+<td>0.85</td>
+<td>0.96</td>
+<td>3.95</td>
+<td>1.18</td>
+<td>0.00</td>
+<td>0.03</td>
+<td>0.03</td>
+<td>2.66</td>
+<td>0.08</td>
+<td>0.12</td>
+<td>1.28</td>
+<td>2.66</td>
+<td>13.80</td>
+<td>41424</td>
+<td>CAMPO</td>
+<td>6</td>
+<td>32 37 24</td>
+<td>-116 28 22</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="52e2f807" class="cell" data-execution_count="314">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># group the data by year and calculate the average temperature and precipitation</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>coopTavg <span class="op">=</span> coopT.groupby([<span class="st">'YEAR(S)'</span>])[[<span class="st">'ANN'</span>]].mean()</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>coopPavg <span class="op">=</span> coopP.groupby([<span class="st">'YEAR(S)'</span>])[[<span class="st">'ANN'</span>]].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="baa04663" class="cell" data-execution_count="315">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>coopPavg.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="315">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ANN</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">YEAR(S)</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1966</td>
+<td>13.723684</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1967</td>
+<td>18.576316</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1968</td>
+<td>13.371930</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1969</td>
+<td>24.774386</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1970</td>
+<td>19.625789</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="2b22aed6" class="cell" data-execution_count="316">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>coopTavg.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="316">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ANN</th>
+</tr>
+<tr class="odd">
+<th data-quarto-table-cell-role="th">YEAR(S)</th>
+<th data-quarto-table-cell-role="th"></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1966</td>
+<td>59.034815</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1967</td>
+<td>58.699091</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1968</td>
+<td>58.755893</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1969</td>
+<td>58.758750</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1970</td>
+<td>59.136316</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="flowering-data" class="level2">
+<h2 class="anchored" data-anchor-id="flowering-data">Flowering Data</h2>
+<p>The <code>flowerDataFrame</code> function processes and filters occurrence data for a specified plant species in California, returning a clean, structured DataFrame with relevant details such as geographic coordinates, flowering dates, and native status.</p>
+<div id="32e70323" class="cell" data-execution_count="317">
+<details class="code-fold">
+<summary>Flowering Data Function</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> flowerDataFrame(name, isNative):</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">'''</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co">    Returns a dataframe of the species data for a specific species in California</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="co">    @param name: a string of the name of the species that you want to obtain data for</span></span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a><span class="co">    @param isNative: a string stating whether the species is native to california or not</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co">    '''</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>    <span class="co"># Load csv of the species data into a pandas dataframe</span></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> pd.read_csv(<span class="ss">f"./data/</span><span class="sc">{</span>name<span class="sc">}</span><span class="ss">/occurrence.txt"</span>, sep<span class="op">=</span><span class="st">'</span><span class="ch">\t</span><span class="st">'</span>, low_memory<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">#take only specific columns from the bigger dataframe</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[[<span class="st">'scientificName'</span>, <span class="st">'decimalLongitude'</span>, <span class="st">'decimalLatitude'</span>, <span class="st">'day'</span>, <span class="st">'month'</span>, <span class="st">'year'</span>, <span class="st">'stateProvince'</span>, <span class="st">'countryCode'</span>]]</span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a>    <span class="co">#add a column stating if it is native or not</span></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'native'</span>] <span class="op">=</span> isNative</span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make new column that will drop any unnecessary abbreviations at the end of each name of observation</span></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'species'</span>] <span class="op">=</span> df[<span class="st">'scientificName'</span>].<span class="bu">str</span>[:<span class="bu">len</span>(name)]</span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make sure dataframe only includes desired species</span></span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[df[<span class="st">'species'</span>] <span class="op">==</span> name]</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">#drop now unused column</span></span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.drop([<span class="st">'scientificName'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-22"><a href="#cb18-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-23"><a href="#cb18-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make sure dataframe only includes observations from Califronia</span></span>
+<span id="cb18-24"><a href="#cb18-24" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[(df[<span class="st">'countryCode'</span>] <span class="op">==</span> <span class="st">"US"</span>)]</span>
+<span id="cb18-25"><a href="#cb18-25" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[(df[<span class="st">'stateProvince'</span>] <span class="op">==</span> <span class="st">"California"</span>) <span class="op">|</span> (df[<span class="st">'stateProvince'</span>] <span class="op">==</span> <span class="st">"Ca"</span>)]</span>
+<span id="cb18-26"><a href="#cb18-26" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[df[<span class="st">'decimalLongitude'</span>] <span class="op">&gt;</span> <span class="op">-</span><span class="dv">125</span>]</span>
+<span id="cb18-27"><a href="#cb18-27" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[df[<span class="st">'decimalLongitude'</span>] <span class="op">&lt;</span> <span class="op">-</span><span class="dv">113</span>]</span>
+<span id="cb18-28"><a href="#cb18-28" aria-hidden="true" tabindex="-1"></a>    <span class="co">#drop because we know all measurements in entire dataset are in california</span></span>
+<span id="cb18-29"><a href="#cb18-29" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.drop([<span class="st">'stateProvince'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-30"><a href="#cb18-30" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.drop([<span class="st">'countryCode'</span>], axis<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb18-31"><a href="#cb18-31" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.dropna()</span>
+<span id="cb18-32"><a href="#cb18-32" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb18-33"><a href="#cb18-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-34"><a href="#cb18-34" aria-hidden="true" tabindex="-1"></a>    <span class="co">#add column called day of year</span></span>
+<span id="cb18-35"><a href="#cb18-35" aria-hidden="true" tabindex="-1"></a>    df[<span class="bu">list</span>([<span class="st">"day"</span>, <span class="st">"month"</span>, <span class="st">"year"</span>])] <span class="op">=</span> df[<span class="bu">list</span>([<span class="st">"day"</span>, <span class="st">"month"</span>, <span class="st">"year"</span>])].astype(<span class="bu">int</span>)</span>
+<span id="cb18-36"><a href="#cb18-36" aria-hidden="true" tabindex="-1"></a>    df[<span class="bu">list</span>([<span class="st">"day"</span>, <span class="st">"month"</span>, <span class="st">"year"</span>])] <span class="op">=</span> df[<span class="bu">list</span>([<span class="st">"day"</span>, <span class="st">"month"</span>, <span class="st">"year"</span>])].astype(<span class="bu">str</span>)</span>
+<span id="cb18-37"><a href="#cb18-37" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-38"><a href="#cb18-38" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'month'</span>] <span class="op">=</span> df[<span class="st">'month'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'</span><span class="sc">{0:0&gt;2}</span><span class="st">'</span>.<span class="bu">format</span>(x))</span>
+<span id="cb18-39"><a href="#cb18-39" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'day'</span>] <span class="op">=</span> df[<span class="st">'day'</span>].<span class="bu">apply</span>(<span class="kw">lambda</span> x: <span class="st">'</span><span class="sc">{0:0&gt;2}</span><span class="st">'</span>.<span class="bu">format</span>(x))</span>
+<span id="cb18-40"><a href="#cb18-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-41"><a href="#cb18-41" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"DOY"</span>] <span class="op">=</span> df[<span class="st">"year"</span>].copy()</span>
+<span id="cb18-42"><a href="#cb18-42" aria-hidden="true" tabindex="-1"></a>    month <span class="op">=</span> df[<span class="st">"month"</span>].copy()</span>
+<span id="cb18-43"><a href="#cb18-43" aria-hidden="true" tabindex="-1"></a>    day <span class="op">=</span> df[<span class="st">"day"</span>].copy()</span>
+<span id="cb18-44"><a href="#cb18-44" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-45"><a href="#cb18-45" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">"DOY"</span>] <span class="op">=</span> df[<span class="st">"DOY"</span>].<span class="bu">str</span>.cat((month, day), sep <span class="op">=</span><span class="st">"-"</span>)</span>
+<span id="cb18-46"><a href="#cb18-46" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'DOY'</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">'DOY'</span>], <span class="bu">format</span><span class="op">=</span><span class="st">'%Y-%m-</span><span class="sc">%d</span><span class="st">'</span>)</span>
+<span id="cb18-47"><a href="#cb18-47" aria-hidden="true" tabindex="-1"></a>    df[<span class="st">'DOY'</span>] <span class="op">=</span> df[<span class="st">'DOY'</span>].dt.dayofyear</span>
+<span id="cb18-48"><a href="#cb18-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-49"><a href="#cb18-49" aria-hidden="true" tabindex="-1"></a>    <span class="co">#convert months and years into ints instead of floats </span></span>
+<span id="cb18-50"><a href="#cb18-50" aria-hidden="true" tabindex="-1"></a>    df[<span class="bu">list</span>([<span class="st">"year"</span>])] <span class="op">=</span> df[<span class="bu">list</span>([<span class="st">"year"</span>])].astype(<span class="bu">int</span>)</span>
+<span id="cb18-51"><a href="#cb18-51" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-52"><a href="#cb18-52" aria-hidden="true" tabindex="-1"></a>    <span class="co">#make sure occurances are of from 1920-2020</span></span>
+<span id="cb18-53"><a href="#cb18-53" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[df[<span class="st">'year'</span>] <span class="op">&gt;</span> <span class="dv">1919</span>]</span>
+<span id="cb18-54"><a href="#cb18-54" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df[df[<span class="st">'year'</span>] <span class="op">&lt;</span> <span class="dv">2021</span>]</span>
+<span id="cb18-55"><a href="#cb18-55" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.reset_index(drop <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb18-56"><a href="#cb18-56" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-57"><a href="#cb18-57" aria-hidden="true" tabindex="-1"></a>    <span class="co">#give columns more readable names</span></span>
+<span id="cb18-58"><a href="#cb18-58" aria-hidden="true" tabindex="-1"></a>    df <span class="op">=</span> df.rename(columns<span class="op">=</span>{<span class="st">'decimalLongitude'</span>: <span class="st">'longitude'</span>,</span>
+<span id="cb18-59"><a href="#cb18-59" aria-hidden="true" tabindex="-1"></a>                            <span class="st">'decimalLatitude'</span>:  <span class="st">'latitude'</span>})</span>
+<span id="cb18-60"><a href="#cb18-60" aria-hidden="true" tabindex="-1"></a>    <span class="co">#keep latitude rounding same as eventual climate data</span></span>
+<span id="cb18-61"><a href="#cb18-61" aria-hidden="true" tabindex="-1"></a>    df.longitude <span class="op">=</span> df.longitude.<span class="bu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb18-62"><a href="#cb18-62" aria-hidden="true" tabindex="-1"></a>    df.latitude <span class="op">=</span> df.latitude.<span class="bu">round</span>(<span class="dv">3</span>)</span>
+<span id="cb18-63"><a href="#cb18-63" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-64"><a href="#cb18-64" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="cf2395fc" class="cell" data-execution_count="318">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#native plants</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>lasCal <span class="op">=</span> flowerDataFrame(<span class="st">'Lasthenia californica'</span>, <span class="st">'yes'</span>)</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plntgo <span class="op">=</span> flowerDataFrame(<span class="st">"Plantago erecta Morris"</span>, <span class="st">'yes'</span>)</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>clrkiP <span class="op">=</span> flowerDataFrame(<span class="st">"Clarkia purpurea"</span>, <span class="st">'yes'</span>)</span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>clrkiB <span class="op">=</span> flowerDataFrame(<span class="st">"Clarkia bottae"</span>, <span class="st">'yes'</span>)</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>chaenc <span class="op">=</span> flowerDataFrame(<span class="st">"Chaenactis glabriuscula"</span>, <span class="st">'yes'</span>)</span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>amsink <span class="op">=</span> flowerDataFrame(<span class="st">"Amsinckia menziesii"</span>, <span class="st">'yes'</span>)</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a><span class="co">#non-native</span></span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>mdcgoP <span class="op">=</span> flowerDataFrame(<span class="st">"Medicago polymorpha"</span>, <span class="st">'no'</span>)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>cntrea <span class="op">=</span> flowerDataFrame(<span class="st">"Centaurea solstitialis"</span>, <span class="st">'no'</span>)</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>brssTG <span class="op">=</span> flowerDataFrame(<span class="st">"Brassica tournefortii Gouan"</span>, <span class="st">'no'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="f92d54f0" class="cell" data-execution_count="319">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#concat all species dataframes into one big one</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>flowersCA <span class="op">=</span> pd.concat([lasCal, plntgo, clrkiP, clrkiB, chaenc, amsink,</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                       mdcgoP, cntrea, brssTG])</span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co">#convert into geodataframe to be easily compared wihtin shape files in the future</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>flowersCA <span class="op">=</span> gpd.GeoDataFrame(flowersCA, geometry<span class="op">=</span>gpd.points_from_xy(flowersCA.longitude, flowersCA.latitude))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="climate-division-wrangling" class="level2">
+<h2 class="anchored" data-anchor-id="climate-division-wrangling">Climate Division Wrangling</h2>
+<p>Below I take a shape file from from NOAAs database, and determine which climate divisions each observation falls under.</p>
+<div id="c05725cf" class="cell" data-execution_count="320">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># from NOAAs shapefile, find useful columns and determine which are within CA</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>climateDivs <span class="op">=</span> gpd.read_file(<span class="st">"./data/climateDiv/GIS.OFFICIAL_CLIM_DIVISIONS.shp"</span>)</span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>climateDivs <span class="op">=</span> climateDivs[climateDivs[<span class="st">"ST_ABBRV"</span>] <span class="op">==</span> <span class="st">'CA'</span>]</span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>climateDivs <span class="op">=</span> climateDivs[[<span class="st">"CD_NEW"</span>, <span class="st">'geometry'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="b80376e6" class="cell" data-execution_count="321">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set both coordinate reference systems to be the same so the dataframes are accurately compared</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>climateDivs <span class="op">=</span> climateDivs.set_crs(<span class="st">"EPSG:4326"</span>, allow_override<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>flowersCA <span class="op">=</span> flowersCA.set_crs(<span class="st">"EPSG:4326"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="36e6ba6c" class="cell" data-execution_count="322">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this will join the two datasets based on if flowering observation</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># geometry points are within the climate division shapefiles, </span></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># and add a column within each observation of said Climate Divsion</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a>flowersCA <span class="op">=</span> gpd.sjoin(flowersCA, climateDivs, how<span class="op">=</span><span class="st">'inner'</span>, predicate<span class="op">=</span><span class="st">'within'</span>)</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a>flowersCA <span class="op">=</span> flowersCA.drop([<span class="st">'index_right'</span>], axis <span class="op">=</span> <span class="dv">1</span>)</span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a>flowersCA <span class="op">=</span> flowersCA.reset_index(drop <span class="op">=</span> <span class="va">True</span>)</span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>flowersCA <span class="op">=</span> flowersCA.rename(columns<span class="op">=</span>{<span class="st">'CD_NEW'</span> : <span class="st">'ClimateDivision'</span>})</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>flowersCA <span class="op">=</span> flowersCA[flowersCA[<span class="st">'year'</span>]<span class="op">&gt;=</span><span class="dv">1966</span>]</span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>flowersCA <span class="op">=</span> flowersCA[flowersCA[<span class="st">'year'</span>]<span class="op">&lt;=</span><span class="dv">2016</span>]</span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># write only necessary info to csv for quick web parsing</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>flowersCA.to_csv(<span class="st">'./data/flowersCA.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="2ece9e72" class="cell" data-execution_count="323">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># group the data by species, year, native status, and climate division, and calculate the average day of year that the species flowers</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>avgPhenologyDiv <span class="op">=</span> flowersCA.groupby([<span class="st">'species'</span>, <span class="st">'year'</span>, <span class="st">'native'</span>, <span class="st">'ClimateDivision'</span>])[[<span class="st">"DOY"</span>]].mean().reset_index().<span class="bu">round</span>(<span class="dv">0</span>)</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>avgPhenologyDiv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="323">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">species</th>
+<th data-quarto-table-cell-role="th">year</th>
+<th data-quarto-table-cell-role="th">native</th>
+<th data-quarto-table-cell-role="th">ClimateDivision</th>
+<th data-quarto-table-cell-role="th">DOY</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Amsinckia menziesii</td>
+<td>1966</td>
+<td>yes</td>
+<td>4</td>
+<td>119.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Amsinckia menziesii</td>
+<td>1966</td>
+<td>yes</td>
+<td>5</td>
+<td>90.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Amsinckia menziesii</td>
+<td>1966</td>
+<td>yes</td>
+<td>6</td>
+<td>114.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Amsinckia menziesii</td>
+<td>1967</td>
+<td>yes</td>
+<td>4</td>
+<td>125.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Amsinckia menziesii</td>
+<td>1967</td>
+<td>yes</td>
+<td>5</td>
+<td>93.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1497</td>
+<td>Plantago erecta Morris</td>
+<td>2016</td>
+<td>yes</td>
+<td>1</td>
+<td>115.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1498</td>
+<td>Plantago erecta Morris</td>
+<td>2016</td>
+<td>yes</td>
+<td>2</td>
+<td>99.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1499</td>
+<td>Plantago erecta Morris</td>
+<td>2016</td>
+<td>yes</td>
+<td>4</td>
+<td>87.0</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1500</td>
+<td>Plantago erecta Morris</td>
+<td>2016</td>
+<td>yes</td>
+<td>5</td>
+<td>80.0</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">1501</td>
+<td>Plantago erecta Morris</td>
+<td>2016</td>
+<td>yes</td>
+<td>6</td>
+<td>93.0</td>
+</tr>
+</tbody>
+</table>
+
+<p>1502 rows × 5 columns</p>
+</div>
+</div>
+</div>
+</section>
+<section id="statistical-analysis" class="level2">
+<h2 class="anchored" data-anchor-id="statistical-analysis">Statistical Analysis</h2>
+<p>Now I will employ linear regression models to evaluate the relationship between flowering phenology and climate variables (temperature and precipitation), identifying significant correlations and trends across species, regions, and time. My code calculates statistics of the state, Southern California itself, and climate division 6 to view the relationship between flowering phenology and climate variables (temperature and precipitation) using linear regression:</p>
+<ul>
+<li>Data Preparation: For each species, the average annual temperature, precipitation, and flowering day-of-year (DOY) are grouped by year and filtered to ensure overlapping years.</li>
+<li>Regression Analysis: Linear regression models are applied separately to assess the relationship between DOY and temperature, as well as DOY and precipitation.</li>
+<li>Results Compilation: The species name, p-values, R-squared, and adjusted R-squared values for both models are stored in a summary DataFrame (stateSum).</li>
+<li>Significant Results: If the regression p-values indicate statistical significance, the corresponding data for temperature or precipitation is labeled, augmented with species and region information, and added to a significant results DataFrame (sigSum).</li>
+</ul>
+<div id="eb7f29fe" class="cell" data-execution_count="325">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dictionary to store unique species names</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>flowD <span class="op">=</span> {}</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(avgPhenologyDiv.species.unique())):</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    flowD[i] <span class="op">=</span> avgPhenologyDiv.species.unique()[i]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="a9fc61ad" class="cell" data-execution_count="326">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dictionary to store species with significant p-values</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>sigSum <span class="op">=</span> pd.DataFrame([])</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># set significance level</span></span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>pval <span class="op">=</span> <span class="fl">.05</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="ff11a555" class="cell" data-scrolled="false" data-execution_count="327">
+<details class="code-fold">
+<summary>State Wide Summary Data</summary>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dictionary to store the state summary data</span></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a>dstate <span class="op">=</span> {}</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over the unique species and calculate the linear regression for each species</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>stateSum <span class="op">=</span> pd.DataFrame([])</span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(flowD)):</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># filter the data to only include the species of interest</span></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a>    avgF <span class="op">=</span> avgPhenologyDiv[avgPhenologyDiv[<span class="st">'species'</span>] <span class="op">==</span> flowD[i]]</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># group the data by year and calculate the average temperature and precipitation</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a>    xT <span class="op">=</span> coopT.groupby([<span class="st">'YEAR(S)'</span>])[[<span class="st">'ANN'</span>]].mean().reset_index()</span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a>    xP <span class="op">=</span> coopP.groupby([<span class="st">'YEAR(S)'</span>])[[<span class="st">'ANN'</span>]].mean().reset_index()</span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># group the data by year and calculate the average day of year that the species flowers</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> avgF.groupby([<span class="st">'year'</span>])[[<span class="st">'DOY'</span>]].mean().reset_index()</span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create a list of years that are in the temperature and precipitation data </span></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a>    xTy <span class="op">=</span> <span class="bu">list</span>(xT[<span class="st">'YEAR(S)'</span>])</span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a>    xPy <span class="op">=</span> <span class="bu">list</span>(xP[<span class="st">'YEAR(S)'</span>])</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create a list of years that are in the flowering data </span></span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a>    yy <span class="op">=</span> <span class="bu">list</span>(y.year)</span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># iterate over the years in the temperature and precipitation data and remove any years that are not in the flowering data</span></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> xTy:</span>
+<span id="cb27-26"><a href="#cb27-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> j <span class="kw">not</span> <span class="kw">in</span> yy:</span>
+<span id="cb27-27"><a href="#cb27-27" aria-hidden="true" tabindex="-1"></a>            xT <span class="op">=</span> xT[xT[<span class="st">'YEAR(S)'</span>] <span class="op">!=</span> j]</span>
+<span id="cb27-28"><a href="#cb27-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> xPy:</span>
+<span id="cb27-29"><a href="#cb27-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> k <span class="kw">not</span> <span class="kw">in</span> yy:</span>
+<span id="cb27-30"><a href="#cb27-30" aria-hidden="true" tabindex="-1"></a>            xP <span class="op">=</span> xP[xP[<span class="st">'YEAR(S)'</span>] <span class="op">!=</span> k]</span>
+<span id="cb27-31"><a href="#cb27-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-32"><a href="#cb27-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># reset the index of the temperature, precipitation, and flowering data</span></span>
+<span id="cb27-33"><a href="#cb27-33" aria-hidden="true" tabindex="-1"></a>    xT <span class="op">=</span> xT[[<span class="st">'ANN'</span>]].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb27-34"><a href="#cb27-34" aria-hidden="true" tabindex="-1"></a>    xP <span class="op">=</span> xP[[<span class="st">'ANN'</span>]].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb27-35"><a href="#cb27-35" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> y[[<span class="st">'DOY'</span>]].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb27-36"><a href="#cb27-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-37"><a href="#cb27-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># merge the temperature, precipitation, and flowering data</span></span>
+<span id="cb27-38"><a href="#cb27-38" aria-hidden="true" tabindex="-1"></a>    dfT <span class="op">=</span> xT.join(y)</span>
+<span id="cb27-39"><a href="#cb27-39" aria-hidden="true" tabindex="-1"></a>    dfP <span class="op">=</span> xP.join(y)</span>
+<span id="cb27-40"><a href="#cb27-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-41"><a href="#cb27-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># sort the data by the average temperature and precipitation</span></span>
+<span id="cb27-42"><a href="#cb27-42" aria-hidden="true" tabindex="-1"></a>    dfT <span class="op">=</span> dfT.sort_values(by<span class="op">=</span>[<span class="st">'ANN'</span>])</span>
+<span id="cb27-43"><a href="#cb27-43" aria-hidden="true" tabindex="-1"></a>    dfP <span class="op">=</span> dfP.sort_values(by<span class="op">=</span>[<span class="st">'ANN'</span>])</span>
+<span id="cb27-44"><a href="#cb27-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-45"><a href="#cb27-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># assign the species name to the state summary dataframe</span></span>
+<span id="cb27-46"><a href="#cb27-46" aria-hidden="true" tabindex="-1"></a>    stateSum.loc[i, <span class="st">"Species"</span>] <span class="op">=</span> flowD[i]</span>
+<span id="cb27-47"><a href="#cb27-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-48"><a href="#cb27-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate the linear regression for temperature and precipitation</span></span>
+<span id="cb27-49"><a href="#cb27-49" aria-hidden="true" tabindex="-1"></a>    resultsT <span class="op">=</span> smf.ols(<span class="st">'DOY ~ ANN'</span>, data<span class="op">=</span>dfT).fit()</span>
+<span id="cb27-50"><a href="#cb27-50" aria-hidden="true" tabindex="-1"></a>    resultsP <span class="op">=</span> smf.ols(<span class="st">'DOY ~ ANN'</span>, data<span class="op">=</span>dfP).fit()</span>
+<span id="cb27-51"><a href="#cb27-51" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-52"><a href="#cb27-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># assign the p-values, r-squared, and adjusted r-squared to the state summary dataframe</span></span>
+<span id="cb27-53"><a href="#cb27-53" aria-hidden="true" tabindex="-1"></a>    stateSum.loc[i,<span class="st">'Temp P-Value'</span>] <span class="op">=</span> resultsT.summary2().tables[<span class="dv">1</span>][<span class="st">'P&gt;|t|'</span>][<span class="dv">1</span>]</span>
+<span id="cb27-54"><a href="#cb27-54" aria-hidden="true" tabindex="-1"></a>    stateSum.loc[i,<span class="st">'Temp R-Squared'</span>] <span class="op">=</span> resultsT.summary2().tables[<span class="dv">0</span>][<span class="dv">1</span>][<span class="dv">6</span>]</span>
+<span id="cb27-55"><a href="#cb27-55" aria-hidden="true" tabindex="-1"></a>    stateSum.loc[i,<span class="st">'Temp Adj. R-Squared'</span>] <span class="op">=</span> resultsT.summary2().tables[<span class="dv">0</span>][<span class="dv">3</span>][<span class="dv">0</span>]</span>
+<span id="cb27-56"><a href="#cb27-56" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-57"><a href="#cb27-57" aria-hidden="true" tabindex="-1"></a>    stateSum.loc[i,<span class="st">'Precip P-Value'</span>] <span class="op">=</span> resultsP.summary2().tables[<span class="dv">1</span>][<span class="st">'P&gt;|t|'</span>][<span class="dv">1</span>]</span>
+<span id="cb27-58"><a href="#cb27-58" aria-hidden="true" tabindex="-1"></a>    stateSum.loc[i,<span class="st">'Precip R-Squared'</span>] <span class="op">=</span> resultsP.summary2().tables[<span class="dv">0</span>][<span class="dv">1</span>][<span class="dv">6</span>]</span>
+<span id="cb27-59"><a href="#cb27-59" aria-hidden="true" tabindex="-1"></a>    stateSum.loc[i,<span class="st">'Precip Adj. R-Squared'</span>] <span class="op">=</span> resultsP.summary2().tables[<span class="dv">0</span>][<span class="dv">3</span>][<span class="dv">0</span>]</span>
+<span id="cb27-60"><a href="#cb27-60" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb27-61"><a href="#cb27-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># assign the species name to the significant summary dataframe if the p-value is less than the significance level</span></span>
+<span id="cb27-62"><a href="#cb27-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (resultsT.summary2().tables[<span class="dv">1</span>][<span class="st">'P&gt;|t|'</span>][<span class="dv">1</span>]<span class="op">&lt;=</span> pval):</span>
+<span id="cb27-63"><a href="#cb27-63" aria-hidden="true" tabindex="-1"></a>        dfT[<span class="st">'Type'</span>] <span class="op">=</span> <span class="st">'T'</span></span>
+<span id="cb27-64"><a href="#cb27-64" aria-hidden="true" tabindex="-1"></a>        dfT[<span class="st">'Species'</span>] <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>flowD[i]<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb27-65"><a href="#cb27-65" aria-hidden="true" tabindex="-1"></a>        dfT[<span class="st">'Region'</span>] <span class="op">=</span> <span class="st">'State'</span></span>
+<span id="cb27-66"><a href="#cb27-66" aria-hidden="true" tabindex="-1"></a>        sigSum <span class="op">=</span> pd.concat([sigSum, dfT], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb27-67"><a href="#cb27-67" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (resultsP.summary2().tables[<span class="dv">1</span>][<span class="st">'P&gt;|t|'</span>][<span class="dv">1</span>]<span class="op">&lt;=</span> pval):</span>
+<span id="cb27-68"><a href="#cb27-68" aria-hidden="true" tabindex="-1"></a>        dfP[<span class="st">'Type'</span>] <span class="op">=</span> <span class="st">'P'</span></span>
+<span id="cb27-69"><a href="#cb27-69" aria-hidden="true" tabindex="-1"></a>        dfP[<span class="st">'Species'</span>] <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>flowD[i]<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb27-70"><a href="#cb27-70" aria-hidden="true" tabindex="-1"></a>        dfP[<span class="st">'Region'</span>] <span class="op">=</span> <span class="st">'State'</span></span>
+<span id="cb27-71"><a href="#cb27-71" aria-hidden="true" tabindex="-1"></a>        sigSum <span class="op">=</span> pd.concat([sigSum, dfP], ignore_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="70e5ad21" class="cell" data-execution_count="328">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>stateSum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="328">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Species</th>
+<th data-quarto-table-cell-role="th">Temp P-Value</th>
+<th data-quarto-table-cell-role="th">Temp R-Squared</th>
+<th data-quarto-table-cell-role="th">Temp Adj. R-Squared</th>
+<th data-quarto-table-cell-role="th">Precip P-Value</th>
+<th data-quarto-table-cell-role="th">Precip R-Squared</th>
+<th data-quarto-table-cell-role="th">Precip Adj. R-Squared</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Amsinckia menziesii</td>
+<td>0.045038</td>
+<td>0.084</td>
+<td>0.065</td>
+<td>0.530467</td>
+<td>0.009</td>
+<td>-0.013</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Brassica tournefortii Gouan</td>
+<td>0.656550</td>
+<td>0.005</td>
+<td>-0.018</td>
+<td>0.230165</td>
+<td>0.033</td>
+<td>0.011</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Centaurea solstitialis</td>
+<td>0.663545</td>
+<td>0.004</td>
+<td>-0.017</td>
+<td>0.447359</td>
+<td>0.012</td>
+<td>-0.009</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Chaenactis glabriuscula</td>
+<td>0.022766</td>
+<td>0.101</td>
+<td>0.083</td>
+<td>0.966052</td>
+<td>0.000</td>
+<td>-0.020</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Clarkia bottae</td>
+<td>0.047639</td>
+<td>0.084</td>
+<td>0.064</td>
+<td>0.084706</td>
+<td>0.065</td>
+<td>0.044</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Clarkia purpurea</td>
+<td>0.030003</td>
+<td>0.093</td>
+<td>0.074</td>
+<td>0.096125</td>
+<td>0.055</td>
+<td>0.036</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Lasthenia californica</td>
+<td>0.226127</td>
+<td>0.030</td>
+<td>0.010</td>
+<td>0.116397</td>
+<td>0.050</td>
+<td>0.030</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>Medicago polymorpha</td>
+<td>0.738173</td>
+<td>0.002</td>
+<td>-0.018</td>
+<td>0.261980</td>
+<td>0.026</td>
+<td>0.006</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>Plantago erecta Morris</td>
+<td>0.097705</td>
+<td>0.055</td>
+<td>0.036</td>
+<td>0.765565</td>
+<td>0.002</td>
+<td>-0.019</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="b48d722d" class="cell" data-execution_count="329">
+<details class="code-fold">
+<summary>Socal Summary Data</summary>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dictionary to store the south state summary data</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>souSum <span class="op">=</span> pd.DataFrame([])</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over the unique species and calculate the linear regression for each species</span></span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(flowD)):</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>    <span class="co"># filter the data to only include the species of interest in climate divisions 6-9</span></span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    avgF <span class="op">=</span> avgPhenologyDiv[avgPhenologyDiv[<span class="st">'ClimateDivision'</span>] <span class="op">&gt;=</span> <span class="dv">6</span>] </span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>    avgF <span class="op">=</span> avgF[avgF[<span class="st">'species'</span>] <span class="op">==</span> flowD[i]]    </span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>    <span class="co"># group the data by year and calculate the average temperature and precipitation</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    xT <span class="op">=</span> coopT.groupby([<span class="st">'YEAR(S)'</span>])[[<span class="st">'ANN'</span>]].mean().reset_index()</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>    xP <span class="op">=</span> coopP.groupby([<span class="st">'YEAR(S)'</span>])[[<span class="st">'ANN'</span>]].mean().reset_index()</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a>    <span class="co"># group the data by year and calculate the average day of year that the species flowers</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> avgF.groupby([<span class="st">'year'</span>])[[<span class="st">'DOY'</span>]].mean().reset_index()</span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create a list of years that are in the temperature and precipitation data</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>    xTy <span class="op">=</span> <span class="bu">list</span>(xT[<span class="st">'YEAR(S)'</span>]) </span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>    xPy <span class="op">=</span> <span class="bu">list</span>(xP[<span class="st">'YEAR(S)'</span>]) </span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create a list of years that are in the flowering data</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>    yy <span class="op">=</span> <span class="bu">list</span>(y.year)</span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>    <span class="co"># iterate over the years in the temperature and precipitation data and remove any years that are not in the flowering data</span></span>
+<span id="cb29-24"><a href="#cb29-24" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> xTy:</span>
+<span id="cb29-25"><a href="#cb29-25" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> j <span class="kw">not</span> <span class="kw">in</span> yy:</span>
+<span id="cb29-26"><a href="#cb29-26" aria-hidden="true" tabindex="-1"></a>            xT <span class="op">=</span> xT[xT[<span class="st">'YEAR(S)'</span>] <span class="op">!=</span> j]</span>
+<span id="cb29-27"><a href="#cb29-27" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-28"><a href="#cb29-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> xPy:</span>
+<span id="cb29-29"><a href="#cb29-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> k <span class="kw">not</span> <span class="kw">in</span> yy:</span>
+<span id="cb29-30"><a href="#cb29-30" aria-hidden="true" tabindex="-1"></a>            xP <span class="op">=</span> xP[xP[<span class="st">'YEAR(S)'</span>] <span class="op">!=</span> k]</span>
+<span id="cb29-31"><a href="#cb29-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-32"><a href="#cb29-32" aria-hidden="true" tabindex="-1"></a>    <span class="co"># reset the index of the temperature, precipitation, and flowering data</span></span>
+<span id="cb29-33"><a href="#cb29-33" aria-hidden="true" tabindex="-1"></a>    xT <span class="op">=</span> xT[[<span class="st">'ANN'</span>]].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb29-34"><a href="#cb29-34" aria-hidden="true" tabindex="-1"></a>    xP <span class="op">=</span> xP[[<span class="st">'ANN'</span>]].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb29-35"><a href="#cb29-35" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> y[[<span class="st">'DOY'</span>]].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb29-36"><a href="#cb29-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-37"><a href="#cb29-37" aria-hidden="true" tabindex="-1"></a>    <span class="co"># merge the temperature, precipitation, and flowering data</span></span>
+<span id="cb29-38"><a href="#cb29-38" aria-hidden="true" tabindex="-1"></a>    dfT <span class="op">=</span> xT.join(y)</span>
+<span id="cb29-39"><a href="#cb29-39" aria-hidden="true" tabindex="-1"></a>    dfP <span class="op">=</span> xP.join(y)</span>
+<span id="cb29-40"><a href="#cb29-40" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-41"><a href="#cb29-41" aria-hidden="true" tabindex="-1"></a>    <span class="co"># sort the data by the average temperature and precipitation</span></span>
+<span id="cb29-42"><a href="#cb29-42" aria-hidden="true" tabindex="-1"></a>    dfT <span class="op">=</span> dfT.sort_values(by<span class="op">=</span>[<span class="st">'ANN'</span>])</span>
+<span id="cb29-43"><a href="#cb29-43" aria-hidden="true" tabindex="-1"></a>    dfP <span class="op">=</span> dfP.sort_values(by<span class="op">=</span>[<span class="st">'ANN'</span>])</span>
+<span id="cb29-44"><a href="#cb29-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-45"><a href="#cb29-45" aria-hidden="true" tabindex="-1"></a>    <span class="co"># assign the species name to the south summary dataframe</span></span>
+<span id="cb29-46"><a href="#cb29-46" aria-hidden="true" tabindex="-1"></a>    souSum.loc[i, <span class="st">"Species"</span>] <span class="op">=</span> flowD[i]</span>
+<span id="cb29-47"><a href="#cb29-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-48"><a href="#cb29-48" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate the linear regression for temperature and precipitation</span></span>
+<span id="cb29-49"><a href="#cb29-49" aria-hidden="true" tabindex="-1"></a>    resultsT <span class="op">=</span> smf.ols(<span class="st">'DOY ~ ANN'</span>, data<span class="op">=</span>dfT).fit()</span>
+<span id="cb29-50"><a href="#cb29-50" aria-hidden="true" tabindex="-1"></a>    resultsP <span class="op">=</span> smf.ols(<span class="st">'DOY ~ ANN'</span>, data<span class="op">=</span>dfP).fit()</span>
+<span id="cb29-51"><a href="#cb29-51" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-52"><a href="#cb29-52" aria-hidden="true" tabindex="-1"></a>    <span class="co"># assign the p-values, r-squared, and adjusted r-squared to the south summary dataframe</span></span>
+<span id="cb29-53"><a href="#cb29-53" aria-hidden="true" tabindex="-1"></a>    souSum.loc[i,<span class="st">'Temp P-Value'</span>] <span class="op">=</span> resultsT.summary2().tables[<span class="dv">1</span>][<span class="st">'P&gt;|t|'</span>][<span class="dv">1</span>]</span>
+<span id="cb29-54"><a href="#cb29-54" aria-hidden="true" tabindex="-1"></a>    souSum.loc[i,<span class="st">'Temp R-Squared'</span>] <span class="op">=</span> resultsT.summary2().tables[<span class="dv">0</span>][<span class="dv">1</span>][<span class="dv">6</span>]</span>
+<span id="cb29-55"><a href="#cb29-55" aria-hidden="true" tabindex="-1"></a>    souSum.loc[i,<span class="st">'Temp Adj. R-Squared'</span>] <span class="op">=</span> resultsT.summary2().tables[<span class="dv">0</span>][<span class="dv">3</span>][<span class="dv">0</span>]</span>
+<span id="cb29-56"><a href="#cb29-56" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-57"><a href="#cb29-57" aria-hidden="true" tabindex="-1"></a>    souSum.loc[i,<span class="st">'Precip P-Value'</span>] <span class="op">=</span> resultsP.summary2().tables[<span class="dv">1</span>][<span class="st">'P&gt;|t|'</span>][<span class="dv">1</span>]</span>
+<span id="cb29-58"><a href="#cb29-58" aria-hidden="true" tabindex="-1"></a>    souSum.loc[i,<span class="st">'Precip R-Squared'</span>] <span class="op">=</span> resultsP.summary2().tables[<span class="dv">0</span>][<span class="dv">1</span>][<span class="dv">6</span>]</span>
+<span id="cb29-59"><a href="#cb29-59" aria-hidden="true" tabindex="-1"></a>    souSum.loc[i,<span class="st">'Precip Adj. R-Squared'</span>] <span class="op">=</span> resultsP.summary2().tables[<span class="dv">0</span>][<span class="dv">3</span>][<span class="dv">0</span>]</span>
+<span id="cb29-60"><a href="#cb29-60" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb29-61"><a href="#cb29-61" aria-hidden="true" tabindex="-1"></a>    <span class="co"># assign the species name to the significant summary dataframe if the p-value is less than the significance level</span></span>
+<span id="cb29-62"><a href="#cb29-62" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (resultsT.summary2().tables[<span class="dv">1</span>][<span class="st">'P&gt;|t|'</span>][<span class="dv">1</span>]<span class="op">&lt;=</span> pval):</span>
+<span id="cb29-63"><a href="#cb29-63" aria-hidden="true" tabindex="-1"></a>        dfT[<span class="st">'Type'</span>] <span class="op">=</span> <span class="st">'T'</span></span>
+<span id="cb29-64"><a href="#cb29-64" aria-hidden="true" tabindex="-1"></a>        dfT[<span class="st">'Species'</span>] <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>flowD[i]<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb29-65"><a href="#cb29-65" aria-hidden="true" tabindex="-1"></a>        dfT[<span class="st">'Region'</span>] <span class="op">=</span> <span class="st">'South'</span></span>
+<span id="cb29-66"><a href="#cb29-66" aria-hidden="true" tabindex="-1"></a>        sigSum <span class="op">=</span> pd.concat([sigSum, dfT], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb29-67"><a href="#cb29-67" aria-hidden="true" tabindex="-1"></a>        sigSum <span class="op">=</span> pd.concat(dfT)</span>
+<span id="cb29-68"><a href="#cb29-68" aria-hidden="true" tabindex="-1"></a>        </span>
+<span id="cb29-69"><a href="#cb29-69" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (resultsP.summary2().tables[<span class="dv">1</span>][<span class="st">'P&gt;|t|'</span>][<span class="dv">1</span>]<span class="op">&lt;=</span> pval):</span>
+<span id="cb29-70"><a href="#cb29-70" aria-hidden="true" tabindex="-1"></a>        dfP[<span class="st">'Type'</span>] <span class="op">=</span> <span class="st">'P'</span></span>
+<span id="cb29-71"><a href="#cb29-71" aria-hidden="true" tabindex="-1"></a>        dfP[<span class="st">'Species'</span>] <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>flowD[i]<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb29-72"><a href="#cb29-72" aria-hidden="true" tabindex="-1"></a>        dfP[<span class="st">'Region'</span>] <span class="op">=</span> <span class="st">'South'</span></span>
+<span id="cb29-73"><a href="#cb29-73" aria-hidden="true" tabindex="-1"></a>        sigSum <span class="op">=</span> pd.concat([sigSum, dfP], ignore_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="8943ea47" class="cell" data-execution_count="330">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>souSum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="330">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Species</th>
+<th data-quarto-table-cell-role="th">Temp P-Value</th>
+<th data-quarto-table-cell-role="th">Temp R-Squared</th>
+<th data-quarto-table-cell-role="th">Temp Adj. R-Squared</th>
+<th data-quarto-table-cell-role="th">Precip P-Value</th>
+<th data-quarto-table-cell-role="th">Precip R-Squared</th>
+<th data-quarto-table-cell-role="th">Precip Adj. R-Squared</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Amsinckia menziesii</td>
+<td>0.875755</td>
+<td>0.001</td>
+<td>-0.022</td>
+<td>0.875616</td>
+<td>0.001</td>
+<td>-0.022</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Brassica tournefortii Gouan</td>
+<td>0.904122</td>
+<td>0.000</td>
+<td>-0.022</td>
+<td>0.404617</td>
+<td>0.016</td>
+<td>-0.007</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Centaurea solstitialis</td>
+<td>0.702031</td>
+<td>0.004</td>
+<td>-0.024</td>
+<td>0.440332</td>
+<td>0.017</td>
+<td>-0.011</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Chaenactis glabriuscula</td>
+<td>0.115176</td>
+<td>0.050</td>
+<td>0.030</td>
+<td>0.594184</td>
+<td>0.006</td>
+<td>-0.014</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Clarkia bottae</td>
+<td>0.270753</td>
+<td>0.029</td>
+<td>0.006</td>
+<td>0.728577</td>
+<td>0.003</td>
+<td>-0.021</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Clarkia purpurea</td>
+<td>0.336247</td>
+<td>0.019</td>
+<td>-0.001</td>
+<td>0.203625</td>
+<td>0.033</td>
+<td>0.013</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Lasthenia californica</td>
+<td>0.263063</td>
+<td>0.027</td>
+<td>0.006</td>
+<td>0.752329</td>
+<td>0.002</td>
+<td>-0.020</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>Medicago polymorpha</td>
+<td>0.199275</td>
+<td>0.035</td>
+<td>0.014</td>
+<td>0.897705</td>
+<td>0.000</td>
+<td>-0.021</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>Plantago erecta Morris</td>
+<td>0.336801</td>
+<td>0.020</td>
+<td>-0.001</td>
+<td>0.425241</td>
+<td>0.014</td>
+<td>-0.007</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="45619e16" class="cell" data-execution_count="331">
+<details class="code-fold">
+<summary>Climate Division 6 Summary Data</summary>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dictionary to store the average flowering days</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a>flowD <span class="op">=</span> {}</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over the unique species and average flowering days</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(avgPhenologyDiv.species.unique())):</span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>    flowD[i] <span class="op">=</span> avgPhenologyDiv.species.unique()[i]</span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dataframe to store the significant summary data for climate divisions 6</span></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a>sixSum <span class="op">=</span> pd.DataFrame([])</span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over the unique species and calculate the linear regression for each species</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(flowD)):</span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># filter the data to only include the species of interest in climate division 6</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>    avgF <span class="op">=</span> avgPhenologyDiv[avgPhenologyDiv[<span class="st">'ClimateDivision'</span>] <span class="op">==</span> <span class="dv">6</span>] </span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>    avgF <span class="op">=</span> avgF[avgF[<span class="st">'species'</span>] <span class="op">==</span> flowD[i]]    </span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>    <span class="co"># group the data by year and calculate the average temperature and precipitation</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>    xT <span class="op">=</span> coopT.groupby([<span class="st">'YEAR(S)'</span>])[[<span class="st">'ANN'</span>]].mean().reset_index()</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a>    xP <span class="op">=</span> coopP.groupby([<span class="st">'YEAR(S)'</span>])[[<span class="st">'ANN'</span>]].mean().reset_index()</span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>    <span class="co"># group the data by year and calculate the average day of year that the species flowers</span></span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> avgF.groupby([<span class="st">'year'</span>])[[<span class="st">'DOY'</span>]].mean().reset_index()</span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>    <span class="co"># create a list of years that are in the temperature and precipitation data</span></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>    xTy <span class="op">=</span> <span class="bu">list</span>(xT[<span class="st">'YEAR(S)'</span>]) </span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>    xPy <span class="op">=</span> <span class="bu">list</span>(xP[<span class="st">'YEAR(S)'</span>]) </span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>    yy <span class="op">=</span> <span class="bu">list</span>(y.year)</span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>    <span class="co"># iterate over the years in the temperature and precipitation data and remove any years that are not in the flowering data</span></span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> j <span class="kw">in</span> xTy:</span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> j <span class="kw">not</span> <span class="kw">in</span> yy:</span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>            xT <span class="op">=</span> xT[xT[<span class="st">'YEAR(S)'</span>] <span class="op">!=</span> j]</span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> k <span class="kw">in</span> xPy:</span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> k <span class="kw">not</span> <span class="kw">in</span> yy:</span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>            xP <span class="op">=</span> xP[xP[<span class="st">'YEAR(S)'</span>] <span class="op">!=</span> k]</span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>    <span class="co"># reset the index of the temperature, precipitation, and flowering data</span></span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>    xT <span class="op">=</span> xT[[<span class="st">'ANN'</span>]].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>    xP <span class="op">=</span> xP[[<span class="st">'ANN'</span>]].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb31-41"><a href="#cb31-41" aria-hidden="true" tabindex="-1"></a>    y <span class="op">=</span> y[[<span class="st">'DOY'</span>]].reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb31-42"><a href="#cb31-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-43"><a href="#cb31-43" aria-hidden="true" tabindex="-1"></a>    <span class="co"># merge the temperature, precipitation, and flowering data</span></span>
+<span id="cb31-44"><a href="#cb31-44" aria-hidden="true" tabindex="-1"></a>    dfT <span class="op">=</span> xT.join(y)</span>
+<span id="cb31-45"><a href="#cb31-45" aria-hidden="true" tabindex="-1"></a>    dfP <span class="op">=</span> xP.join(y)</span>
+<span id="cb31-46"><a href="#cb31-46" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-47"><a href="#cb31-47" aria-hidden="true" tabindex="-1"></a>    <span class="co"># sort the data by the average temperature and precipitation</span></span>
+<span id="cb31-48"><a href="#cb31-48" aria-hidden="true" tabindex="-1"></a>    dfT <span class="op">=</span> dfT.sort_values(by<span class="op">=</span>[<span class="st">'ANN'</span>])</span>
+<span id="cb31-49"><a href="#cb31-49" aria-hidden="true" tabindex="-1"></a>    dfP <span class="op">=</span> dfP.sort_values(by<span class="op">=</span>[<span class="st">'ANN'</span>])</span>
+<span id="cb31-50"><a href="#cb31-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-51"><a href="#cb31-51" aria-hidden="true" tabindex="-1"></a>    <span class="co"># assign the species name to the six summary dataframe</span></span>
+<span id="cb31-52"><a href="#cb31-52" aria-hidden="true" tabindex="-1"></a>    sixSum.loc[i, <span class="st">"Species"</span>] <span class="op">=</span> flowD[i]</span>
+<span id="cb31-53"><a href="#cb31-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-54"><a href="#cb31-54" aria-hidden="true" tabindex="-1"></a>    <span class="co"># calculate the linear regression for temperature and precipitation</span></span>
+<span id="cb31-55"><a href="#cb31-55" aria-hidden="true" tabindex="-1"></a>    resultsT <span class="op">=</span> smf.ols(<span class="st">'DOY ~ ANN'</span>, data<span class="op">=</span>dfT).fit()</span>
+<span id="cb31-56"><a href="#cb31-56" aria-hidden="true" tabindex="-1"></a>    resultsP <span class="op">=</span> smf.ols(<span class="st">'DOY ~ ANN'</span>, data<span class="op">=</span>dfP).fit()</span>
+<span id="cb31-57"><a href="#cb31-57" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-58"><a href="#cb31-58" aria-hidden="true" tabindex="-1"></a>    <span class="co"># assign the p-values, r-squared, and adjusted r-squared to the six summary dataframe</span></span>
+<span id="cb31-59"><a href="#cb31-59" aria-hidden="true" tabindex="-1"></a>    sixSum.loc[i,<span class="st">'Temp P-Value'</span>] <span class="op">=</span> resultsT.summary2().tables[<span class="dv">1</span>][<span class="st">'P&gt;|t|'</span>][<span class="dv">1</span>]</span>
+<span id="cb31-60"><a href="#cb31-60" aria-hidden="true" tabindex="-1"></a>    sixSum.loc[i,<span class="st">'Temp R-Squared'</span>] <span class="op">=</span> resultsT.summary2().tables[<span class="dv">0</span>][<span class="dv">1</span>][<span class="dv">6</span>]</span>
+<span id="cb31-61"><a href="#cb31-61" aria-hidden="true" tabindex="-1"></a>    sixSum.loc[i,<span class="st">'Temp Adj. R-Squared'</span>] <span class="op">=</span> resultsT.summary2().tables[<span class="dv">0</span>][<span class="dv">3</span>][<span class="dv">0</span>]</span>
+<span id="cb31-62"><a href="#cb31-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-63"><a href="#cb31-63" aria-hidden="true" tabindex="-1"></a>    sixSum.loc[i,<span class="st">'Precip P-Value'</span>] <span class="op">=</span> resultsP.summary2().tables[<span class="dv">1</span>][<span class="st">'P&gt;|t|'</span>][<span class="dv">1</span>]</span>
+<span id="cb31-64"><a href="#cb31-64" aria-hidden="true" tabindex="-1"></a>    sixSum.loc[i,<span class="st">'Precip R-Squared'</span>] <span class="op">=</span> resultsP.summary2().tables[<span class="dv">0</span>][<span class="dv">1</span>][<span class="dv">6</span>]</span>
+<span id="cb31-65"><a href="#cb31-65" aria-hidden="true" tabindex="-1"></a>    sixSum.loc[i,<span class="st">'Precip Adj. R-Squared'</span>] <span class="op">=</span> resultsP.summary2().tables[<span class="dv">0</span>][<span class="dv">3</span>][<span class="dv">0</span>]</span>
+<span id="cb31-66"><a href="#cb31-66" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb31-67"><a href="#cb31-67" aria-hidden="true" tabindex="-1"></a>    <span class="co"># assign the species name to the significant summary dataframe if the p-value is less than the significance level</span></span>
+<span id="cb31-68"><a href="#cb31-68" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (resultsT.summary2().tables[<span class="dv">1</span>][<span class="st">'P&gt;|t|'</span>][<span class="dv">1</span>]<span class="op">&lt;=</span> pval):</span>
+<span id="cb31-69"><a href="#cb31-69" aria-hidden="true" tabindex="-1"></a>        dfT[<span class="st">'Type'</span>] <span class="op">=</span> <span class="st">'T'</span></span>
+<span id="cb31-70"><a href="#cb31-70" aria-hidden="true" tabindex="-1"></a>        dfT[<span class="st">'Species'</span>] <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>flowD[i]<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb31-71"><a href="#cb31-71" aria-hidden="true" tabindex="-1"></a>        dfT[<span class="st">'Region'</span>] <span class="op">=</span> <span class="st">'Six'</span></span>
+<span id="cb31-72"><a href="#cb31-72" aria-hidden="true" tabindex="-1"></a>        sigSum <span class="op">=</span> pd.concat([sigSum, dfT], ignore_index<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb31-73"><a href="#cb31-73" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (resultsP.summary2().tables[<span class="dv">1</span>][<span class="st">'P&gt;|t|'</span>][<span class="dv">1</span>]<span class="op">&lt;=</span> pval):</span>
+<span id="cb31-74"><a href="#cb31-74" aria-hidden="true" tabindex="-1"></a>        dfP[<span class="st">'Type'</span>] <span class="op">=</span> <span class="st">'P'</span></span>
+<span id="cb31-75"><a href="#cb31-75" aria-hidden="true" tabindex="-1"></a>        dfP[<span class="st">'Species'</span>] <span class="op">=</span> <span class="ss">f'</span><span class="sc">{</span>flowD[i]<span class="sc">}</span><span class="ss">'</span></span>
+<span id="cb31-76"><a href="#cb31-76" aria-hidden="true" tabindex="-1"></a>        dfP[<span class="st">'Region'</span>] <span class="op">=</span> <span class="st">'Six'</span></span>
+<span id="cb31-77"><a href="#cb31-77" aria-hidden="true" tabindex="-1"></a>        sigSum <span class="op">=</span> pd.concat([sigSum, dfP], ignore_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<div id="356b746b" class="cell" data-execution_count="332">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>sixSum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="332">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">Species</th>
+<th data-quarto-table-cell-role="th">Temp P-Value</th>
+<th data-quarto-table-cell-role="th">Temp R-Squared</th>
+<th data-quarto-table-cell-role="th">Temp Adj. R-Squared</th>
+<th data-quarto-table-cell-role="th">Precip P-Value</th>
+<th data-quarto-table-cell-role="th">Precip R-Squared</th>
+<th data-quarto-table-cell-role="th">Precip Adj. R-Squared</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>Amsinckia menziesii</td>
+<td>0.804356</td>
+<td>0.001</td>
+<td>-0.022</td>
+<td>0.656283</td>
+<td>0.005</td>
+<td>-0.019</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>Brassica tournefortii Gouan</td>
+<td>0.753239</td>
+<td>0.003</td>
+<td>-0.030</td>
+<td>0.424593</td>
+<td>0.021</td>
+<td>-0.011</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>Centaurea solstitialis</td>
+<td>0.494795</td>
+<td>0.014</td>
+<td>-0.015</td>
+<td>0.483818</td>
+<td>0.015</td>
+<td>-0.014</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>Chaenactis glabriuscula</td>
+<td>0.056238</td>
+<td>0.072</td>
+<td>0.053</td>
+<td>0.353304</td>
+<td>0.018</td>
+<td>-0.002</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>Clarkia bottae</td>
+<td>0.270753</td>
+<td>0.029</td>
+<td>0.006</td>
+<td>0.728577</td>
+<td>0.003</td>
+<td>-0.021</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">5</td>
+<td>Clarkia purpurea</td>
+<td>0.040614</td>
+<td>0.083</td>
+<td>0.064</td>
+<td>0.049008</td>
+<td>0.077</td>
+<td>0.058</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">6</td>
+<td>Lasthenia californica</td>
+<td>0.458737</td>
+<td>0.014</td>
+<td>-0.011</td>
+<td>0.461362</td>
+<td>0.014</td>
+<td>-0.011</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">7</td>
+<td>Medicago polymorpha</td>
+<td>0.121612</td>
+<td>0.050</td>
+<td>0.030</td>
+<td>0.987780</td>
+<td>0.000</td>
+<td>-0.021</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">8</td>
+<td>Plantago erecta Morris</td>
+<td>0.362461</td>
+<td>0.018</td>
+<td>-0.003</td>
+<td>0.393343</td>
+<td>0.016</td>
+<td>-0.005</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+</section>
+<section id="visualize-summary-statistics" class="level2">
+<h2 class="anchored" data-anchor-id="visualize-summary-statistics">Visualize Summary Statistics</h2>
+<section id="figures" class="level3">
+<h3 class="anchored" data-anchor-id="figures">Figures</h3>
+<div id="eb3d5746" class="cell" data-execution_count="333">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>sigSum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="333">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ANN</th>
+<th data-quarto-table-cell-role="th">DOY</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Species</th>
+<th data-quarto-table-cell-role="th">Region</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>57.374035</td>
+<td>132.000000</td>
+<td>T</td>
+<td>Amsinckia menziesii</td>
+<td>State</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>57.411930</td>
+<td>105.500000</td>
+<td>T</td>
+<td>Amsinckia menziesii</td>
+<td>State</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>57.764483</td>
+<td>111.000000</td>
+<td>T</td>
+<td>Amsinckia menziesii</td>
+<td>State</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>57.798136</td>
+<td>114.333333</td>
+<td>T</td>
+<td>Amsinckia menziesii</td>
+<td>State</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>57.946538</td>
+<td>111.000000</td>
+<td>T</td>
+<td>Amsinckia menziesii</td>
+<td>State</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+<td>...</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">294</td>
+<td>22.954211</td>
+<td>151.000000</td>
+<td>P</td>
+<td>Clarkia purpurea</td>
+<td>Six</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">295</td>
+<td>24.774386</td>
+<td>149.000000</td>
+<td>P</td>
+<td>Clarkia purpurea</td>
+<td>Six</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">296</td>
+<td>25.309153</td>
+<td>154.000000</td>
+<td>P</td>
+<td>Clarkia purpurea</td>
+<td>Six</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">297</td>
+<td>26.406271</td>
+<td>154.000000</td>
+<td>P</td>
+<td>Clarkia purpurea</td>
+<td>Six</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">298</td>
+<td>30.957931</td>
+<td>149.000000</td>
+<td>P</td>
+<td>Clarkia purpurea</td>
+<td>Six</td>
+</tr>
+</tbody>
+</table>
+
+<p>299 rows × 5 columns</p>
+</div>
+</div>
+</div>
+<div id="0809769c" class="cell" data-execution_count="334">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter the significant summary data to each region</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>stateSig <span class="op">=</span> sigSum[sigSum[<span class="st">'Region'</span>] <span class="op">==</span> <span class="st">'State'</span>]</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>souSig <span class="op">=</span> sigSum[sigSum[<span class="st">'Region'</span>] <span class="op">==</span> <span class="st">'South'</span>]</span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>sixSig <span class="op">=</span> sigSum[sigSum[<span class="st">'Region'</span>] <span class="op">==</span> <span class="st">'Six'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div id="6ed409fa" class="cell" data-execution_count="335">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>stateSig.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="335">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ANN</th>
+<th data-quarto-table-cell-role="th">DOY</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Species</th>
+<th data-quarto-table-cell-role="th">Region</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">0</td>
+<td>57.374035</td>
+<td>132.000000</td>
+<td>T</td>
+<td>Amsinckia menziesii</td>
+<td>State</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">1</td>
+<td>57.411930</td>
+<td>105.500000</td>
+<td>T</td>
+<td>Amsinckia menziesii</td>
+<td>State</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">2</td>
+<td>57.764483</td>
+<td>111.000000</td>
+<td>T</td>
+<td>Amsinckia menziesii</td>
+<td>State</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">3</td>
+<td>57.798136</td>
+<td>114.333333</td>
+<td>T</td>
+<td>Amsinckia menziesii</td>
+<td>State</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">4</td>
+<td>57.946538</td>
+<td>111.000000</td>
+<td>T</td>
+<td>Amsinckia menziesii</td>
+<td>State</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="527f5bb5" class="cell" data-execution_count="336">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>souSig.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="336">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ANN</th>
+<th data-quarto-table-cell-role="th">DOY</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Species</th>
+<th data-quarto-table-cell-role="th">Region</th>
+</tr>
+</thead>
+<tbody>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="9e07da2f" class="cell" data-execution_count="337">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>sixSig.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="337">
+<div>
+
+
+<table class="dataframe caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-border="1">
+<thead>
+<tr class="header">
+<th data-quarto-table-cell-role="th"></th>
+<th data-quarto-table-cell-role="th">ANN</th>
+<th data-quarto-table-cell-role="th">DOY</th>
+<th data-quarto-table-cell-role="th">Type</th>
+<th data-quarto-table-cell-role="th">Species</th>
+<th data-quarto-table-cell-role="th">Region</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">197</td>
+<td>57.374035</td>
+<td>145.0</td>
+<td>T</td>
+<td>Clarkia purpurea</td>
+<td>Six</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">198</td>
+<td>57.411930</td>
+<td>145.0</td>
+<td>T</td>
+<td>Clarkia purpurea</td>
+<td>Six</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">199</td>
+<td>57.764483</td>
+<td>140.0</td>
+<td>T</td>
+<td>Clarkia purpurea</td>
+<td>Six</td>
+</tr>
+<tr class="even">
+<td data-quarto-table-cell-role="th">200</td>
+<td>57.798136</td>
+<td>129.0</td>
+<td>T</td>
+<td>Clarkia purpurea</td>
+<td>Six</td>
+</tr>
+<tr class="odd">
+<td data-quarto-table-cell-role="th">201</td>
+<td>57.946538</td>
+<td>152.0</td>
+<td>T</td>
+<td>Clarkia purpurea</td>
+<td>Six</td>
+</tr>
+</tbody>
+</table>
+
+</div>
+</div>
+</div>
+<div id="4cb914cc" class="cell" data-execution_count="338">
+<details class="code-fold">
+<summary>Flowering DOY vs Temperature for Native Flowers in California</summary>
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set plot size</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>g <span class="op">=</span> plt.figure(figsize <span class="op">=</span> [<span class="dv">10</span>,<span class="dv">8</span>])</span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># empty list to store legend</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> []</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a><span class="co"># create a list of colors for each species</span></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> [<span class="st">'blue'</span>, <span class="st">'orange'</span>, <span class="st">'green'</span>, <span class="st">'red'</span>]</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over the unique species and plot the linear regression for each species</span></span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(stateSig.Species.unique())):</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    g <span class="op">=</span> sb.regplot(data <span class="op">=</span> stateSig[stateSig[<span class="st">'Species'</span>] <span class="op">==</span> stateSig.Species.unique()[i]],</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>               x <span class="op">=</span> <span class="st">'ANN'</span>, y <span class="op">=</span> <span class="st">'DOY'</span>)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    red_patch <span class="op">=</span> mpatches.Patch(color<span class="op">=</span>c[i], label<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>stateSig<span class="sc">.</span>Species<span class="sc">.</span>unique()[i]<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    l.append(red_patch)</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>g.set_title(<span class="st">"Flowering DOY vs Temperature for Native Flowers in California"</span>)</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a>g.set_xlabel(<span class="st">"Average Yearly Temperature (F)"</span>, fontsize <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>g.set_ylabel(<span class="st">"Average Flowering Day of Year"</span>, fontsize <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>l)</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'stateSigT.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-39-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="969915b8" class="cell" data-execution_count="340">
+<details class="code-fold">
+<summary>Flowering DOY vs Temperature for Clarkia Purpurea in CA06</summary>
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set plot size</span></span>
+<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> plt.figure(figsize <span class="op">=</span> [<span class="dv">10</span>,<span class="dv">8</span>])</span>
+<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># empty list to store legend </span></span>
+<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> []</span>
+<span id="cb39-5"><a href="#cb39-5" aria-hidden="true" tabindex="-1"></a><span class="co"># create a list of colors for each species</span></span>
+<span id="cb39-6"><a href="#cb39-6" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> [<span class="st">'blue'</span>, <span class="st">'orange'</span>, <span class="st">'green'</span>, <span class="st">'red'</span>]</span>
+<span id="cb39-7"><a href="#cb39-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-8"><a href="#cb39-8" aria-hidden="true" tabindex="-1"></a><span class="co"># filter the significant summary data to temperature only</span></span>
+<span id="cb39-9"><a href="#cb39-9" aria-hidden="true" tabindex="-1"></a>sixSigT <span class="op">=</span> sixSig[sixSig[<span class="st">'Type'</span>] <span class="op">==</span> <span class="st">'T'</span>]</span>
+<span id="cb39-10"><a href="#cb39-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb39-11"><a href="#cb39-11" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over the unique species and plot the linear regression for each species</span></span>
+<span id="cb39-12"><a href="#cb39-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(sixSigT.Species.unique())):</span>
+<span id="cb39-13"><a href="#cb39-13" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> sb.regplot(data <span class="op">=</span> sixSigT[sixSigT[<span class="st">'Species'</span>] <span class="op">==</span> sixSigT.Species.unique()[i]],</span>
+<span id="cb39-14"><a href="#cb39-14" aria-hidden="true" tabindex="-1"></a>               x <span class="op">=</span> <span class="st">'ANN'</span>, y <span class="op">=</span> <span class="st">'DOY'</span>)</span>
+<span id="cb39-15"><a href="#cb39-15" aria-hidden="true" tabindex="-1"></a>    red_patch <span class="op">=</span> mpatches.Patch(color<span class="op">=</span>c[i], label<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>sixSigT<span class="sc">.</span>Species<span class="sc">.</span>unique()[i]<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb39-16"><a href="#cb39-16" aria-hidden="true" tabindex="-1"></a>    l.append(red_patch)</span>
+<span id="cb39-17"><a href="#cb39-17" aria-hidden="true" tabindex="-1"></a>h.set_title(<span class="st">"Flowering DOY vs Temperature for Clarkia Purpurea in CA06"</span>)</span>
+<span id="cb39-18"><a href="#cb39-18" aria-hidden="true" tabindex="-1"></a>h.set_xlabel(<span class="st">"Average Yearly Temperature (F)"</span>, fontsize <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb39-19"><a href="#cb39-19" aria-hidden="true" tabindex="-1"></a>h.set_ylabel(<span class="st">"Average Flowering Day of Year"</span>, fontsize <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb39-20"><a href="#cb39-20" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>l)</span>
+<span id="cb39-21"><a href="#cb39-21" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'sixSigT.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-40-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<div id="6fe48c43" class="cell" data-execution_count="341">
+<details class="code-fold">
+<summary>Flowering DOY vs Precipitation for Clarkia Purpurea in CA06</summary>
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set plot size</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>h <span class="op">=</span> plt.figure(figsize <span class="op">=</span> [<span class="dv">10</span>,<span class="dv">8</span>])</span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># empty list to store legend</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>l <span class="op">=</span> []</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a><span class="co"># create a list of colors for each species</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> [<span class="st">'blue'</span>, <span class="st">'orange'</span>, <span class="st">'green'</span>, <span class="st">'red'</span>]</span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a><span class="co"># filter the significant summary data to precipitation only</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>sixSigP <span class="op">=</span> sixSig[sixSig[<span class="st">'Type'</span>] <span class="op">==</span> <span class="st">'P'</span>]</span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over the unique species and plot the linear regression for each species</span></span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(sixSig.Species.unique())):</span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a>    h <span class="op">=</span> sb.regplot(data <span class="op">=</span> sixSigP[sixSigP[<span class="st">'Species'</span>] <span class="op">==</span> sixSigP.Species.unique()[i]],</span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>               x <span class="op">=</span> <span class="st">'ANN'</span>, y <span class="op">=</span> <span class="st">'DOY'</span>)</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>    red_patch <span class="op">=</span> mpatches.Patch(color<span class="op">=</span>c[i], label<span class="op">=</span><span class="ss">f'</span><span class="sc">{</span>sixSigP<span class="sc">.</span>Species<span class="sc">.</span>unique()[i]<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a>    l.append(red_patch)</span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a>h.set_title(<span class="st">"Flowering DOY vs Precipitation for Clarkia Purpurea in CA06"</span>)</span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>h.set_xlabel(<span class="st">"Average Yearly Precipitation (In.)"</span>, fontsize <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a>h.set_ylabel(<span class="st">"Average Flowering Day of Year"</span>, fontsize <span class="op">=</span> <span class="dv">15</span>)</span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a>plt.legend(handles<span class="op">=</span>l)</span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a>plt.savefig(<span class="st">'sixSigP.png'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="index_files/figure-html/cell-41-output-1.png" class="img-fluid figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="conclusion-and-discussion" class="level2">
+<h2 class="anchored" data-anchor-id="conclusion-and-discussion">Conclusion and Discussion</h2>
+<p>This study addressed two key questions: (1) whether average flowering observation dates are influenced by temperature or precipitation changes, and (2) if specific climate zones, like coastal Southern California, exhibit more pronounced phenological shifts compared to statewide trends.</p>
+<p><strong>Key Findings:</strong> 1. <strong>Temperature and Phenology</strong>: Across all species, significant correlations with temperature exhibited negative coefficients, indicating earlier flowering with rising temperatures. For instance, <em>Clarkia bottae</em> blooms ~11 days earlier for every 1°C temperature increase. Over 50 years, California’s average temperature rose by ~1°C, significantly impacting native species.</p>
+<ol start="2" type="1">
+<li><p><strong>Precipitation and Phenology</strong>: Significant correlations with precipitation were positive, meaning reduced rainfall led to earlier flowering. Though annual precipitation trends were not statistically significant, extreme events likely influence phenology and destabilize communities.</p></li>
+<li><p><strong>Regional Patterns</strong>: Statewide, only native species showed significant correlations with temperature. In coastal Southern California (climate division 6), significant responses were observed in <em>Clarkia purpurea</em> and <em>Chaenactis glabriuscula</em>, with <em>Clarkia purpurea</em> being sensitive to both temperature and precipitation.</p></li>
+<li><p><strong>Native vs.&nbsp;Invasive Species</strong>: Native species were more affected by climate change than invasive species, potentially giving invasives a competitive advantage. Earlier flowering in natives could lead to ecosystem shifts and competitive displacement by invasives.</p></li>
+</ol>
+<p><strong>Limitations and Recommendations</strong>: - Limited species count and uneven data distribution across regions and species. - Precipitation analysis could be refined by focusing on seasonal rather than annual totals. - More comprehensive studies are needed, especially with equal representation of native and invasive species.</p>
+<p><strong>Implications</strong>: Native species like <em>Clarkia purpurea</em>, critical to ecosystem stability, are highly vulnerable to climate change. Differential impacts across climate divisions necessitate tailored conservation strategies. Without intervention, these shifts could lead to ecosystem reorganization, favoring invasive species and jeopardizing native biodiversity.</p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2024, Ian Morris-Sibaja</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This website is built with <i class="fa-brands fa-github-alt" title="the alt octocat github icon" aria-label="github-alt"></i></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>
