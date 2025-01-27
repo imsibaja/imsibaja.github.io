@@ -1,38 +1,17 @@
 [
   {
-    "objectID": "applied-python-portfolio-2022/about.html",
-    "href": "applied-python-portfolio-2022/about.html",
-    "title": "About",
+    "objectID": "posts.html",
+    "href": "posts.html",
+    "title": "Blog",
     "section": "",
-    "text": "This website hosts blog posts detailing python exercises done as an undergraduate in 2022. Enjoy.\n\nMore Information\nAspiring to find the intersection between programming and ecology.\n\n\nContact me\nimsibaja@proton.me"
+    "text": "Bloom Shift\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nJan 27, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nThe Environmental Effects of the 2017 Thomas Fire\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nDec 19, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHello World!\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nMy first blog\n\n\n\nIMS\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "applied-python-portfolio-2022/404.html",
-    "href": "applied-python-portfolio-2022/404.html",
-    "title": "404 - Page not found",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Ian Morris-Sibaja",
     "section": "",
-    "text": "Sorry, we can’t find that page that you’re looking for. You can try again by going back to the homepage."
-  },
-  {
-    "objectID": "about.html",
-    "href": "about.html",
-    "title": "About",
-    "section": "",
-    "text": "Master in Environmental Data Science"
-  },
-  {
-    "objectID": "about.html#about-me",
-    "href": "about.html#about-me",
-    "title": "About",
-    "section": "",
-    "text": "Master in Environmental Data Science"
-  },
-  {
-    "objectID": "about.html#previous-portfolios",
-    "href": "about.html#previous-portfolios",
-    "title": "About",
-    "section": "Previous Portfolios",
-    "text": "Previous Portfolios\nPython with Applications"
+    "text": "Drawing on his research and fieldwork experiences, Ian is now pursuing a Master of Environmental Data Science from the UCSB Bren School. His ultimate goal is to utilize his analytical toolkit to develop data-driven solutions that measure and mediate human impacts on the natural environments of Southern California."
   },
   {
     "objectID": "posts/2024-12-13-thomas-fire/index.html",
@@ -82,48 +61,6 @@
     "title": "Hello World!",
     "section": "",
     "text": "In my first language, C++\n#include &lt;iostream&gt;\n\nint main(){\n  std::cout&lt;&lt;\"Hello, World!\"&lt;&lt;std::endl;\n  return 0;\n}\nIn my favorite language, Python:\nprint(\"Hello, World!\")\nIn a language I am forced to use, R:\nprint(\"Hello, World!\")\nErm… How original…\nNo programmer is complete without the proverbial “Hello World!”. Now that that is done, I’ll the rest of the blog will be dedicated to Environmental Data Science. What’s that you say? Why don’t you check out my other posts and find out!"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Ian Morris-Sibaja",
-    "section": "",
-    "text": "Drawing on his research and fieldwork experiences, Ian is now pursuing a Master of Environmental Data Science from the UCSB Bren School. His ultimate goal is to utilize his analytical toolkit to develop data-driven solutions that measure and mediate human impacts on the natural environments of Southern California."
-  },
-  {
-    "objectID": "posts.html",
-    "href": "posts.html",
-    "title": "Blog",
-    "section": "",
-    "text": "Bloom Shift\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nJan 27, 2025\n\n\n\n\n\n\n\n\n\n\n\n\nThe Environmental Effects of the 2017 Thomas Fire\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nDec 19, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHello World!\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nMy first blog\n\n\n\nIMS\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
-  },
-  {
-    "objectID": "applied-python-portfolio-2022/blog-post-2/blog-2.html",
-    "href": "applied-python-portfolio-2022/blog-post-2/blog-2.html",
-    "title": "Blog Post 2",
-    "section": "",
-    "text": "In this blog post, I will show you how to create a webapp using Flask. The app will take in a user submitted message and their handler into a database. In addition, we will be able to view a sample of the messages by pulling from the database.\n\n\nThere are five functions that I used in the creation of this web app.\n\n\nThe overall function of get_message_db() is to make sure there is a table ‘messages’ in a database ‘message_db’ and a connection to this database. This will ensure that we can later modify the database in future functions.\ndef get_message_db():\n\n    #Checks whether there is a database called message_db in the g attribute of the app\n    if 'message_db' not in g:\n        g.message_db = sqlite3.connect('message_db.sqlite')\n        \n    #Checks whether a table called messages exists in message_db, \n    #and creates it if not. Gives the columns id, handle, and message\n    g.message_db.execute(   '''\n                            CREATE TABLE IF NOT EXISTS messages \n                            (id INTEGER, handle TEXT, message TEXT);\n                            ''')\n    #returns the connection to the database\n    return g.message_db\n\n\n\nThe insert_message(request) function will take in request as a parameter. Request is a built in object of the Flask library. Its built in attributes make it easy to extract user submitted data from a POST form. It will take this extracted data, which is the user’s message and handle, and then submit it into the previously made database.\ndef insert_message(request):\n\n    #extracts the message and handle from the post request\n    #ie. assigns the user's submission to variables \n    mVal = request.form[\"mess\"]\n    hVal = request.form[\"user\"]\n\n    #assigns database connection to variable\n    db = get_message_db()\n\n    #will find length of table in database\n    count = db.execute(\"SELECT COUNT(*) FROM messages;\")\n    #add one to length of table to ensure every submission has a unique id\n    iVal = int(count.fetchall()[0][0]) + 1\n    #assign previous variables to each sequential column in database\n    db.execute('INSERT INTO messages (id, handle, message) VALUES (?, ?, ?)',\n                (iVal, hVal, mVal))\n    #saves your varibles into database\n    db.commit()\n    #close connection to database\n    db.close()\n\n    return \n\n\n\nThis function will allow the url “…/submit/” to display the html template with the added variables that I will go through below. It will give tangible proof of the functions from above.\n#route this function to the url \".../submit/\" w/ both POST and GET methods usable\n@app.route('/submit/', methods=['POST', 'GET'])\ndef submit():\n    if request.method == 'GET':\n        #this will render the base templete submit.html to the website when there has not been a post method submitted\n        return render_template('submit.html')\n    else:\n        #try to extract the user submission and upload it into the database\n        try:\n            insert_message(request)\n            return render_template('submit.html', thanks = True)\n        #if fails, shows a message on the base template saying there was an error\n        except:\n            return render_template('submit.html', error = True)\n\n\n\nThis function will take a parameter n, which is the max number of messgaes and their handles extracted from the database that it shall return. This will make it possible that there is a list of messages and handles that can be displayed on the website.\ndef random_messages(n):\n\n    #connect to the database\n    db = get_message_db()\n    \n    #extract a randomized list containing 5 random messages and their handles\n    id = db.execute('''\n                    SELECT message, handle FROM messages \n                    ORDER BY RANDOM() LIMIT (?);\n                    ''', (n,))\n    idFetch = id.fetchall()\n\n    #close the database\n    db.close()\n\n    #return list of tuples of all the messages and their handles\n    return idFetch\n\n\n\nThis last function will allow the url “…/view/” to display the html template with the added variable of the randomized messages, the final product of all the above functions\n#route this function to the url \".../view/\" w/ GET method only\n@app.route('/view/', methods=['GET'])\ndef view():\n    try:\n        #try to extract a random number of messages (1-5) from the database\n        rNum = random.randint(1, 5)\n        mssg = random_messages(rNum)\n        #if succesful, post those messages to the template\n        return render_template('view.html', mssg = mssg)\n    except:\n        #if fails, shows a message on the base template saying there was an error\n        return render_template('view.html', error = True)\n\n\n\n\n\n\n\nhtmlTemplateComments.png\n\n\nThese HTML templates make it easy to compile websites, especially when extending, as it provides ways to quickly keep a website uniform. The Jinja syntax also makes passing varibles easy to ajust websites as new imformation is presented.\n\n\n\n \n\n\n\nhttps://github.com/ianmorris13/ianmorris13.github.io/tree/master/blog-post-2"
-  },
-  {
-    "objectID": "applied-python-portfolio-2022/blog-post-2/blog-2.html#python-functions",
-    "href": "applied-python-portfolio-2022/blog-post-2/blog-2.html#python-functions",
-    "title": "Blog Post 2",
-    "section": "",
-    "text": "There are five functions that I used in the creation of this web app.\n\n\nThe overall function of get_message_db() is to make sure there is a table ‘messages’ in a database ‘message_db’ and a connection to this database. This will ensure that we can later modify the database in future functions.\ndef get_message_db():\n\n    #Checks whether there is a database called message_db in the g attribute of the app\n    if 'message_db' not in g:\n        g.message_db = sqlite3.connect('message_db.sqlite')\n        \n    #Checks whether a table called messages exists in message_db, \n    #and creates it if not. Gives the columns id, handle, and message\n    g.message_db.execute(   '''\n                            CREATE TABLE IF NOT EXISTS messages \n                            (id INTEGER, handle TEXT, message TEXT);\n                            ''')\n    #returns the connection to the database\n    return g.message_db\n\n\n\nThe insert_message(request) function will take in request as a parameter. Request is a built in object of the Flask library. Its built in attributes make it easy to extract user submitted data from a POST form. It will take this extracted data, which is the user’s message and handle, and then submit it into the previously made database.\ndef insert_message(request):\n\n    #extracts the message and handle from the post request\n    #ie. assigns the user's submission to variables \n    mVal = request.form[\"mess\"]\n    hVal = request.form[\"user\"]\n\n    #assigns database connection to variable\n    db = get_message_db()\n\n    #will find length of table in database\n    count = db.execute(\"SELECT COUNT(*) FROM messages;\")\n    #add one to length of table to ensure every submission has a unique id\n    iVal = int(count.fetchall()[0][0]) + 1\n    #assign previous variables to each sequential column in database\n    db.execute('INSERT INTO messages (id, handle, message) VALUES (?, ?, ?)',\n                (iVal, hVal, mVal))\n    #saves your varibles into database\n    db.commit()\n    #close connection to database\n    db.close()\n\n    return \n\n\n\nThis function will allow the url “…/submit/” to display the html template with the added variables that I will go through below. It will give tangible proof of the functions from above.\n#route this function to the url \".../submit/\" w/ both POST and GET methods usable\n@app.route('/submit/', methods=['POST', 'GET'])\ndef submit():\n    if request.method == 'GET':\n        #this will render the base templete submit.html to the website when there has not been a post method submitted\n        return render_template('submit.html')\n    else:\n        #try to extract the user submission and upload it into the database\n        try:\n            insert_message(request)\n            return render_template('submit.html', thanks = True)\n        #if fails, shows a message on the base template saying there was an error\n        except:\n            return render_template('submit.html', error = True)\n\n\n\nThis function will take a parameter n, which is the max number of messgaes and their handles extracted from the database that it shall return. This will make it possible that there is a list of messages and handles that can be displayed on the website.\ndef random_messages(n):\n\n    #connect to the database\n    db = get_message_db()\n    \n    #extract a randomized list containing 5 random messages and their handles\n    id = db.execute('''\n                    SELECT message, handle FROM messages \n                    ORDER BY RANDOM() LIMIT (?);\n                    ''', (n,))\n    idFetch = id.fetchall()\n\n    #close the database\n    db.close()\n\n    #return list of tuples of all the messages and their handles\n    return idFetch\n\n\n\nThis last function will allow the url “…/view/” to display the html template with the added variable of the randomized messages, the final product of all the above functions\n#route this function to the url \".../view/\" w/ GET method only\n@app.route('/view/', methods=['GET'])\ndef view():\n    try:\n        #try to extract a random number of messages (1-5) from the database\n        rNum = random.randint(1, 5)\n        mssg = random_messages(rNum)\n        #if succesful, post those messages to the template\n        return render_template('view.html', mssg = mssg)\n    except:\n        #if fails, shows a message on the base template saying there was an error\n        return render_template('view.html', error = True)"
-  },
-  {
-    "objectID": "applied-python-portfolio-2022/blog-post-2/blog-2.html#html-template",
-    "href": "applied-python-portfolio-2022/blog-post-2/blog-2.html#html-template",
-    "title": "Blog Post 2",
-    "section": "",
-    "text": "htmlTemplateComments.png\n\n\nThese HTML templates make it easy to compile websites, especially when extending, as it provides ways to quickly keep a website uniform. The Jinja syntax also makes passing varibles easy to ajust websites as new imformation is presented."
-  },
-  {
-    "objectID": "applied-python-portfolio-2022/blog-post-2/blog-2.html#repository-link",
-    "href": "applied-python-portfolio-2022/blog-post-2/blog-2.html#repository-link",
-    "title": "Blog Post 2",
-    "section": "",
-    "text": "https://github.com/ianmorris13/ianmorris13.github.io/tree/master/blog-post-2"
   },
   {
     "objectID": "posts/2025-01-26-bloom-shift/index.html",
@@ -187,5 +124,26 @@
     "title": "Bloom Shift",
     "section": "",
     "text": "This study addressed two key questions: (1) whether average flowering observation dates are influenced by temperature or precipitation changes, and (2) if specific climate zones, like coastal Southern California, exhibit more pronounced phenological shifts compared to statewide trends.\nKey Findings: 1. Temperature and Phenology: Across all species, significant correlations with temperature exhibited negative coefficients, indicating earlier flowering with rising temperatures. For instance, Clarkia bottae blooms ~11 days earlier for every 1°C temperature increase. Over 50 years, California’s average temperature rose by ~1°C, significantly impacting native species.\n\nPrecipitation and Phenology: Significant correlations with precipitation were positive, meaning reduced rainfall led to earlier flowering. Though annual precipitation trends were not statistically significant, extreme events likely influence phenology and destabilize communities.\nRegional Patterns: Statewide, only native species showed significant correlations with temperature. In coastal Southern California (climate division 6), significant responses were observed in Clarkia purpurea and Chaenactis glabriuscula, with Clarkia purpurea being sensitive to both temperature and precipitation.\nNative vs. Invasive Species: Native species were more affected by climate change than invasive species, potentially giving invasives a competitive advantage. Earlier flowering in natives could lead to ecosystem shifts and competitive displacement by invasives.\n\nLimitations and Recommendations: - Limited species count and uneven data distribution across regions and species. - Precipitation analysis could be refined by focusing on seasonal rather than annual totals. - More comprehensive studies are needed, especially with equal representation of native and invasive species.\nImplications: Native species like Clarkia purpurea, critical to ecosystem stability, are highly vulnerable to climate change. Differential impacts across climate divisions necessitate tailored conservation strategies. Without intervention, these shifts could lead to ecosystem reorganization, favoring invasive species and jeopardizing native biodiversity."
+  },
+  {
+    "objectID": "about.html",
+    "href": "about.html",
+    "title": "About",
+    "section": "",
+    "text": "Master in Environmental Data Science"
+  },
+  {
+    "objectID": "about.html#about-me",
+    "href": "about.html#about-me",
+    "title": "About",
+    "section": "",
+    "text": "Master in Environmental Data Science"
+  },
+  {
+    "objectID": "about.html#previous-portfolios",
+    "href": "about.html#previous-portfolios",
+    "title": "About",
+    "section": "Previous Portfolios",
+    "text": "Previous Portfolios\nPython with Applications"
   }
 ]
