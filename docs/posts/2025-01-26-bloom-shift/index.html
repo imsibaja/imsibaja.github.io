@@ -241,7 +241,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="import-libraries" class="level2">
 <h2 class="anchored" data-anchor-id="import-libraries">Import Libraries</h2>
-<div id="0a8cd6ae" class="cell" data-execution_count="300">
+<div id="0a8cd6ae" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Import Modules</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Import modules</span></span>
@@ -263,7 +263,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </section>
 <section id="climate-data" class="level2">
 <h2 class="anchored" data-anchor-id="climate-data">Climate Data</h2>
-<div id="34e8238c" class="cell" data-execution_count="301">
+<div id="34e8238c" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Load Climate Data</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set the directory to the climate data</span></span>
@@ -277,7 +277,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="kw">del</span> d[<span class="st">'.DS_Store'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="560ba576" class="cell" data-execution_count="302">
+<div id="560ba576" class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># iterate over the dictionary and add the COOP_ID and type of data to each dataframe</span></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>maxMinT <span class="op">=</span> []</span>
 <span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>maxMinP <span class="op">=</span> []</span>
@@ -292,7 +292,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>    d[key] <span class="op">=</span> d[key].loc[:, <span class="op">~</span>d[key].columns.<span class="bu">str</span>.contains(<span class="st">'^Unnamed'</span>)]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <p>The National Weather Service (NWS) Cooperative Observer Program (COOP) is a network of daily weather observations taken by more than 8,500 volunteers. Here we import and clean the data to be manipulated in out dataset.</p>
-<div id="b4bb0451" class="cell" data-execution_count="303">
+<div id="b4bb0451" class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a dataframe with COOP information </span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>coopNames <span class="op">=</span> pd.read_csv(<span class="st">'./data/Coopnames.csv'</span>)</span>
 <span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>coopNames <span class="op">=</span> coopNames.drop([<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>]).reset_index(drop<span class="op">=</span><span class="va">True</span>)</span>
@@ -301,7 +301,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># convert COOP_ID to int</span></span>
 <span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>coopNames.COOP_ID <span class="op">=</span> coopNames.COOP_ID.astype(<span class="bu">int</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="567a9ea7" class="cell" data-execution_count="304">
+<div id="567a9ea7" class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># merge the COOP information with the climate data</span></span>
 <span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> pd.concat(d.values(), ignore_index<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -314,12 +314,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop.loc[:, <span class="op">~</span>coop.columns.<span class="bu">str</span>.contains(<span class="st">'^Unnamed'</span>)]</span>
 <span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop.drop([<span class="st">'January'</span>], axis <span class="op">=</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="f0148b17" class="cell" data-execution_count="305">
+<div id="f0148b17" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>COOP Data</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>coop</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
-<div class="cell-output cell-output-display" data-execution_count="305">
+<div class="cell-output cell-output-display" data-execution_count="6">
 <div>
 
 
@@ -562,24 +562,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="802f6319" class="cell">
+<div id="802f6319" class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assign the correct data types to the columns</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop.astype({col: <span class="bu">float</span> <span class="cf">for</span> col <span class="kw">in</span> coop.columns[<span class="dv">1</span>:<span class="op">-</span><span class="dv">2</span>]})</span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop.astype({col: <span class="bu">int</span> <span class="cf">for</span> col <span class="kw">in</span> coop.columns[:<span class="dv">1</span>]})</span>
 <span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop.astype({col: <span class="bu">int</span> <span class="cf">for</span> col <span class="kw">in</span> coop.columns[<span class="op">-</span><span class="dv">2</span>:<span class="op">-</span><span class="dv">1</span>]})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="339f2912" class="cell" data-execution_count="307">
+<div id="339f2912" class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># merge the COOP names with COOP data</span></span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>coop <span class="op">=</span> coop.merge(coopNames, left_on<span class="op">=</span><span class="st">'COOP_ID'</span>, right_on<span class="op">=</span><span class="st">'COOP_ID'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="fb62eb78" class="cell" data-execution_count="308">
+<div id="fb62eb78" class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># assign percipitation and temperature data to separate dataframes</span></span>
 <span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>coopT <span class="op">=</span> coop[coop[<span class="st">'type'</span>] <span class="op">==</span> <span class="st">'t'</span>]</span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>coopP <span class="op">=</span> coop[coop[<span class="st">'type'</span>] <span class="op">==</span> <span class="st">'p'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="e8fdd12e" class="cell" data-execution_count="309">
+<div id="e8fdd12e" class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>coopT.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="309">
+<div class="cell-output cell-output-display" data-execution_count="10">
 <div>
 
 
@@ -731,9 +731,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="1e21dc4d" class="cell" data-execution_count="310">
+<div id="1e21dc4d" class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>coopP.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="310">
+<div class="cell-output cell-output-display" data-execution_count="11">
 <div>
 
 
@@ -885,14 +885,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="2fd6f54d" class="cell" data-execution_count="311">
+<div id="2fd6f54d" class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># drop the type column from the dataframes</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>coopP <span class="op">=</span> coopP.drop([<span class="st">'type'</span>], axis <span class="op">=</span><span class="dv">1</span>).reset_index(drop <span class="op">=</span> <span class="va">True</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>coopT <span class="op">=</span> coopT.drop([<span class="st">'type'</span>], axis <span class="op">=</span><span class="dv">1</span>).reset_index(drop <span class="op">=</span> <span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="e2eda71d" class="cell" data-execution_count="312">
+<div id="e2eda71d" class="cell" data-execution_count="13">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>coopT.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="312">
+<div class="cell-output cell-output-display" data-execution_count="13">
 <div>
 
 
@@ -1038,9 +1038,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="cc968a81" class="cell" data-execution_count="313">
+<div id="cc968a81" class="cell" data-execution_count="14">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>coopP.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="313">
+<div class="cell-output cell-output-display" data-execution_count="14">
 <div>
 
 
@@ -1186,14 +1186,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="52e2f807" class="cell" data-execution_count="314">
+<div id="52e2f807" class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># group the data by year and calculate the average temperature and precipitation</span></span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>coopTavg <span class="op">=</span> coopT.groupby([<span class="st">'YEAR(S)'</span>])[[<span class="st">'ANN'</span>]].mean()</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>coopPavg <span class="op">=</span> coopP.groupby([<span class="st">'YEAR(S)'</span>])[[<span class="st">'ANN'</span>]].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="baa04663" class="cell" data-execution_count="315">
+<div id="baa04663" class="cell" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>coopPavg.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="315">
+<div class="cell-output cell-output-display" data-execution_count="16">
 <div>
 
 
@@ -1235,10 +1235,10 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="2b22aed6" class="cell" data-execution_count="316">
+<div id="2b22aed6" class="cell" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>coopTavg.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="316">
+<div class="cell-output cell-output-display" data-execution_count="17">
 <div>
 
 
@@ -1284,7 +1284,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="flowering-data" class="level2">
 <h2 class="anchored" data-anchor-id="flowering-data">Flowering Data</h2>
 <p>The <code>flowerDataFrame</code> function processes and filters occurrence data for a specified plant species in California, returning a clean, structured DataFrame with relevant details such as geographic coordinates, flowering dates, and native status.</p>
-<div id="32e70323" class="cell" data-execution_count="317">
+<div id="32e70323" class="cell" data-execution_count="18">
 <details class="code-fold">
 <summary>Flowering Data Function</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> flowerDataFrame(name, isNative):</span>
@@ -1354,7 +1354,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb18-65"><a href="#cb18-65" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="cf2395fc" class="cell" data-execution_count="318">
+<div id="cf2395fc" class="cell" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co">#native plants</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>lasCal <span class="op">=</span> flowerDataFrame(<span class="st">'Lasthenia californica'</span>, <span class="st">'yes'</span>)</span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>plntgo <span class="op">=</span> flowerDataFrame(<span class="st">"Plantago erecta Morris"</span>, <span class="st">'yes'</span>)</span>
@@ -1368,7 +1368,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>cntrea <span class="op">=</span> flowerDataFrame(<span class="st">"Centaurea solstitialis"</span>, <span class="st">'no'</span>)</span>
 <span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>brssTG <span class="op">=</span> flowerDataFrame(<span class="st">"Brassica tournefortii Gouan"</span>, <span class="st">'no'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="f92d54f0" class="cell" data-execution_count="319">
+<div id="f92d54f0" class="cell" data-execution_count="20">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co">#concat all species dataframes into one big one</span></span>
 <span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>flowersCA <span class="op">=</span> pd.concat([lasCal, plntgo, clrkiP, clrkiB, chaenc, amsink,</span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>                       mdcgoP, cntrea, brssTG])</span>
@@ -1379,18 +1379,18 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="climate-division-wrangling" class="level2">
 <h2 class="anchored" data-anchor-id="climate-division-wrangling">Climate Division Wrangling</h2>
 <p>Below I take a shape file from from NOAAs database, and determine which climate divisions each observation falls under.</p>
-<div id="c05725cf" class="cell" data-execution_count="320">
+<div id="c05725cf" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># from NOAAs shapefile, find useful columns and determine which are within CA</span></span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>climateDivs <span class="op">=</span> gpd.read_file(<span class="st">"./data/climateDiv/GIS.OFFICIAL_CLIM_DIVISIONS.shp"</span>)</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>climateDivs <span class="op">=</span> climateDivs[climateDivs[<span class="st">"ST_ABBRV"</span>] <span class="op">==</span> <span class="st">'CA'</span>]</span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>climateDivs <span class="op">=</span> climateDivs[[<span class="st">"CD_NEW"</span>, <span class="st">'geometry'</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="b80376e6" class="cell" data-execution_count="321">
+<div id="b80376e6" class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set both coordinate reference systems to be the same so the dataframes are accurately compared</span></span>
 <span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>climateDivs <span class="op">=</span> climateDivs.set_crs(<span class="st">"EPSG:4326"</span>, allow_override<span class="op">=</span><span class="va">True</span>)</span>
 <span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>flowersCA <span class="op">=</span> flowersCA.set_crs(<span class="st">"EPSG:4326"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="36e6ba6c" class="cell" data-execution_count="322">
+<div id="36e6ba6c" class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># this will join the two datasets based on if flowering observation</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="co"># geometry points are within the climate division shapefiles, </span></span>
 <span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># and add a column within each observation of said Climate Divsion</span></span>
@@ -1403,11 +1403,11 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># write only necessary info to csv for quick web parsing</span></span>
 <span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>flowersCA.to_csv(<span class="st">'./data/flowersCA.csv'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="2ece9e72" class="cell" data-execution_count="323">
+<div id="2ece9e72" class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># group the data by species, year, native status, and climate division, and calculate the average day of year that the species flowers</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>avgPhenologyDiv <span class="op">=</span> flowersCA.groupby([<span class="st">'species'</span>, <span class="st">'year'</span>, <span class="st">'native'</span>, <span class="st">'ClimateDivision'</span>])[[<span class="st">"DOY"</span>]].mean().reset_index().<span class="bu">round</span>(<span class="dv">0</span>)</span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>avgPhenologyDiv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="323">
+<div class="cell-output cell-output-display" data-execution_count="24">
 <div>
 
 
@@ -1528,20 +1528,20 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <li>Results Compilation: The species name, p-values, R-squared, and adjusted R-squared values for both models are stored in a summary DataFrame (stateSum).</li>
 <li>Significant Results: If the regression p-values indicate statistical significance, the corresponding data for temperature or precipitation is labeled, augmented with species and region information, and added to a significant results DataFrame (sigSum).</li>
 </ul>
-<div id="eb7f29fe" class="cell" data-execution_count="325">
+<div id="eb7f29fe" class="cell" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dictionary to store unique species names</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>flowD <span class="op">=</span> {}</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(avgPhenologyDiv.species.unique())):</span>
 <span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>    flowD[i] <span class="op">=</span> avgPhenologyDiv.species.unique()[i]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="a9fc61ad" class="cell" data-execution_count="326">
+<div id="a9fc61ad" class="cell" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dictionary to store species with significant p-values</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>sigSum <span class="op">=</span> pd.DataFrame([])</span>
 <span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a><span class="co"># set significance level</span></span>
 <span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a>pval <span class="op">=</span> <span class="fl">.05</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="ff11a555" class="cell" data-scrolled="false" data-execution_count="327">
+<div id="ff11a555" class="cell" data-scrolled="false" data-execution_count="27">
 <details class="code-fold">
 <summary>State Wide Summary Data</summary>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dictionary to store the state summary data</span></span>
@@ -1617,9 +1617,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb27-71"><a href="#cb27-71" aria-hidden="true" tabindex="-1"></a>        sigSum <span class="op">=</span> pd.concat([sigSum, dfP], ignore_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="70e5ad21" class="cell" data-execution_count="328">
+<div id="70e5ad21" class="cell" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>stateSum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="328">
+<div class="cell-output cell-output-display" data-execution_count="28">
 <div>
 
 
@@ -1733,7 +1733,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="b48d722d" class="cell" data-execution_count="329">
+<div id="b48d722d" class="cell" data-execution_count="29">
 <details class="code-fold">
 <summary>Socal Summary Data</summary>
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dictionary to store the south state summary data</span></span>
@@ -1811,9 +1811,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb29-73"><a href="#cb29-73" aria-hidden="true" tabindex="-1"></a>        sigSum <span class="op">=</span> pd.concat([sigSum, dfP], ignore_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="8943ea47" class="cell" data-execution_count="330">
+<div id="8943ea47" class="cell" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>souSum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="330">
+<div class="cell-output cell-output-display" data-execution_count="30">
 <div>
 
 
@@ -1927,7 +1927,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="45619e16" class="cell" data-execution_count="331">
+<div id="45619e16" class="cell" data-execution_count="31">
 <details class="code-fold">
 <summary>Climate Division 6 Summary Data</summary>
 <div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># create a dictionary to store the average flowering days</span></span>
@@ -2009,9 +2009,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb31-77"><a href="#cb31-77" aria-hidden="true" tabindex="-1"></a>        sigSum <span class="op">=</span> pd.concat([sigSum, dfP], ignore_index<span class="op">=</span><span class="va">True</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="356b746b" class="cell" data-execution_count="332">
+<div id="356b746b" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>sixSum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="332">
+<div class="cell-output cell-output-display" data-execution_count="32">
 <div>
 
 
@@ -2130,9 +2130,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="visualize-summary-statistics">Visualize Summary Statistics</h2>
 <section id="figures" class="level3">
 <h3 class="anchored" data-anchor-id="figures">Figures</h3>
-<div id="eb3d5746" class="cell" data-execution_count="333">
+<div id="eb3d5746" class="cell" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a>sigSum</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="333">
+<div class="cell-output cell-output-display" data-execution_count="33">
 <div>
 
 
@@ -2243,15 +2243,15 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="0809769c" class="cell" data-execution_count="334">
+<div id="0809769c" class="cell" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># filter the significant summary data to each region</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>stateSig <span class="op">=</span> sigSum[sigSum[<span class="st">'Region'</span>] <span class="op">==</span> <span class="st">'State'</span>]</span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>souSig <span class="op">=</span> sigSum[sigSum[<span class="st">'Region'</span>] <span class="op">==</span> <span class="st">'South'</span>]</span>
 <span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a>sixSig <span class="op">=</span> sigSum[sigSum[<span class="st">'Region'</span>] <span class="op">==</span> <span class="st">'Six'</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="6ed409fa" class="cell" data-execution_count="335">
+<div id="6ed409fa" class="cell" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a>stateSig.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="335">
+<div class="cell-output cell-output-display" data-execution_count="35">
 <div>
 
 
@@ -2313,9 +2313,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="527f5bb5" class="cell" data-execution_count="336">
+<div id="527f5bb5" class="cell" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a>souSig.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="336">
+<div class="cell-output cell-output-display" data-execution_count="36">
 <div>
 
 
@@ -2337,9 +2337,9 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="9e07da2f" class="cell" data-execution_count="337">
+<div id="9e07da2f" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a>sixSig.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="337">
+<div class="cell-output cell-output-display" data-execution_count="37">
 <div>
 
 
@@ -2401,7 +2401,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="4cb914cc" class="cell" data-execution_count="338">
+<div id="4cb914cc" class="cell" data-execution_count="38">
 <details class="code-fold">
 <summary>Flowering DOY vs Temperature for Native Flowers in California</summary>
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set plot size</span></span>
@@ -2431,7 +2431,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="969915b8" class="cell" data-execution_count="340">
+<div id="969915b8" class="cell" data-execution_count="39">
 <details class="code-fold">
 <summary>Flowering DOY vs Temperature for Clarkia Purpurea in CA06</summary>
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set plot size</span></span>
@@ -2464,7 +2464,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 </div>
-<div id="6fe48c43" class="cell" data-execution_count="341">
+<div id="6fe48c43" class="cell" data-execution_count="40">
 <details class="code-fold">
 <summary>Flowering DOY vs Precipitation for Clarkia Purpurea in CA06</summary>
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set plot size</span></span>
