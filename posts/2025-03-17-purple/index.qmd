@@ -1,0 +1,464 @@
+---
+title: "A lack of Pisaster may lead to ... disaster"
+subtitle: "EDS 240 - HW4"
+author: 
+  - name: "IMS"
+    url: https://imsibaja.github.io/
+    affiliation: MEDS
+    affiliation-url: https://bren.ucsb.edu/masters-programs/master-environmental-data-science
+date: 03-17-2025
+categories: [Quarto, MEDS]
+toc: true
+format:
+  html:
+    embed-resources: true
+image: distributions.gif
+citation:
+  url: httpls://imsibaja.github.io/posts/2025-03-17-2025-purple
+---
+
+# Purple Sea Stars and Pacific Purple Sea Urchins
+
+## Introduction
+
+Sea stars and sea urchins play an important role in ocean ecosystems. Sea stars are generally population controllers. Purple sea stars (Pisaster ochraceus) in particular control sea snail, mussel, and urchin populations which allows other species, such as barnacles and algae, to thrive with adequate resources. Additionally, algae provide habitat and food for a plethora of other species - species such as the pacific purple sea urchin (Strongylocentrotus purpuratus), who are herbivores that graze on algae. In addition to algae, urchins will passively wait for detritus (kelp fragments) to float their way. However, in times of scarcity, urchins will hunt kelp forests to feed on.
+
+Kelp forests are essential for ocean health. They provide food, shelter, and other protections for marine life. Additionally, they are an important resource in economic and commercial opportunities explored by humans. As such, maintaining kelp forest health is pertinent to protect the ocean.
+
+Without sea stars, urchins may overgraze kelp. Urchins tend to feed on the "holdfast", or base root like structure of the kelp. When grazing is focused on the holdfast, kelp forests can be quickly and systematically decimated, as without any anchor, the kelp will be swept away from the current. With urchin overgrazing, "urchin barrens" are created, reducing a thriving ecosystem to a excess of urchins and algae that cover the ocean floor.
+
+With that in mind, I explored intertidal observations of the Pacific purple sea urchin and purple sea stars with the goal of diving more into the emperical relationship between these two sea species. I chose these observations to answer the question:
+
+*How do Purple Sea Stars and Purple Urchins interact, and what impact do environmental changes and conservation efforts have on their populations?*
+
+## Infographic
+
+```{=html}
+<video width="75%" style="display: block; margin: 0 auto;" controls muted autoplay loop
+alt="Infographic illustrating the relationship between Purple Sea Stars (Pisaster ochraceus) and Purple Urchins (Strongylocentrotus purpuratus). It highlights their predator-prey dynamics, the impact of Sea Star Wasting Disease in the early 2010s, and the role of Marine Protected Areas (MPAs) in maintaining balance. Includes California coast distribution map, population trend graphs, and comparative charts for MPAs vs. Non-MPAs. Main takeaway: Sea stars are keystone species that control urchin populations. Without them, kelp forests suffer.">
+  <source src="purple.mp4">
+</video>
+```
+
+## Design Process
+
+When I was younger I watched alot of TV, specifically Spongebob. The show always filled me with wonder thinking of all the sea life out there. I wanted to expand on that same feeling it gave me but present it in a more educational format. 
+
+As such, all aesthetic choices were borrowed from the TV show. The title and plot fonts are a recreation of the font seen on the show. When choosing the smaller text, I wanted to keep the same fun, easygoing flow with increase legibility, so I found a more subdued version of that same font. The colors are directly taken from stills that I found particularly pleasing. I did consciously choose colors that would translate well to individuals with color vision deficiencies but still retain the relaxed and fun atmosphere that Spongebob had in every episode. Similarly, an alt text was added to the entire inforgraphic to support individuals who are blind or have visual impairments.
+
+To have the overall design fit the theme, I broke up the main question into three separate subquestions:
+
+1) *How do these two species spatially interact?*
+
+To illustrate the geographic relationship between the Pacific purple sea urchin and the purple sea star, I created a geographic scatter plot from the obserations data. By grouping the region (North, Central, South) and species variables, I calculated the centroids of the locations by year. This gave me a dataframe of all locations, which I then overlayed on a shapefile of California and exported all years into a .gif to see the movement over time.
+
+2) *Have the total abundances changed over time?*
+
+For my second visualization, I used a the overall abundances over 5 binned year ranges to gauge the general trends in which the species populations have fluctuated in the past twenty years.
+
+3) *Do environmental regulations provide protections for a more balanced ecosystem* 
+
+To answer this question, I grouped the species by MPA status, and created a relative abundance plot. The goal of this visualization was to envision how populations fluctuate relative to each other depending on if they are in protected waters or not.
+
+Though these questions are not explicitly stated within the infographic, this choice was intentional. I found there to be too much text if they were included. I wanted readers to easily guide themselves down the infographic without having to feel like they were learning something. By doing this, I hope the reader will learn through osmosis (ie. sponge-like) and come to conclusions themselves. Additionally, I added small paragraphs to add context to each visualizations with key words. These key words were provided without much context for the reader to continue their own exploration into this subject if they desired to. The overall infographic was meant for more sparking intrigue within the subject, rather than detailing a full analysis. 
+
+Though my infographic is focused on ecological relationships within the sea, it is important to recognize that these are not just data points of animals in a far off land. Fluctuations in sea star and urchin populations affect coastal communities that may rely on the commercial aspect of kelp forests. These especially include as food and income, especially within the growing kelp farming industry. Indigenous communities may have deep cultural ties to kelp forests, such as the Tolowa Dee-ni’ Nation. These flucuations threaten their traditional practices and food security as kelp forests decline. Climate change, an issue that affects us all, may further exacerbates threats to marine habitats and species distributions, which in turn may disproportionately affect marginalized communities with fewer resources to adapt. 
+
+## Key Takeaways:
+
+- Spatial Interaction: Purple sea stars and urchins have shifting geographic distributions over time, with often sea stars and sea urchins remaining in similar locations.
+- Population Trends: Over the past 20 years, fluctuations in the populations of purple sea stars and urchins indicate an imbalance, with some years seeing a sharp decline in urchin and sea star numbers.
+- Environmental Protections: Marine Protected Areas (MPAs) show more balanced populations of sea stars and urchins, suggesting that protections can help maintain healthy ecosystems.
+
+This infographic highlights how the dynamic between purple sea stars and purple sea urchins shapes marine ecosystems, and explores differing scales in which either populations are impacted.
+
+## Code Replication
+
+If wanting to replicated my code, follow the steps below. Please contact me for any data if you would like to replicate.
+
+All graphs, as you will see, were created in R. However the infographic itself was compiled using Affinity Designer 2.
+
+
+### Code
+```{r}
+#| eval: false
+#| echo: true
+#| code-fold: true
+# Load packages 
+library(tidyverse)
+library(here)
+library(sf)
+library(gganimate)
+library(sysfonts)
+library(rnaturalearth)  
+library(rnaturalearthdata)
+library(zoo)
+library(ggimage)
+library(scales)
+library(readxl)
+library(ggtext)
+
+# Load Fonts
+sysfonts::font_add_google("Slackey")
+sysfonts::font_add_google("Inter")
+
+# SpongeBob color palette
+# Define your colors
+colors <- c(
+  "Purple" = "#56446E", 
+  "Light Purple" = "#C187D4",
+  "Blue" = "#859ED7",      
+  "Gold" = "#CEA940",    
+  "Pink" = "#CB6D75",    
+  "Green" = "#2A584C",
+  "Sand" = "#F2F0DF",
+  "Black" = "#49484D"
+)
+
+# Custom SpongeBob Theme - without background image
+theme_spongebob <- function() {
+  theme_minimal(base_size = 14) +
+    theme(
+      text = element_text(family = "Slackey", color = colors["Black"]),
+      axis.title = element_text(face = "bold"),
+      axis.text = element_text(face = "italic"),
+      legend.text = element_text(face = "bold"),
+      panel.background = element_blank(),
+      plot.background = element_rect(fill = "transparent", color = "transparent"),  # Use a color, not an image path
+      panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(),
+      legend.box.background = element_rect(fill='transparent'),
+      panel.border = element_blank()
+    )
+}
+
+# Read in three excel files from MARINe biodiversity data 
+point_contact_raw <- read_excel(here('data', 'MARINe_biodiversity_data',
+                                     'cbs_data_CA_2023.xlsx'), sheet = 'point_contact_summary_data')
+quadrat_raw <- read_excel(here('data', 'MARINe_biodiversity_data',
+                               'cbs_data_CA_2023.xlsx'), sheet = 'quadrat_summary_data')
+swath_raw <- read_excel(here('data', 'MARINe_biodiversity_data',
+                             'cbs_data_CA_2023.xlsx'), sheet = 'swath_summary_data')
+
+# Read in Dangermond preserve shape file 
+dangermond <- read_sf(here('data', 'dangermond_shapefile', 'jldp_boundary.shp'))
+
+# Read in California state boundary 
+california <- spData::us_states %>% 
+  filter(NAME == "California")
+
+# Clean point_contact dataset 
+point_contact_clean <- point_contact_raw %>% 
+  # Remove non-matching columns 
+  select(!c('number_of_transect_locations', 'percent_cover')) %>% 
+  # Rename num of hits to total count 
+  rename(total_count = number_of_hits) %>% 
+  # Create new data collection source column 
+  mutate(collection_source = "point contact") %>% 
+  # Remove certain species lumps 
+  filter(!species_lump %in% c("Rock", "Sand", "Tar", "Blue Green Algae", "Red Crust", "Diatom", "Ceramiales"))
+
+# Clean quadrat dataset 
+quadrat_clean <- quadrat_raw %>% 
+  # Remove non-matching columns 
+  select(!c('number_of_quadrats_sampled', 'total_area_sampled_m2', 'density_per_m2')) %>% 
+  # Create new data collection source column 
+  mutate(collection_source = "quadrat") %>% 
+  # Remove certain species lumps 
+  filter(!species_lump %in% c("Rock", "Sand", "Tar", "Blue Green Algae", "Red Crust", "Diatom", "Ceramiales"))
+
+# Clean swath dataset 
+swath_clean <- swath_raw %>% 
+  # Remove non-matching columns 
+  select(!c('number_of_transects_sampled', 'est_swath_area_searched_m2',  'density_per_m2')) %>% 
+  # Create new data collection source column 
+  mutate(collection_source = "swath") %>% 
+  # Remove certain species lumps 
+  filter(!species_lump %in% c("Rock", "Sand", "Tar", "Blue Green Algae", "Red Crust", "Diatom", "Ceramiales"))
+
+# Merge the 3 dataset together
+
+biodiv_merge <- bind_rows(point_contact_clean, quadrat_clean, swath_clean) %>% 
+  filter(year<2021,
+         year>2000)
+
+# Convert to WGS84 to lat long
+california <- st_transform(california, crs = 4326)
+
+# Categorize into regions, mpa status, bin years
+purple_df <- biodiv_merge %>% 
+  filter(total_count >= 1,
+         species_lump  %in% c("Pisaster ochraceus",
+                              "Strongylocentrotus purpuratus"
+         )) %>%  
+  mutate(
+    mpa = case_when(
+      mpa_designation == "NONE" ~ FALSE,
+      TRUE ~ TRUE
+    ),
+    region = case_when(
+      latitude <= 34.44 ~ "South",
+      latitude > 34.44 & latitude <= 37.82 ~ "Central",
+      latitude > 37.82 ~ "North"
+    )
+  ) %>% 
+  mutate(year_bin = round(year/5) * 5) %>% 
+  st_as_sf(coords = c("longitude", "latitude"), crs = st_crs(california), remove = FALSE) %>% 
+  mutate(region = factor(region, levels = c("North", "Central", "South")))
+
+# Check that the crs matches 
+if(st_crs(california) != st_crs(purple_df)) {
+  stop()
+}
+
+#----------------Relative Abundance-------------
+purple_sum <- purple_df %>% 
+  group_by(species_lump, year, mpa) %>% 
+  summarise(num_count = sum(total_count)) 
+
+# Apply smoothing beforehand
+showtext::showtext_auto()
+showtext::showtext_opts(dpi = 250)
+smoothed_data <- purple_sum %>%
+  group_by(species_lump, mpa) %>%
+  mutate(num_count_smooth = predict(loess(num_count ~ year, span = 0.5)))
+
+# Plot the smoothed data
+p2 <- ggplot(smoothed_data, aes(x = year, y = num_count_smooth, 
+                          fill = factor(species_lump, 
+                                        levels = c("Strongylocentrotus purpuratus",
+                                                   "Pisaster ochraceus")))) +  
+  facet_wrap(~mpa, 
+             labeller = labeller(
+               mpa = c("TRUE" = "MPAs", "FALSE" = "non MPAs" )
+             )) +
+  geom_area(position = "fill") +  
+  scale_fill_manual(values = c("Pisaster ochraceus" = "#56446E" , 
+                               "Strongylocentrotus purpuratus" = "#C187D4" 
+  )) +
+  labs(
+    x = "Year",
+    y = "Relative Abundance",
+    fill = "Species"
+  ) +
+  scale_y_continuous(breaks=c(.5,1), labels = scales::percent) +
+  scale_x_continuous(breaks=c(2001, 2010, 2020)) +
+  coord_flip() +
+  theme_spongebob() +
+  theme(
+    axis.ticks.x = element_line(color = colors["Purple"]),
+    axis.ticks.length = unit(3, "pt"),
+    axis.title.y = element_blank(),
+    axis.text = element_text(size=16, margin = margin(8,8,8,8, "pt")),
+    axis.title = element_markdown(size = 18, color = colors["Black"], margin = margin(25, 0, 0, 0)),
+    panel.grid.major = element_blank(),
+    legend.position = "none", 
+    plot.title.position = "plot", 
+    plot.margin = margin(1, 1, 1, 1, "cm"),  # Increased margins
+    panel.spacing = unit(3, "lines"),  # Increased panel spacing
+    plot.title = element_markdown(hjust = .5, vjust = 0, size = 22, color = colors["Purple"], 
+                              margin = margin(0, 0, 20, 0, "pt")),  # Added bottom margin to title
+    plot.subtitle = element_text(hjust = .5, vjust = 0, size = 22, color = colors["Green"],
+                             margin = margin(0, 0, 25, 0, "pt")),  # Added bottom margin to subtitle
+    strip.text = element_text(hjust = .5, vjust = 0, size = 18, color = colors["Blue"])
+  ) 
+
+#ggsave(filename=here("images/rel_abund.png"), width = 20, height = 16, units = "cm", dpi = 300)
+
+p2
+
+
+#----------------Latitudenal Shift Map-------------
+# Load California map
+california <- ne_states(country = "United States of America", returnclass = "sf") %>% 
+  filter(name == "California") %>% 
+  st_transform(crs = 4326)
+
+centroids <- purple_df %>%
+  # find average location by region and species
+  group_by(year, region, species_lump) %>%  
+  summarize(lon = mean(longitude, na.rm = TRUE),  
+            lat = mean(latitude, na.rm = TRUE)) %>% 
+  ungroup() %>% 
+  # interpolate missing data for smooth transitions
+  complete(year, region, species_lump, fill = list(lon = NA, lat = NA)) %>%
+  group_by(region, species_lump) %>% 
+  mutate(lon = na.approx(lon, na.rm = FALSE),  
+         lat = na.approx(lat, na.rm = FALSE)) %>%  
+  ungroup()
+
+
+
+centroids_draft <- centroids 
+
+# Uncomment for animation (takes a while)
+
+# p1 <- ggplot() +
+#   # Add California map
+#   geom_sf(data = california, fill = "#b8dab3") + 
+#   
+#   geom_image(data = centroids_draft %>% 
+#                filter(species_lump == "Strongylocentrotus purpuratus"),
+#              image = here("images", "purple-urchin.png"),
+#              aes(x = lon, y = lat, group = region, color = species_lump), size = .07) + 
+#   
+#   geom_image(data = centroids_draft %>%
+#                filter(species_lump == "Strongylocentrotus purpuratus"),
+#              image = here("images", "purple-urchin.png"),
+#              aes(x = lon, y = lat, group = region), size = .06) +
+#   
+#   geom_image(data = centroids_draft %>% 
+#                filter(species_lump == "Pisaster ochraceus"),
+#              image = here("images", "purple-sea-star.png"),
+#              aes(x = lon, y = lat, color = species_lump, group = region), size = .11) +
+#   
+#   geom_image(data = centroids_draft %>%
+#                filter(species_lump == "Pisaster ochraceus"),
+#              image = here("images", "purple-sea-star.png"),
+#              aes(x = lon, y = lat, group = region), size = .1) +
+#   
+#   scale_color_manual(values = c("Pisaster ochraceus" = "#859ED7", 
+#                                 "Strongylocentrotus purpuratus" = "#859ED7")) +
+#   
+#   
+#   geom_hline(yintercept=34.44, linetype="dashed", color = colors["Blue"]) +
+#   
+#   geom_hline(yintercept=37.82, linetype="dashed", color = colors["Blue"]) +
+#   
+#   annotate("text", x=-122.75, y=39.5, hjust=0, vjust=0, 
+#            label = "North\nCoast", 
+#            family="Slackey", color=colors["Purple"]) +
+#   annotate("text", x=-120, y=35.5, hjust=0, vjust=0, 
+#            label = "Central\nCoast", 
+#            family="Slackey", color=colors["Purple"]) +
+#   annotate("text", x=-117.25, y=33, hjust=0, vjust=0, 
+#            label = "South\nCoast", 
+#            family="Slackey", color=colors["Purple"]) +
+#   
+#   labs(title = "{frame_time}") +
+#   theme_spongebob() +
+#   theme(
+#     axis.title = element_blank(),
+#     axis.text = element_blank(),
+#     panel.grid.major = element_blank(),
+#     legend.position = "none", 
+#     plot.title.position = "plot", 
+#     plot.title = element_text(hjust = .22, vjust = 0, size = 12, color = colors["Purple"])
+#   ) +
+#   
+#   # Animate over years
+#   transition_time(as.integer(year)) +
+#   ease_aes("linear")
+
+#animate(p1, fps = 20, res = 200, height = 480, width = 480, duration=11, bg = 'transparent')
+#anim_save(here("images/distributions.gif"))
+
+
+# Static example
+
+ggplot() +
+  # Add California map
+  geom_sf(data = california, fill = "#b8dab3") + 
+  
+  geom_image(data = centroids_draft %>% 
+               filter(year==2016) %>% 
+               filter(species_lump == "Strongylocentrotus purpuratus"),
+             image = here("images", "purple-urchin.png"),
+             aes(x = lon, y = lat, group = region, color = species_lump), size = .07) + 
+  
+  geom_image(data = centroids_draft %>%
+               filter(year==2016) %>% 
+               filter(species_lump == "Strongylocentrotus purpuratus"),
+             image = here("images", "purple-urchin.png"),
+             aes(x = lon, y = lat, group = region), size = .06) +
+  
+  geom_image(data = centroids_draft %>% 
+               filter(year==2016) %>% 
+               filter(species_lump == "Pisaster ochraceus"),
+             image = here("images", "purple-sea-star.png"),
+             aes(x = lon, y = lat, color = species_lump, group = region), size = .11) +
+  
+  geom_image(data = centroids_draft %>%
+               filter(year==2016) %>% 
+               filter(species_lump == "Pisaster ochraceus"),
+             image = here("images", "purple-sea-star.png"),
+             aes(x = lon, y = lat, group = region), size = .1) +
+  
+  scale_color_manual(values = c("Pisaster ochraceus" = "#859ED7", 
+                                "Strongylocentrotus purpuratus" = "#859ED7")) +
+  
+  
+  geom_hline(yintercept=34.44, linetype="dashed", color = colors["Blue"]) +
+  
+  geom_hline(yintercept=37.82, linetype="dashed", color = colors["Blue"]) +
+  
+  annotate("text", x=-122.75, y=39.5, hjust=0, vjust=0, 
+           label = "North\nCoast", 
+           family="Slackey", color=colors["Purple"]) +
+  annotate("text", x=-120, y=35.5, hjust=0, vjust=0, 
+           label = "Central\nCoast", 
+           family="Slackey", color=colors["Purple"]) +
+  annotate("text", x=-117.25, y=33, hjust=0, vjust=0, 
+           label = "South\nCoast", 
+           family="Slackey", color=colors["Purple"]) +
+  
+  labs(title = "{frame_time}") +
+  theme_spongebob() +
+  theme(
+    axis.title = element_blank(),
+    axis.text = element_blank(),
+    panel.grid.major = element_blank(),
+    legend.position = "none", 
+    plot.title.position = "plot", 
+    plot.title = element_text(hjust = .22, vjust = 0, size = 12, color = colors["Purple"])
+  )
+
+
+#----------------Absolute Abundace Plot-------------
+showtext::showtext_auto()
+showtext::showtext_opts(dpi = 250)
+# Compute total_count_sum first using summarise()
+pisaster_sum_perc <- purple_df %>%
+  group_by(species_lump, year_bin) %>%
+  summarise(total_count_sum = sum(total_count, na.rm = TRUE), .groups = "drop") 
+
+
+# Plot with corrected normalized count
+p3 <- ggplot(pisaster_sum_perc, aes(x = year_bin, y = total_count_sum, 
+                              fill = factor(species_lump, 
+                                        levels = c("Strongylocentrotus purpuratus",
+                                                   "Pisaster ochraceus")))) +
+  geom_col(position = "stack") +  # Dodge to see separate species
+  scale_fill_manual(labels = c("Purple Sea Star", "Purple Sea Urchin"),
+                    values = c("Pisaster ochraceus" = "#56446E", 
+                               "Strongylocentrotus purpuratus" = "#C187D4"
+  )) +
+  labs(
+    #title = "<span style='color:#56446E;'>Purple Sea Stars</span>
+    #<span style='color:#49484D;'>**vs**</span>
+    #<span style='color:#C187D4;'>Purple Urchins</span>
+    #</span>",
+    #subtitle = "Populations recover asymetrically after shock",
+    x = "Year",
+    y = "Total Counts",
+    fill = "Species"
+  ) +
+  coord_flip() +
+  scale_y_continuous(labels = unit_format(unit = "k", scale = 1e-3)) +
+  theme_spongebob() +
+  theme(
+    axis.ticks.x = element_line(color = colors["Purple"]),
+    axis.ticks.length = unit(3, "pt"),
+    plot.subtitle = element_markdown(hjust=.5, color=colors["Green"]),
+    axis.title.y = element_blank(),
+    axis.title.x = element_text(color=colors["Black"]),
+    legend.position = "none",
+    panel.grid.minor = element_blank(),
+    axis.text = element_text(size = 16, color=colors["Black"]),
+    axis.title = element_markdown(size = 18),
+    plot.title = element_markdown(size = 20, face = "bold", hjust = .5),
+    theme(aspect.ratio=3/5)
+  ) 
+#ggsave(filename=here("images/abundance.png"), width = 17, height = 13, units = "cm", dpi = 300)
+p3
+```
