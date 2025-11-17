@@ -15,8 +15,8 @@ about:
       href: https://github.com/imsibaja
       target: _blank
     - text: Email
-      href: mailto:ims@bren.ucsb.edu
+      href: mailto:imsibaja@proton.me
 ---
 
-Drawing on his research and fieldwork experiences, Ian is now pursuing a Master of Environmental Data Science from the UCSB Bren School. His ultimate goal is to utilize his analytical toolkit to develop data-driven solutions that measure and mediate human impacts on the natural environments of Southern California.
+Ian is a Master of Environmental Data Science graduate of the UCSB Bren School, where he applied statistical modeling, geospatial analysis, and data engineering workflows to understand ecological change in coastal and marine systems. His work integrates R, Python, and cloud-based analytics to build reproducible tools that support conservation planning, environmental monitoring, and data-driven decision making.  
 
