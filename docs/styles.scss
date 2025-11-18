@@ -1,0 +1,327 @@
+/*-- scss:defaults --*/
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Darker+Grotesque:wght@300..900&family=Kelly+Slab&family=Quantico:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+/* Font variables */
+$kelly-slab: "Kelly Slab", serif;
+$quantico: "Quantico", sans-serif;
+$darker-grotesque: "Darker Grotesque", sans-serif;
+
+/* Color palette */
+$black: #0a0a08;
+$kblue: #4c67bd;
+$orange: #f88f3b;
+$white: #ffffff;
+
+/* Quarto theme bindings */
+$body-bg: $black;
+$navbar-bg: $black;
+$navbar-fg: $white;
+$navbar-hl: $orange;
+$body-color: $white;
+
+/*-- scss:rules --*/
+
+/* Headings */
+h1, h2, h3, h4, h5, h6 {
+  letter-spacing: 3px;
+  font-weight: 800;
+  font-family: $quantico;
+}
+
+/* Page Title */
+.title {
+  font-family: $kelly-slab;
+  color: $kblue;
+}
+
+/* Utilities */
+.orange-text { color: $orange; }
+.center-orange {
+  color: $orange;
+}
+
+/* Navbar */
+.navbar-brand img {
+  max-height: 40px;
+  width: auto;
+}
+
+
+/*-----------------------------------------------------*/
+/*                ABOUT / HERO SECTION                 */
+/*-----------------------------------------------------*/
+
+.about-hero {
+  color: $white;
+
+  .about-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .about-text {
+    flex: 1 1 300px;
+  }
+
+  .about-image {
+    flex: 0 0 auto;
+
+    img {
+      border-radius: 50%;
+      width: 150px;
+      height: auto;
+      border: 4px solid $white;
+    }
+  }
+
+
+  .about-name {
+    font-family: $kelly-slab;
+    font-size: 3em;
+    letter-spacing: 4px;
+  }
+
+  .about-tagline {
+    font-family: $quantico;
+    font-size: 1.24em;
+    font-weight: 400;
+    margin-bottom: 0.5em;
+    color: $kblue;
+  }
+
+  .about-links a {
+    margin: 0 1em;
+    font-weight: 700;
+    color: $orange;
+    transition: 1s ease;
+
+    &:hover {
+      color: $white;
+    }
+  }
+
+  .about-center-text {
+    font-family: $quantico;
+    font-size: 1.1em;
+    line-height: 1.6em;
+    margin-top: 1em;
+    color: $white;
+  }
+}
+
+
+/*-----------------------------------------------------*/
+/*                     SKILLS GRID                     */
+/*-----------------------------------------------------*/
+
+.skills-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1em;
+  margin: 2em 0;
+
+  .skill-card {
+    background: $kblue;
+    border-radius: 10px;
+    box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+    padding: 1em 2em;
+    font-family: $darker-grotesque;
+    font-weight: 700;
+    color: $black;
+    transition: all 0.3s ease;
+
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+    }
+  }
+}
+
+
+/*-----------------------------------------------------*/
+/*              CAPSTONE / PROJECT CARD                */
+/*-----------------------------------------------------*/
+
+.project-card {
+  background: $kblue;
+  color: $white;
+  border-radius: 15px;
+  overflow: hidden;
+  margin: 2em auto;
+  max-width: 800px;
+  display: flex;
+  align-items: center;
+  gap: 2em;
+  padding: 1.5em;
+  transition: all 0.3s ease;
+
+  img {
+    border-radius: 10px;
+    max-width: 200px;
+    height: auto;
+  }
+
+  .project-info {
+    flex: 1;
+
+    h3 {
+      font-family: $kelly-slab;
+      color: $black;
+    }
+
+    p {
+      font-family: $quantico;
+      font-weight: 400;
+    }
+
+    a {
+      display: inline-block;
+      background: $orange;
+      color: $black;
+      padding: 0.5em 1em;
+      border-radius: 5px;
+      font-weight: 700;
+      text-decoration: none;
+      transition: all 1s ease;
+
+      &:hover {
+        background: $white;
+        color: $orange;
+      }
+    }
+  }
+}
+
+/*----------------------------------------------*/
+/*     TWO COLUMN LANDING PAGE (NO SCROLL)      */
+/*----------------------------------------------*/
+
+.landing-split {
+  position: absolute;     /* pin to viewport */
+  top: 10%;
+  left: 2%;
+  bottom: 2%;
+  right: 2%;
+  display: flex;
+  gap: 0;    
+  padding: 0;
+}
+
+/* LEFT PANEL (ABOUT HERO) */
+.left-panel {
+  flex: 50%;
+  height: 100%;
+  overflow-y: auto;
+  padding: 2%
+}
+
+
+/* RIGHT PANEL (PROJECT + SKILLS) */
+.right-panel {
+  flex: 1 1 50%;
+  overflow-y: auto;
+  padding: 2%;
+  align-items: center;
+}
+
+
+
+/* Mobile fallback: stacked panels, regular page scrolling */
+@media (max-width: 1400px) {
+  html, body {
+    overflow: auto;
+  }
+
+  .landing-split {
+    position: relative;
+    flex-direction: column;
+    height: auto;
+  }
+
+  .left-panel, .right-panel {
+    height: auto;
+    padding-left: 1.25rem;
+    padding-right: 1.25rem;
+    border: none;
+  }
+
+  /* revert inner about container to normal flex so image/text stack nicely */
+  .left-panel .about-container {
+    display: flex !important;
+    flex-direction: column-reverse;
+    align-items: center;
+    text-align: center !important;
+  }
+}
+
+/*-----------------------------------------------------*/
+/*                    Blog Posts                       */
+/*-----------------------------------------------------*/
+
+/* listing card — whole card background */
+.quarto-listing .quarto-grid-item.card,
+.quarto-listing .quarto-grid-item.card .card-body {
+  background-color: $white !important; /* pick your color */
+  color: $kblue !important;             /* make text readable on that color */
+  border: $kblue !important;
+}
+
+/* ensure links / titles inherit readable color */
+.quarto-listing .quarto-grid-item.card .card-title,
+.quarto-listing .quarto-grid-item.card .listing-description,
+.quarto-listing .quarto-grid-item.card .listing-author,
+.quarto-listing .quarto-grid-item.card .listing-date {
+  color: inherit !important;
+}
+
+/*-----------------------------------------------------*/
+/*   FIX SPACING BETWEEN TITLE-BLOCK AND MAIN CONTENT  */
+/*-----------------------------------------------------*/
+
+/*-------------------------------------------------------*/
+/*   TIGHTEN QUARTO TITLE BANNER + META AUTHOR SPACING   */
+/*-------------------------------------------------------*/
+
+/* Main title banner */
+.quarto-title-banner {
+  margin: 0 !important;
+  padding: 0.5rem 0 !important;      /* tighten significantly */
+}
+
+/* Page layout wrappers Quarto uses around the title */
+.page-columns.page-full {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Title meta (author, date, affiliations) */
+.quarto-title-meta,
+.quarto-title-meta-author,
+.quarto-title-meta-right,
+.quarto-title-meta-contents {
+  margin: 0 !important;
+  padding: 0 !important;
+  line-height: 1.1em !important;     /* tighter line spacing */
+}
+
+/* Remove extra space that appears above/below the title block */
+.title-block-header {
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+/* Remove extra top padding Quarto adds to first content section */
+.quarto-content,
+main.content,
+.page-inner {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.sourceCode {
+  color: $white
+}

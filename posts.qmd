@@ -5,4 +5,5 @@ listing:
   type: grid
   sort: "date desc"
   categories: true
+css: styles.scss 
 ---

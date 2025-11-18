@@ -1,22 +1,66 @@
 ---
-title: "Ian Morris-Sibaja"
-image: headshot.jpeg
-about: 
-  template: jolla
-  image-shape: round
-  image-width: 13em
-  links: 
-    - text: LinkedIn
-      icon: linkedin-in
-      href: https://www.linkedin.com/in/imsibaja/
-      target: _blank
-    - text: Github
-      icon: github-alt
-      href: https://github.com/imsibaja
-      target: _blank
-    - text: Email
-      href: mailto:imsibaja@proton.me
+format: html
+css: styles.scss 
 ---
+```{=html}
+<div class="landing-split">
 
-Ian is a Master of Environmental Data Science graduate of the UCSB Bren School, where he applied statistical modeling, geospatial analysis, and data engineering workflows to understand ecological change in coastal and marine systems. His work integrates R, Python, and cloud-based analytics to build reproducible tools that support conservation planning, environmental monitoring, and data-driven decision making.  
+  <!-- LEFT SIDE: ABOUT HERO -->
+  <div class="left-panel">
+    <div class="about-hero">
+      <div class="about-container">
+        <div class="about-text">
+          <h1 class="about-name">Ian Morris-Sibaja</h1>
+          <p class="about-tagline">
+            Environmental Data Scientist<br>
+            Analyzing Ecosystem Responses on Land and Sea
+          </p>
+        </div>
+
+        <div class="about-image">
+          <img src="headshot.jpeg" alt="Ian Morris-Sibaja Headshot">
+        </div>
+      </div>
+      
+      <div class="about-links">
+        <a href="https://www.linkedin.com/in/imsibaja/" target="_blank"><i class="fab fa-linkedin"></i> LinkedIn</a>
+        <a href="https://github.com/imsibaja" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+        <a href="mailto:imsibaja@proton.me"><i class="fas fa-envelope"></i> Email</a>
+        <a href="resume/IMS_Resume.pdf" target="_blank"><i class="fas fa-file-alt"></i> Resume</a>
+      </div>
+      
+      <div class="about-center-text">
+        Ian Morris-Sibaja is an environmental data scientist who applies modeling and data analysis to tackle pressing environmental challenges. He recently completed his Master of Environmental Data Science at UC Santa Barbara, where his capstone project with The Nature Conservancy used advanced statistical models to analyze range shifts of coastal species around Point Conception. Ian’s goal is to leverage his analytical toolkit to deliver data-driven solutions that measure and mitigate human impacts on Southern California’s natural environments.
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT SIDE: PROJECT + SKILLS -->
+  <div class="right-panel">
+    <div class="project-skills">
+
+      <div class="project-card">
+        <img src="./images/coastal_conservation_hex.png" alt="Capstone Project Thumbnail">
+        <div class="project-info">
+          <h3>Coastal Species Range Shift Analysis</h3>
+          <p>Capstone project using GAM models and geospatial datasets to quantify shifts in coastal species distributions for The Nature Conservancy, bundled into a tidy shiny app.</p>
+          <a href="https://tnc-dangermond.shinyapps.io/crisp/">View Project</a>
+        </div>
+      </div>
+
+      <div class="skills-grid">
+        <div class="skill-card">Python</div>
+        <div class="skill-card">R</div>
+        <div class="skill-card">GIS</div>
+        <div class="skill-card">Statistical Modeling</div>
+        <div class="skill-card">Machine Learning</div>
+        <div class="skill-card">Data Pipelines</div>
+        <div class="skill-card">Reproducible Workflows</div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+```
 
