@@ -12,7 +12,10 @@ css: styles.scss
         <div class="about-text">
           <h1 class="about-name">Ian Morris-Sibaja</h1>
           <p class="about-tagline">
-            Environmental Data Scientist<br>
+            <i style="color: white">
+            Environmental Data Scientist
+            </i>
+            <br>
             Analyzing Ecosystem Responses on Land and Sea
           </p>
         </div>

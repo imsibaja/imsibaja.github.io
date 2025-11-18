@@ -4,10 +4,10 @@ project:
 
 website:
   title: "Morris-Sibaja"
-  favicon: images/hackerman.png
+  #favicon: images/hackerman.png
   navbar:
     title: false
-    logo: images/hackerman.png
+    logo: images/logo.png
     logo-alt: "IMS logo - a triangle containg an i, m, and s"
     right:
       - href: index.qmd
