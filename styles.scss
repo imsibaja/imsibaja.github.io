@@ -10,7 +10,8 @@ $darker-grotesque: "Darker Grotesque", sans-serif;
 
 /* Color palette */
 $black: #0a0a08;
-$kblue: #4c67bd;
+$cblue: #b9d8e3;
+$kblue: #5277F1;
 $orange: #f88f3b;
 $white: #ffffff;
 
@@ -74,6 +75,11 @@ h1, h2, h3, h4, h5, h6, p {
     letter-spacing: 4px;
   }
 
+  .about-eds {
+    color: $cblue;
+    font-style: italic;
+  }
+
   .about-tagline {
     font-family: $quantico;
     font-size: 1.24em;
@@ -131,7 +137,7 @@ h1, h2, h3, h4, h5, h6, p {
 
 .project-card {
   background: $kblue;
-  color: $white;
+  color: $cblue;
   border-radius: 15px;
   overflow: hidden;
   margin: 2em auto;
@@ -151,7 +157,7 @@ h1, h2, h3, h4, h5, h6, p {
 
     h3 {
       font-family: $kelly-slab;
-      color: $black;
+      color: $white;
     }
 
     a {
@@ -225,9 +231,11 @@ h1, h2, h3, h4, h5, h6, p {
 
 .quarto-listing .quarto-grid-item.card,
 .quarto-listing .quarto-grid-item.card .card-body {
-  background-color: $white !important;
-  color: $kblue !important;
-  border: $kblue !important;
+  background-color: $kblue !important;
+  color: $white !important;
+  border: $cblue !important;
+  //border-radius: 3%;
+  border-style:ridge !important;
 }
 
 .quarto-listing .quarto-grid-item.card * {
