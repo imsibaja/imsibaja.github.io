@@ -13,7 +13,7 @@ website:
       - href: index.qmd
         text: Home
       - href: posts.qmd
-        text: Blog
+        text: Portfolio
       - href: resume/IMS_Resume.pdf
         text: Resume
       - href: about.qmd
