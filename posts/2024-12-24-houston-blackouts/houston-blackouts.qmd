@@ -13,6 +13,7 @@ format:
     toc: true
 editor_options: 
   chunk_output_type: console
+freeze: auto
 ---
 
 ![Storm Damage in Austin, Texas](https://static01.nyt.com/images/2021/02/19/us/19texas-victims-new/merlin_183952452_17e0e49e-df85-4d90-bfac-3468a4ee3513-superJumbo.jpg?quality=75&auto=webp)

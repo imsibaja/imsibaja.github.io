@@ -9,7 +9,7 @@ author:
 date: 2024-10-18
 categories: [Quarto, MEDS]
 toc: true
-image: minions-hello.gif
+image: https://learn.microsoft.com/en-us/shows/hello-world/media/helloworld_383x215.png
 citation:
   url: httpls://imsibaja.github.io/posts/2024-10-18-hello-world
 ---

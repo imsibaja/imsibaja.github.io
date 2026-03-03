@@ -16,7 +16,7 @@ css: styles.scss
                       
             <span class="about-eds">
               Environmental Data Scientist
-            </span>
+            </span><br>
             Analyzing Ecosystem Responses on Land and Sea
           </p>
         </div>
