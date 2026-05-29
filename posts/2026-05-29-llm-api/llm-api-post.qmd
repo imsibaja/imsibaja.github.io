@@ -8,6 +8,7 @@ format:
   html:
     toc: true
     code-fold: false
+image: https://www.fisheries.noaa.gov/s3//2024-10/Entangled-Whale-Aug2024-SWFSC_750x500.jpg?itok=bjAFiEqM
 ---
 
 # LLM-Assisted Triage for Marine Survey Imagery
