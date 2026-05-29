@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.55">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Ian Morris-Sibaja">
+<meta name="dcterms.date" content="2026-05-29">
+<meta name="description" content="Using the Anthropic API to automate ecological annotation of marine wildlife survey metadata">
+
+<title>LLM-Assisted Triage for Marine Survey Imagery – Morris-Sibaja</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="../../site_libs/quarto-nav/headroom.min.js"></script>
+<script src="../../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../../site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="../../site_libs/quarto-search/fuse.min.js"></script>
+<script src="../../site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="../../">
+<script src="../../site_libs/quarto-html/quarto.js"></script>
+<script src="../../site_libs/quarto-html/popper.min.js"></script>
+<script src="../../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../../site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/all.css" rel="stylesheet">
+<link href="../../site_libs/quarto-contrib/fontawesome6-0.1.0/latex-fontsize.css" rel="stylesheet">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-fixed">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top quarto-banner">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="../../index.html" class="navbar-brand navbar-brand-logo">
+    <img src="../../images/logo.png" alt="IMS logo - a triangle containg an i, m, and s" class="navbar-logo">
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="../../index.html"> 
+<span class="menu-text">Home</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../posts.html"> 
+<span class="menu-text">Portfolio</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../resume/IMS_Resume.pdf"> 
+<span class="menu-text">Resume</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../../about.html"> 
+<span class="menu-text">About</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="https://imsibaja.github.io/applied-python-portfolio-2022/"> 
+<span class="menu-text">Applied Python Portfolio</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<header id="title-block-header" class="quarto-title-block default page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">LLM-Assisted Triage for Marine Survey Imagery</h1>
+                  <div>
+        <div class="description">
+          Using the Anthropic API to automate ecological annotation of marine wildlife survey metadata
+        </div>
+      </div>
+                          <div class="quarto-categories">
+                <div class="quarto-category">Python</div>
+                <div class="quarto-category">API</div>
+                <div class="quarto-category">Marine Science</div>
+                <div class="quarto-category">LLM</div>
+              </div>
+                  </div>
+  </div>
+    
+  
+  <div class="quarto-title-meta">
+
+      <div>
+      <div class="quarto-title-meta-heading">Author</div>
+      <div class="quarto-title-meta-contents">
+               <p>Ian Morris-Sibaja </p>
+            </div>
+    </div>
+      
+      <div>
+      <div class="quarto-title-meta-heading">Published</div>
+      <div class="quarto-title-meta-contents">
+        <p class="date">May 29, 2026</p>
+      </div>
+    </div>
+    
+      
+    </div>
+    
+  
+  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#llm-assisted-triage-for-marine-survey-imagery" id="toc-llm-assisted-triage-for-marine-survey-imagery" class="nav-link active" data-scroll-target="#llm-assisted-triage-for-marine-survey-imagery">LLM-Assisted Triage for Marine Survey Imagery</a>
+  <ul class="collapse">
+  <li><a href="#about" id="toc-about" class="nav-link" data-scroll-target="#about">About</a></li>
+  <li><a href="#data" id="toc-data" class="nav-link" data-scroll-target="#data">Data</a></li>
+  <li><a href="#import-data" id="toc-import-data" class="nav-link" data-scroll-target="#import-data">Import Data</a></li>
+  <li><a href="#build-the-annotation-prompt" id="toc-build-the-annotation-prompt" class="nav-link" data-scroll-target="#build-the-annotation-prompt">Build the Annotation Prompt</a></li>
+  <li><a href="#call-the-api" id="toc-call-the-api" class="nav-link" data-scroll-target="#call-the-api">Call the API</a></li>
+  <li><a href="#run-the-pipeline" id="toc-run-the-pipeline" class="nav-link" data-scroll-target="#run-the-pipeline">Run the Pipeline</a></li>
+  <li><a href="#inspect-the-output" id="toc-inspect-the-output" class="nav-link" data-scroll-target="#inspect-the-output">Inspect the Output</a></li>
+  <li><a href="#reflection" id="toc-reflection" class="nav-link" data-scroll-target="#reflection">Reflection</a></li>
+  <li><a href="#citations" id="toc-citations" class="nav-link" data-scroll-target="#citations">Citations</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content quarto-banner-title-block" id="quarto-document-content">
+
+
+
+
+
+<section id="llm-assisted-triage-for-marine-survey-imagery" class="level1">
+<h1>LLM-Assisted Triage for Marine Survey Imagery</h1>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="https://www.fisheries.noaa.gov/s3//2024-10/Entangled-Whale-Aug2024-SWFSC_750x500.jpg?itok=bjAFiEqM" class="img-fluid figure-img"></p>
+<figcaption>Images collected with an uncrewed aerial system (UAS) were used to assess an entangled humpback whale 3 miles offshore San Diego on 28 August 2024. Images collected under NMFS Permit #24359. Source: NOAA SWFSC</figcaption>
+</figure>
+</div>
+<section id="about" class="level2">
+<h2 class="anchored" data-anchor-id="about">About</h2>
+<p>Modern marine wildlife surveys generate data faster than analysts can review it. A single glider deployment across the California Current can produce thousands of imagery records over two weeks — each one needing a validated species ID, a habitat tag, a data quality flag, and a field note before it can enter a species distribution model or stock assessment pipeline.</p>
+<p>The manual triage step is the bottleneck. In this project, I build a Python pipeline that automates it using <code>claude-sonnet-4-6</code> via the Anthropic API, turning raw survey metadata into structured ecological annotations at scale. This integrated approach demonstrates:</p>
+<ul>
+<li>Structured prompting for scientific domain tasks with calibrated output constraints</li>
+<li>Prompt caching to reduce API costs across large batches</li>
+<li>Resilient API integration with exponential backoff and graceful error handling</li>
+<li>Appending LLM annotations to an output CSV suitable for downstream ML workflows</li>
+</ul>
+<hr>
+</section>
+<section id="data" class="level2">
+<h2 class="anchored" data-anchor-id="data">Data</h2>
+<section id="survey-metadata-records" class="level4">
+<h4 class="anchored" data-anchor-id="survey-metadata-records">Survey Metadata Records</h4>
+<p>The pipeline accepts a CSV of pre-extracted imagery metadata — the tabular record that accompanies each image in a survey archive. A single record looks like this:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Field</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>image_id</code></td>
+<td><code>20240318_GLDR_007</code></td>
+</tr>
+<tr class="even">
+<td><code>species_observed</code></td>
+<td><code>Common Dolphin</code></td>
+</tr>
+<tr class="odd">
+<td><code>location</code></td>
+<td><code>Central CA Coast</code></td>
+</tr>
+<tr class="even">
+<td><code>latitude / longitude</code></td>
+<td><code>36.49°N, 122.91°W</code></td>
+</tr>
+<tr class="odd">
+<td><code>timestamp</code></td>
+<td><code>2024-03-18T15:03:00</code></td>
+</tr>
+<tr class="even">
+<td><code>camera_type</code></td>
+<td><code>GLIDER</code></td>
+</tr>
+<tr class="odd">
+<td><code>depth_m</code></td>
+<td><code>22</code></td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="platform-types" class="level4">
+<h4 class="anchored" data-anchor-id="platform-types">Platform Types</h4>
+<p>Each <code>camera_type</code> value carries different observational constraints that the model uses when assessing data quality:</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Platform</th>
+<th>Context</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><code>AERIAL_DRONE</code></td>
+<td>Surface-visible species only; depth = 0</td>
+</tr>
+<tr class="even">
+<td><code>GLIDER</code> / <code>AUV</code></td>
+<td>Subsurface observations; depth is reliable</td>
+</tr>
+<tr class="odd">
+<td><code>ROV</code></td>
+<td>Precise depth; high spatial resolution</td>
+</tr>
+<tr class="even">
+<td><code>TRAIL_CAM</code></td>
+<td>Shoreline / haul-out / intertidal species</td>
+</tr>
+<tr class="odd">
+<td><code>TOWED_CAM</code></td>
+<td>Depth = tow depth; variable image quality</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="example-input" class="level4">
+<h4 class="anchored" data-anchor-id="example-input">Example Input</h4>
+<p><code>example_input.csv</code> contains 15 synthetic records spanning the California Current System — blue and humpback whales, rockfish, sea otters, pinnipeds, sharks, and an unidentified towed-camera record — representative of a real multi-platform survey batch.</p>
+<hr>
+</section>
+</section>
+<section id="import-data" class="level2">
+<h2 class="anchored" data-anchor-id="import-data">Import Data</h2>
+<section id="import-libraries" class="level4">
+<h4 class="anchored" data-anchor-id="import-libraries">Import libraries</h4>
+<div class="sourceCode" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> anthropic</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> json</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> logging</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> pathlib <span class="im">import</span> Path</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="load-the-input-csv" class="level4">
+<h4 class="anchored" data-anchor-id="load-the-input-csv">Load the input CSV</h4>
+<div class="sourceCode" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">"example_input.csv"</span>, dtype<span class="op">=</span><span class="bu">str</span>).fillna(<span class="st">""</span>)</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>records <span class="op">=</span> df.to_dict(<span class="st">"records"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>INFO  Loaded 15 records from example_input.csv</code></pre>
+</section>
+<section id="inspect-the-data" class="level4">
+<h4 class="anchored" data-anchor-id="inspect-the-data">Inspect the data</h4>
+<div class="sourceCode" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[[<span class="st">"image_id"</span>, <span class="st">"species_observed"</span>, <span class="st">"camera_type"</span>, <span class="st">"depth_m"</span>]].to_string())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<pre><code>             image_id             species_observed  camera_type depth_m
+0   20240315_MBAY_001                   Blue Whale AERIAL_DRONE       0
+1   20240315_MBAY_002               Humpback Whale AERIAL_DRONE       0
+2  20240316_CINMS_003               Giant Sea Bass          ROV      42
+3  20240316_CINMS_004         California Sheephead          ROV      28
+4   20240317_PFCA_005       Northern Elephant Seal    TRAIL_CAM       0
+5   20240317_PFCA_006             Steller Sea Lion    TRAIL_CAM       0
+6   20240318_GLDR_007  Pacific White-sided Dolphin       GLIDER      15
+7   20240318_GLDR_008               Common Dolphin       GLIDER      22
+8   20240319_MBAY_009                    Sea Otter AERIAL_DRONE       0
+9  20240319_CINMS_010            Bocaccio Rockfish          ROV      95
+10  20240320_PFCA_011                  unidentified    TOWED_CAM      55
+11  20240320_CBAY_012              Pacific Halibut          ROV      38
+12  20240321_MBAY_013                   Blue Shark       GLIDER      80
+13 20240321_SFBAY_014                  Harbor Seal AERIAL_DRONE       0
+14 20240322_CINMS_015                    Garibaldi          ROV      18</code></pre>
+<hr>
+</section>
+</section>
+<section id="build-the-annotation-prompt" class="level2">
+<h2 class="anchored" data-anchor-id="build-the-annotation-prompt">Build the Annotation Prompt</h2>
+<section id="system-prompt-with-prompt-caching" class="level4">
+<h4 class="anchored" data-anchor-id="system-prompt-with-prompt-caching">System prompt with prompt caching</h4>
+<p>The system prompt establishes the model’s role as a NOAA SWFSC field analyst and specifies the exact annotation schema. Marking it with <code>cache_control</code> tells Anthropic’s API to cache it after the first call — on batches of 50+ records this reduces input token costs by ~90%.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>client.messages.create(</span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    model<span class="op">=</span><span class="st">"claude-sonnet-4-6"</span>,</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    max_tokens<span class="op">=</span><span class="dv">512</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    system<span class="op">=</span>[</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>        {</span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>            <span class="st">"type"</span>: <span class="st">"text"</span>,</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>            <span class="st">"text"</span>: SYSTEM_PROMPT,</span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>            <span class="st">"cache_control"</span>: {<span class="st">"type"</span>: <span class="st">"ephemeral"</span>},  <span class="co"># cached after first call</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>    ],</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>    messages<span class="op">=</span>[{<span class="st">"role"</span>: <span class="st">"user"</span>, <span class="st">"content"</span>: build_user_prompt(record)}],</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>The system prompt instructs the model to return exactly seven fields — taxonomic classification, habitat type, behavioral context, quality assessment (text and integer), survey notes, and a confidence level — with no prose, no markdown fences, just a valid JSON object.</p>
+</section>
+<section id="user-prompt-template" class="level4">
+<h4 class="anchored" data-anchor-id="user-prompt-template">User prompt template</h4>
+<p>Each record is formatted into a structured request that mirrors a field log entry:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> build_user_prompt(record: <span class="bu">dict</span>) <span class="op">-&gt;</span> <span class="bu">str</span>:</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="ss">f"""</span><span class="ch">\</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="ss">Analyze the following marine imagery metadata record and return a JSON object</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="ss">with your ecological annotations.</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="ss">METADATA:</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="ss">  image_id:    </span><span class="sc">{</span>record<span class="sc">.</span>get(<span class="st">'image_id'</span>, <span class="st">'N/A'</span>)<span class="sc">}</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="ss">  species:     </span><span class="sc">{</span>record<span class="sc">.</span>get(<span class="st">'species_observed'</span>, <span class="st">'unidentified'</span>)<span class="sc">}</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="ss">  location:    </span><span class="sc">{</span>record<span class="sc">.</span>get(<span class="st">'location'</span>, <span class="st">'N/A'</span>)<span class="sc">}</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="ss">  latitude:    </span><span class="sc">{</span>record<span class="sc">.</span>get(<span class="st">'latitude'</span>, <span class="st">'N/A'</span>)<span class="sc">}</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="ss">  longitude:   </span><span class="sc">{</span>record<span class="sc">.</span>get(<span class="st">'longitude'</span>, <span class="st">'N/A'</span>)<span class="sc">}</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="ss">  timestamp:   </span><span class="sc">{</span>record<span class="sc">.</span>get(<span class="st">'timestamp'</span>, <span class="st">'N/A'</span>)<span class="sc">}</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="ss">  camera_type: </span><span class="sc">{</span>record<span class="sc">.</span>get(<span class="st">'camera_type'</span>, <span class="st">'N/A'</span>)<span class="sc">}</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="ss">  depth_m:     </span><span class="sc">{</span>record<span class="sc">.</span>get(<span class="st">'depth_m'</span>, <span class="st">'N/A'</span>)<span class="sc">}</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="ss">Return exactly this JSON structure (no other text):</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="ch">{{</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="ss">  "ecological_classification": "&lt;validated species name&gt;",</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="ss">  "habitat_type": "&lt;habitat category&gt;",</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="ss">  "behavior_notes": "&lt;behavioral context or 'insufficient metadata'&gt;",</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="ss">  "quality_assessment": "&lt;Excellent|Good|Marginal|Poor&gt;",</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="ss">  "quality_score": &lt;integer 1–5&gt;,</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="ss">  "survey_notes": "&lt;1–2 sentence scientific summary&gt;",</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="ss">  "confidence_level": "&lt;High|Medium|Low&gt;"</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="ch">}}</span><span class="ss">"""</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="call-the-api" class="level2">
+<h2 class="anchored" data-anchor-id="call-the-api">Call the API</h2>
+<section id="retry-logic" class="level4">
+<h4 class="anchored" data-anchor-id="retry-logic">Retry logic</h4>
+<p>The API layer wraps each call in an exponential backoff loop. Rate-limit responses include a <code>retry-after</code> header that gives a more accurate wait time than a fixed formula.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> attempt <span class="kw">in</span> <span class="bu">range</span>(MAX_RETRIES):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span>:</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        response <span class="op">=</span> client.messages.create(...)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> json.loads(response.content[<span class="dv">0</span>].text.strip())</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> anthropic.RateLimitError <span class="im">as</span> exc:</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        retry_after <span class="op">=</span> <span class="bu">float</span>(</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>            exc.response.headers.get(<span class="st">"retry-after"</span>, BASE_RETRY_DELAY <span class="op">*</span> (<span class="dv">2</span> <span class="op">**</span> attempt))</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>        time.sleep(retry_after <span class="op">+</span> random.uniform(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">except</span> anthropic.APIStatusError <span class="im">as</span> exc:</span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> exc.status_code <span class="op">&gt;=</span> <span class="dv">500</span>:</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>            time.sleep(BASE_RETRY_DELAY <span class="op">*</span> (<span class="dv">2</span> <span class="op">**</span> attempt) <span class="op">+</span> random.uniform(<span class="dv">0</span>, <span class="dv">1</span>))</span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">else</span>:</span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>            <span class="cf">raise</span>  <span class="co"># 4xx errors are not retryable</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="parse-and-write-output" class="level4">
+<h4 class="anchored" data-anchor-id="parse-and-write-output">Parse and write output</h4>
+<p>Records that return valid JSON are merged with their original metadata and written to the output CSV. Records that exhaust all retries are written with <code>ecological_classification = "ERROR"</code> and <code>quality_score = 1</code>, keeping the output file complete so downstream steps can filter rather than crash.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>results.append({</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>record,</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">**</span>annotations,</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">"processed_at"</span>: datetime.now(timezone.utc).isoformat(),</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">"model_used"</span>: MODEL,</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<hr>
+</section>
+</section>
+<section id="run-the-pipeline" class="level2">
+<h2 class="anchored" data-anchor-id="run-the-pipeline">Run the Pipeline</h2>
+<section id="command-line" class="level4">
+<h4 class="anchored" data-anchor-id="command-line">Command line</h4>
+<div class="sourceCode" id="cb10"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="ex">python</span> marine_tagger.py <span class="at">--input</span> example_input.csv</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</section>
+<section id="live-log-output" class="level4">
+<h4 class="anchored" data-anchor-id="live-log-output">Live log output</h4>
+<pre><code>INFO  Loaded 15 records from example_input.csv
+INFO  [1/15] Processing 20240315_MBAY_001 …
+INFO  [2/15] Processing 20240315_MBAY_002 …
+INFO  [3/15] Processing 20240316_CINMS_003 …
+...
+INFO  [15/15] Processing 20240322_CINMS_015 …
+INFO  Wrote 15 rows → tagged_output.csv
+INFO  Complete — 15/15 records annotated successfully.</code></pre>
+<hr>
+</section>
+</section>
+<section id="inspect-the-output" class="level2">
+<h2 class="anchored" data-anchor-id="inspect-the-output">Inspect the Output</h2>
+<section id="quality-score-distribution" class="level4">
+<h4 class="anchored" data-anchor-id="quality-score-distribution">Quality score distribution</h4>
+<p>Of 15 records, 8 received a quality score of 5 (Excellent), 4 received a 4 (Good), 2 received a 3 (Marginal), and 1 received a 2 (Poor). No records were rated Unusable. 10 of 15 annotations came back High confidence.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">quality_score</th>
+<th style="text-align: center;">n</th>
+<th>quality_assessment</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">5</td>
+<td style="text-align: center;">8</td>
+<td>Excellent</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">4</td>
+<td>Good</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">3</td>
+<td style="text-align: center;">2</td>
+<td>Marginal</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">1</td>
+<td>Poor</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="habitat-distribution" class="level4">
+<h4 class="anchored" data-anchor-id="habitat-distribution">Habitat distribution</h4>
+<pre><code>open water / pelagic                        5
+rocky reef                                  4
+intertidal                                  2
+estuarine                                   2
+rocky reef / benthic soft-sediment          1
+benthic soft-sediment                       1</code></pre>
+</section>
+<section id="sample-annotations" class="level4">
+<h4 class="anchored" data-anchor-id="sample-annotations">Sample annotations</h4>
+<p><strong>High-confidence cetacean ID — Monterey Bay humpback</strong></p>
+<blockquote class="blockquote">
+<p><em>Megaptera novaeangliae observed via aerial drone at the surface in Monterey Bay (36.7954°N, 121.9612°W) on 2024-03-15. Timing and location are consistent with documented spring migratory corridor and known foraging grounds in the California Current System. No data quality flags.</em></p>
+</blockquote>
+<p><code>quality_score: 5 | confidence: High | habitat: open water / pelagic</code></p>
+<hr>
+<p><strong>Ambiguous species ID — glider-based dolphin at depth</strong></p>
+<p>The model correctly flagged a <code>Common Dolphin</code> record from a glider at 22 m as ambiguous between <em>Delphinus delphis</em> and <em>Delphinus capensis</em> and lowered the quality score accordingly:</p>
+<blockquote class="blockquote">
+<p><em>Short-beaked Common Dolphin (Delphinus delphis) recorded at 22 m depth via underwater glider off the Central CA Coast. D. capensis cannot be excluded without morphological imagery review. Glider platforms have limited capacity to visually confirm cetacean species identity at depth.</em></p>
+</blockquote>
+<p><code>quality_score: 3 | confidence: Medium | habitat: open water / pelagic</code></p>
+<p>This is the correct call — the offshore pelagic position at 36.5°N favors <em>D. delphis</em>, but a glider can’t confirm it, and a downstream model should know that.</p>
+<hr>
+<p><strong>Unidentified towed camera record — quality floor</strong></p>
+<p>An unidentified towed camera record at 55 m over Cordell Bank came back with candidate taxa listed in the classification field and a quality score of 2:</p>
+<blockquote class="blockquote">
+<p><em>Species identity could not be resolved from available metadata, limiting utility for SDM and stock assessment pipelines. Recommend manual review by taxonomic expert before inclusion in downstream ML workflows.</em></p>
+</blockquote>
+<p><code>quality_score: 2 | confidence: Low | habitat: rocky reef / benthic soft-sediment transition</code></p>
+<hr>
+</section>
+</section>
+<section id="reflection" class="level2">
+<h2 class="anchored" data-anchor-id="reflection">Reflection</h2>
+<p>The pipeline successfully annotated all 15 records with ecologically plausible outputs. The model’s reasoning was strongest where metadata was richest — ROV records with precise depth and geolocation consistently returned quality scores of 5 and detailed survey notes. Glider-based cetacean records were correctly rated Marginal, as glider imagery has known limitations for species-level ID at depth.</p>
+<p>A few limitations worth noting. The pipeline annotates metadata, not images — it can’t detect blur, backscatter, or poor framing that only a human reviewer or CV model would catch. The quality scoring therefore reflects metadata completeness and ecological plausibility rather than actual image quality. Additionally, the current system prompt is below the 2,048-token threshold needed to activate prompt caching on Sonnet 4.6; embedding a species taxonomy table or survey SOP would push it past threshold and cut costs substantially on larger batches.</p>
+<p>The natural next step for production scale is the Anthropic Batches API — submit an entire survey batch as a single job, poll for completion, write results in one pass, and cut per-token costs by 50%.</p>
+<hr>
+</section>
+<section id="citations" class="level2">
+<h2 class="anchored" data-anchor-id="citations">Citations</h2>
+<div class="sourceCode" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Citations shown below</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Reveal code
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>Data</th>
+<th>Citation</th>
+<th>Link</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Anthropic Messages API</td>
+<td>Anthropic. (2024). Claude API Documentation. Anthropic PBC.</td>
+<td><a href="https://docs.anthropic.com">docs.anthropic.com</a></td>
+</tr>
+<tr class="even">
+<td>Survey platform context</td>
+<td>NOAA Southwest Fisheries Science Center Ecosystem Science Division. California Current Ecosystem Survey methods. NOAA Fisheries.</td>
+<td><a href="https://www.fisheries.noaa.gov/about/southwest-fisheries-science-center">swfsc.noaa.gov</a></td>
+</tr>
+<tr class="odd">
+<td>Species taxonomy</td>
+<td>Froese, R. and D. Pauly (Eds). FishBase. World Wide Web electronic publication.</td>
+<td><a href="https://www.fishbase.org">fishbase.org</a></td>
+</tr>
+<tr class="even">
+<td>California Current species ranges</td>
+<td>Eschmeyer, W.N., Fricke, R., and van der Laan, R. (eds). Catalog of Fishes. California Academy of Sciences.</td>
+<td><a href="https://researcharchive.calacademy.org/research/ichthyology/catalog/fishcatmain.asp">researcharchive.calacademy.org</a></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<hr>
+<p><em>Copyright 2024, Ian Morris-Sibaja</em></p>
+
+
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+</div> <!-- /content -->
+<footer class="footer">
+  <div class="nav-footer">
+    <div class="nav-footer-left">
+<p>Copyright 2024, Ian Morris-Sibaja</p>
+</div>   
+    <div class="nav-footer-center">
+      &nbsp;
+    </div>
+    <div class="nav-footer-right">
+<p>This website is built with <i class="fa-brands fa-github-alt" title="the alt octocat github icon" aria-label="github-alt"></i></p>
+</div>
+  </div>
+</footer>
+
+
+
+
+</body></html>

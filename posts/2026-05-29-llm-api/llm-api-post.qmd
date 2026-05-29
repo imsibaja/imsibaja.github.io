@@ -1,0 +1,320 @@
+---
+title: "LLM-Assisted Triage for Marine Survey Imagery"
+description: "Using the Anthropic API to automate ecological annotation of marine wildlife survey metadata"
+author: "Ian Morris-Sibaja"
+date: "2026-05-29"
+categories: [Python, API, Marine Science, LLM]
+format:
+  html:
+    toc: true
+    code-fold: false
+---
+
+# LLM-Assisted Triage for Marine Survey Imagery
+
+![Images collected with an uncrewed aerial system (UAS) were used to assess an entangled humpback whale 3 miles offshore San Diego on 28 August 2024. Images collected under NMFS Permit #24359. Source: NOAA SWFSC](https://www.fisheries.noaa.gov/s3//2024-10/Entangled-Whale-Aug2024-SWFSC_750x500.jpg?itok=bjAFiEqM)
+
+## About
+
+Modern marine wildlife surveys generate data faster than analysts can review it. A single glider deployment across the California Current can produce thousands of imagery records over two weeks — each one needing a validated species ID, a habitat tag, a data quality flag, and a field note before it can enter a species distribution model or stock assessment pipeline.
+
+The manual triage step is the bottleneck. In this project, I build a Python pipeline that automates it using `claude-sonnet-4-6` via the Anthropic API, turning raw survey metadata into structured ecological annotations at scale. This integrated approach demonstrates:
+
+- Structured prompting for scientific domain tasks with calibrated output constraints
+- Prompt caching to reduce API costs across large batches
+- Resilient API integration with exponential backoff and graceful error handling
+- Appending LLM annotations to an output CSV suitable for downstream ML workflows
+
+---
+
+## Data
+
+#### Survey Metadata Records
+
+The pipeline accepts a CSV of pre-extracted imagery metadata — the tabular record that accompanies each image in a survey archive. A single record looks like this:
+
+| Field | Value |
+|---|---|
+| `image_id` | `20240318_GLDR_007` |
+| `species_observed` | `Common Dolphin` |
+| `location` | `Central CA Coast` |
+| `latitude / longitude` | `36.49°N, 122.91°W` |
+| `timestamp` | `2024-03-18T15:03:00` |
+| `camera_type` | `GLIDER` |
+| `depth_m` | `22` |
+
+#### Platform Types
+
+Each `camera_type` value carries different observational constraints that the model uses when assessing data quality:
+
+| Platform | Context |
+|---|---|
+| `AERIAL_DRONE` | Surface-visible species only; depth = 0 |
+| `GLIDER` / `AUV` | Subsurface observations; depth is reliable |
+| `ROV` | Precise depth; high spatial resolution |
+| `TRAIL_CAM` | Shoreline / haul-out / intertidal species |
+| `TOWED_CAM` | Depth = tow depth; variable image quality |
+
+#### Example Input
+
+`example_input.csv` contains 15 synthetic records spanning the California Current System — blue and humpback whales, rockfish, sea otters, pinnipeds, sharks, and an unidentified towed-camera record — representative of a real multi-platform survey batch.
+
+---
+
+## Import Data
+
+#### Import libraries
+
+```python
+import anthropic
+import json
+import logging
+import os
+import pandas as pd
+from pathlib import Path
+```
+
+#### Load the input CSV
+
+```python
+df = pd.read_csv("example_input.csv", dtype=str).fillna("")
+records = df.to_dict("records")
+```
+
+```
+INFO  Loaded 15 records from example_input.csv
+```
+
+#### Inspect the data
+
+```python
+print(df[["image_id", "species_observed", "camera_type", "depth_m"]].to_string())
+```
+
+```
+             image_id             species_observed  camera_type depth_m
+0   20240315_MBAY_001                   Blue Whale AERIAL_DRONE       0
+1   20240315_MBAY_002               Humpback Whale AERIAL_DRONE       0
+2  20240316_CINMS_003               Giant Sea Bass          ROV      42
+3  20240316_CINMS_004         California Sheephead          ROV      28
+4   20240317_PFCA_005       Northern Elephant Seal    TRAIL_CAM       0
+5   20240317_PFCA_006             Steller Sea Lion    TRAIL_CAM       0
+6   20240318_GLDR_007  Pacific White-sided Dolphin       GLIDER      15
+7   20240318_GLDR_008               Common Dolphin       GLIDER      22
+8   20240319_MBAY_009                    Sea Otter AERIAL_DRONE       0
+9  20240319_CINMS_010            Bocaccio Rockfish          ROV      95
+10  20240320_PFCA_011                  unidentified    TOWED_CAM      55
+11  20240320_CBAY_012              Pacific Halibut          ROV      38
+12  20240321_MBAY_013                   Blue Shark       GLIDER      80
+13 20240321_SFBAY_014                  Harbor Seal AERIAL_DRONE       0
+14 20240322_CINMS_015                    Garibaldi          ROV      18
+```
+
+---
+
+## Build the Annotation Prompt
+
+#### System prompt with prompt caching
+
+The system prompt establishes the model's role as a NOAA SWFSC field analyst and specifies the exact annotation schema. Marking it with `cache_control` tells Anthropic's API to cache it after the first call — on batches of 50+ records this reduces input token costs by ~90%.
+
+```python
+client.messages.create(
+    model="claude-sonnet-4-6",
+    max_tokens=512,
+    system=[
+        {
+            "type": "text",
+            "text": SYSTEM_PROMPT,
+            "cache_control": {"type": "ephemeral"},  # cached after first call
+        }
+    ],
+    messages=[{"role": "user", "content": build_user_prompt(record)}],
+)
+```
+
+The system prompt instructs the model to return exactly seven fields — taxonomic classification, habitat type, behavioral context, quality assessment (text and integer), survey notes, and a confidence level — with no prose, no markdown fences, just a valid JSON object.
+
+#### User prompt template
+
+Each record is formatted into a structured request that mirrors a field log entry:
+
+```python
+def build_user_prompt(record: dict) -> str:
+    return f"""\
+Analyze the following marine imagery metadata record and return a JSON object
+with your ecological annotations.
+
+METADATA:
+  image_id:    {record.get('image_id', 'N/A')}
+  species:     {record.get('species_observed', 'unidentified')}
+  location:    {record.get('location', 'N/A')}
+  latitude:    {record.get('latitude', 'N/A')}
+  longitude:   {record.get('longitude', 'N/A')}
+  timestamp:   {record.get('timestamp', 'N/A')}
+  camera_type: {record.get('camera_type', 'N/A')}
+  depth_m:     {record.get('depth_m', 'N/A')}
+
+Return exactly this JSON structure (no other text):
+{{
+  "ecological_classification": "<validated species name>",
+  "habitat_type": "<habitat category>",
+  "behavior_notes": "<behavioral context or 'insufficient metadata'>",
+  "quality_assessment": "<Excellent|Good|Marginal|Poor>",
+  "quality_score": <integer 1–5>,
+  "survey_notes": "<1–2 sentence scientific summary>",
+  "confidence_level": "<High|Medium|Low>"
+}}"""
+```
+
+---
+
+## Call the API
+
+#### Retry logic
+
+The API layer wraps each call in an exponential backoff loop. Rate-limit responses include a `retry-after` header that gives a more accurate wait time than a fixed formula.
+
+```python
+for attempt in range(MAX_RETRIES):
+    try:
+        response = client.messages.create(...)
+        return json.loads(response.content[0].text.strip())
+
+    except anthropic.RateLimitError as exc:
+        retry_after = float(
+            exc.response.headers.get("retry-after", BASE_RETRY_DELAY * (2 ** attempt))
+        )
+        time.sleep(retry_after + random.uniform(0, 1))
+
+    except anthropic.APIStatusError as exc:
+        if exc.status_code >= 500:
+            time.sleep(BASE_RETRY_DELAY * (2 ** attempt) + random.uniform(0, 1))
+        else:
+            raise  # 4xx errors are not retryable
+```
+
+#### Parse and write output
+
+Records that return valid JSON are merged with their original metadata and written to the output CSV. Records that exhaust all retries are written with `ecological_classification = "ERROR"` and `quality_score = 1`, keeping the output file complete so downstream steps can filter rather than crash.
+
+```python
+results.append({
+    **record,
+    **annotations,
+    "processed_at": datetime.now(timezone.utc).isoformat(),
+    "model_used": MODEL,
+})
+```
+
+---
+
+## Run the Pipeline
+
+#### Command line
+
+```bash
+python marine_tagger.py --input example_input.csv
+```
+
+#### Live log output
+
+```
+INFO  Loaded 15 records from example_input.csv
+INFO  [1/15] Processing 20240315_MBAY_001 …
+INFO  [2/15] Processing 20240315_MBAY_002 …
+INFO  [3/15] Processing 20240316_CINMS_003 …
+...
+INFO  [15/15] Processing 20240322_CINMS_015 …
+INFO  Wrote 15 rows → tagged_output.csv
+INFO  Complete — 15/15 records annotated successfully.
+```
+
+---
+
+## Inspect the Output
+
+#### Quality score distribution
+
+Of 15 records, 8 received a quality score of 5 (Excellent), 4 received a 4 (Good), 2 received a 3 (Marginal), and 1 received a 2 (Poor). No records were rated Unusable. 10 of 15 annotations came back High confidence.
+
+| quality_score | n | quality_assessment |
+|:---:|:---:|---|
+| 5 | 8 | Excellent |
+| 4 | 4 | Good |
+| 3 | 2 | Marginal |
+| 2 | 1 | Poor |
+
+#### Habitat distribution
+
+```
+open water / pelagic                        5
+rocky reef                                  4
+intertidal                                  2
+estuarine                                   2
+rocky reef / benthic soft-sediment          1
+benthic soft-sediment                       1
+```
+
+#### Sample annotations
+
+**High-confidence cetacean ID — Monterey Bay humpback**
+
+> *Megaptera novaeangliae observed via aerial drone at the surface in Monterey Bay (36.7954°N, 121.9612°W) on 2024-03-15. Timing and location are consistent with documented spring migratory corridor and known foraging grounds in the California Current System. No data quality flags.*
+
+`quality_score: 5 | confidence: High | habitat: open water / pelagic`
+
+---
+
+**Ambiguous species ID — glider-based dolphin at depth**
+
+The model correctly flagged a `Common Dolphin` record from a glider at 22 m as ambiguous between *Delphinus delphis* and *Delphinus capensis* and lowered the quality score accordingly:
+
+> *Short-beaked Common Dolphin (Delphinus delphis) recorded at 22 m depth via underwater glider off the Central CA Coast. D. capensis cannot be excluded without morphological imagery review. Glider platforms have limited capacity to visually confirm cetacean species identity at depth.*
+
+`quality_score: 3 | confidence: Medium | habitat: open water / pelagic`
+
+This is the correct call — the offshore pelagic position at 36.5°N favors *D. delphis*, but a glider can't confirm it, and a downstream model should know that.
+
+---
+
+**Unidentified towed camera record — quality floor**
+
+An unidentified towed camera record at 55 m over Cordell Bank came back with candidate taxa listed in the classification field and a quality score of 2:
+
+> *Species identity could not be resolved from available metadata, limiting utility for SDM and stock assessment pipelines. Recommend manual review by taxonomic expert before inclusion in downstream ML workflows.*
+
+`quality_score: 2 | confidence: Low | habitat: rocky reef / benthic soft-sediment transition`
+
+---
+
+## Reflection
+
+The pipeline successfully annotated all 15 records with ecologically plausible outputs. The model's reasoning was strongest where metadata was richest — ROV records with precise depth and geolocation consistently returned quality scores of 5 and detailed survey notes. Glider-based cetacean records were correctly rated Marginal, as glider imagery has known limitations for species-level ID at depth.
+
+A few limitations worth noting. The pipeline annotates metadata, not images — it can't detect blur, backscatter, or poor framing that only a human reviewer or CV model would catch. The quality scoring therefore reflects metadata completeness and ecological plausibility rather than actual image quality. Additionally, the current system prompt is below the 2,048-token threshold needed to activate prompt caching on Sonnet 4.6; embedding a species taxonomy table or survey SOP would push it past threshold and cut costs substantially on larger batches.
+
+The natural next step for production scale is the Anthropic Batches API — submit an entire survey batch as a single job, poll for completion, write results in one pass, and cut per-token costs by 50%.
+
+---
+
+## Citations
+
+```python
+# Citations shown below
+```
+
+::: {.callout-note collapse="true"}
+## Reveal code
+
+| Data | Citation | Link |
+|---|---|---|
+| Anthropic Messages API | Anthropic. (2024). Claude API Documentation. Anthropic PBC. | [docs.anthropic.com](https://docs.anthropic.com) |
+| Survey platform context | NOAA Southwest Fisheries Science Center Ecosystem Science Division. California Current Ecosystem Survey methods. NOAA Fisheries. | [swfsc.noaa.gov](https://www.fisheries.noaa.gov/about/southwest-fisheries-science-center) |
+| Species taxonomy | Froese, R. and D. Pauly (Eds). FishBase. World Wide Web electronic publication. | [fishbase.org](https://www.fishbase.org) |
+| California Current species ranges | Eschmeyer, W.N., Fricke, R., and van der Laan, R. (eds). Catalog of Fishes. California Academy of Sciences. | [researcharchive.calacademy.org](https://researcharchive.calacademy.org/research/ichthyology/catalog/fishcatmain.asp) |
+:::
+
+---
+
+*Copyright 2024, Ian Morris-Sibaja*
