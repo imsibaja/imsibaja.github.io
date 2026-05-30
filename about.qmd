@@ -4,7 +4,45 @@ title: "About"
 
 ## About Me
 
-Master in Environmental Data Science
+I'm a data scientist with a background in environmental systems. I got my start doing reforestation work in the field before moving into the data side of land and ecological management. That background shapes how I approach problems: I care about what the numbers are actually measuring, not just whether the pipeline runs.
+
+I completed the Master of Environmental Data Science program at UC Santa Barbara's Bren School. My work there focused on applied projects connecting geospatial analysis, remote sensing, and scientific computing to real environmental questions. My capstone involved a full project lifecycle, from scoping through delivery, with a real client and a public presentation at the end.
+
+On the technical side, I work primarily with Python, geospatial data pipelines, and raster analysis. That includes LiDAR point cloud processing and building canopy models from raw sensor data. I'm comfortable going deep on NumPy, spatial indexing, and the infrastructure that makes large datasets workable.
+
+Outside of work, I think about land economics and where market mechanisms and ecological accountability can coexist. Based in LA County.
+
+---
+
+## Skills
+
+```{=html}
+<div class="skills-grid">
+  <div class="skill-card">Python</div>
+  <div class="skill-card">R</div>
+  <div class="skill-card">LiDAR</div>
+  <div class="skill-card">Remote Sensing</div>
+  <div class="skill-card">Geospatial Analysis</div>
+  <div class="skill-card">GIS</div>
+  <div class="skill-card">NumPy</div>
+  <div class="skill-card">Pandas</div>
+  <div class="skill-card">Raster Processing</div>
+  <div class="skill-card">Statistical Modeling</div>
+  <div class="skill-card">Machine Learning</div>
+  <div class="skill-card">Data Pipelines</div>
+  <div class="skill-card">Reproducible Workflows</div>
+  <div class="skill-card">Environmental Data Science</div>
+  <div class="skill-card">Project Management</div>
+</div>
+```
+
+---
+
+## Education
+
+**Master of Environmental Data Science** — UC Santa Barbara, Bren School of Environmental Science and Management
+
+---
 
 ## Previous Portfolios
 

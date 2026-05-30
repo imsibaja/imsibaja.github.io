@@ -8,6 +8,7 @@ author:
     affiliation-url: https://bren.ucsb.edu/masters-programs/master-environmental-data-science
 date: 03-17-2025
 categories: [Quarto, MEDS]
+description: "Visualizing population dynamics between purple sea stars (Pisaster) and sea urchins along the Pacific Coast, and what their collapse means for kelp forest ecosystems."
 toc: true
 format:
   html:
