@@ -12,8 +12,10 @@ website:
     right:
       - href: index.qmd
         text: Home
-      - href: posts.qmd
-        text: Portfolio
+      - href: projects.qmd
+        text: Projects
+      - href: blog.qmd
+        text: Blog
       - href: resume/IMS_Resume.pdf
         text: Resume
       - href: about.qmd

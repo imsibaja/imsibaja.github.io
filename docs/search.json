@@ -11,7 +11,7 @@
     "href": "posts.html",
     "title": "Blog",
     "section": "",
-    "text": "LLM-Assisted Triage for Marine Survey Imagery\n\n\n\nPython\n\n\nAPI\n\n\nMarine Science\n\n\nLLM\n\n\n\nUsing the Anthropic API to automate ecological annotation of marine wildlife survey metadata\n\n\n\nIan Morris-Sibaja\n\n\nMay 29, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA lack of Pisaster may lead to … disaster\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nVisualizing population dynamics between purple sea stars (Pisaster) and sea urchins along the Pacific Coast, and what their collapse means for kelp forest ecosystems.\n\n\n\nIMS\n\n\nMar 17, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nIdentifying the Impacts of Extreme Weather\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nDec 24, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nThe Environmental Effects of the 2017 Thomas Fire\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nDec 19, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBloom Shift\n\n\nInvestigating how climate change influences the flowering phenology of native and invasive California annual forbs using 50 years of observational data and OLS regression.\n\n\n\nIan Morris-Sibaja\n\n\nDec 15, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHello World!\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nMy first blog\n\n\n\nIMS\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+    "text": "LLM-Assisted Triage for Marine Survey Imagery\n\n\n\nPython\n\n\nAPI\n\n\nMarine Science\n\n\nLLM\n\n\n\nUsing the Anthropic API to automate ecological annotation of marine wildlife survey metadata\n\n\n\nIan Morris-Sibaja\n\n\nMay 29, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA lack of Pisaster may lead to … disaster\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nVisualizing population dynamics between purple sea stars (Pisaster) and sea urchins along the Pacific Coast, and what their collapse means for kelp forest ecosystems.\n\n\n\nIMS\n\n\nMar 17, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNight-Light Remote Sensing of the 2021 Texas Winter Storm Blackouts\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nDec 24, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nThe Environmental Effects of the 2017 Thomas Fire\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nDec 19, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBloom Shift\n\n\n\nThesis\n\n\nPython\n\n\nPhenology\n\n\n\nInvestigating how climate change influences the flowering phenology of native and invasive California annual forbs using 50 years of observational data and OLS regression.\n\n\n\nIan Morris-Sibaja\n\n\nDec 15, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nHello World!\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nMy first blog\n\n\n\nIMS\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -306,5 +306,19 @@
     "title": "Hello World!",
     "section": "",
     "text": "In my first language, C++\n#include &lt;iostream&gt;\n\nint main(){\n  std::cout&lt;&lt;\"Hello, World!\"&lt;&lt;std::endl;\n  return 0;\n}\nIn my favorite language, Python:\nprint(\"Hello, World!\")\nIn a language I am forced to use, R:\nprint(\"Hello, World!\")\nErm… How original…\nNo programmer is complete without the proverbial “Hello World!”. Now that that is done, I’ll the rest of the blog will be dedicated to Environmental Data Science. What’s that you say? Why don’t you check out my other posts and find out!"
+  },
+  {
+    "objectID": "projects.html",
+    "href": "projects.html",
+    "title": "Projects",
+    "section": "",
+    "text": "LLM-Assisted Triage for Marine Survey Imagery\n\n\n\nPython\n\n\nAPI\n\n\nMarine Science\n\n\nLLM\n\n\n\nUsing the Anthropic API to automate ecological annotation of marine wildlife survey metadata\n\n\n\nIan Morris-Sibaja\n\n\nMay 29, 2026\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nA lack of Pisaster may lead to … disaster\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nVisualizing population dynamics between purple sea stars (Pisaster) and sea urchins along the Pacific Coast, and what their collapse means for kelp forest ecosystems.\n\n\n\nIMS\n\n\nMar 17, 2025\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nNight-Light Remote Sensing of the 2021 Texas Winter Storm Blackouts\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nDec 24, 2024\n\n\n\n\n\n\n\n\n\n\n\n\nThe Environmental Effects of the 2017 Thomas Fire\n\n\n\n\n\n\nIan Morris-Sibaja\n\n\nDec 19, 2024\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nBloom Shift\n\n\n\nThesis\n\n\nPython\n\n\nPhenology\n\n\n\nInvestigating how climate change influences the flowering phenology of native and invasive California annual forbs using 50 years of observational data and OLS regression.\n\n\n\nIan Morris-Sibaja\n\n\nDec 15, 2024\n\n\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "blog.html",
+    "href": "blog.html",
+    "title": "Blog",
+    "section": "",
+    "text": "Hello World!\n\n\n\nQuarto\n\n\nMEDS\n\n\n\nMy first blog\n\n\n\nIMS\n\n\nOct 18, 2024\n\n\n\n\n\n\n\n\nNo matching items"
   }
 ]

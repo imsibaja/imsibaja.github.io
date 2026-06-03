@@ -1,0 +1,10 @@
+---
+title: "Blog"
+listing:
+  contents:
+    - posts/2024-10-18-hello-world
+  type: grid
+  sort: "date desc"
+  categories: true
+css: styles.scss
+---

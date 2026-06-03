@@ -1,0 +1,14 @@
+---
+title: "Projects"
+listing:
+  contents:
+    - posts/2026-05-29-llm-api
+    - posts/2024-12-24-houston-blackouts
+    - posts/2024-12-13-thomas-fire
+    - posts/2025-01-26-bloom-shift
+    - posts/2025-03-17-purple
+  type: grid
+  sort: "date desc"
+  categories: true
+css: styles.scss
+---
