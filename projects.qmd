@@ -2,6 +2,7 @@
 title: "Projects"
 listing:
   contents:
+    - posts/2026-07-13-suitable-habitats
     - posts/2026-06-17-lidar-canopy
     - posts/2026-05-29-llm-api
     - posts/2024-12-24-houston-blackouts
