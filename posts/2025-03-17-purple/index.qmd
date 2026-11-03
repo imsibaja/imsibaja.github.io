@@ -10,10 +10,7 @@ date: 03-17-2025
 categories: [Quarto, MEDS]
 description: "Visualizing population dynamics between purple sea stars (Pisaster) and sea urchins along the Pacific Coast, and what their collapse means for kelp forest ecosystems."
 toc: true
-format:
-  html:
-    embed-resources: true
-image: distributions.gif
+image: video-poster.jpg
 citation:
   url: httpls://imsibaja.github.io/posts/2025-03-17-2025-purple
 ---
@@ -35,9 +32,9 @@ With that in mind, I explored intertidal observations of the Pacific purple sea 
 ## Infographic
 
 ```{=html}
-<video width="75%" style="display: block; margin: 0 auto;" controls muted autoplay loop
+<video width="75%" style="display: block; margin: 0 auto;" controls muted loop preload="none" poster="video-poster.jpg"
 alt="Infographic illustrating the relationship between Purple Sea Stars (Pisaster ochraceus) and Purple Urchins (Strongylocentrotus purpuratus). It highlights their predator-prey dynamics, the impact of Sea Star Wasting Disease in the early 2010s, and the role of Marine Protected Areas (MPAs) in maintaining balance. Includes California coast distribution map, population trend graphs, and comparative charts for MPAs vs. Non-MPAs. Main takeaway: Sea stars are keystone species that control urchin populations. Without them, kelp forests suffer.">
-  <source src="purple.mp4">
+  <source src="Purple.mp4" type="video/mp4">
 </video>
 ```
 

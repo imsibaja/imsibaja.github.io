@@ -10,8 +10,6 @@ I completed the Master of Environmental Data Science program at UC Santa Barbara
 
 On the technical side, I work primarily with Python, geospatial data pipelines, and raster analysis. That includes LiDAR point cloud processing and building canopy models from raw sensor data. I'm comfortable going deep on NumPy, spatial indexing, and the infrastructure that makes large datasets workable.
 
-Outside of work, I think about land economics and where market mechanisms and ecological accountability can coexist. Based in LA County.
-
 ---
 
 ## Skills

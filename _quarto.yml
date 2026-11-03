@@ -1,6 +1,11 @@
 project:
   type: website
   output-dir: docs
+  resources:
+    - posts/2026-06-17-lidar-canopy/interactive-map.html
+
+execute:
+  freeze: auto
 
 website:
   title: "Morris-Sibaja"
@@ -31,6 +36,4 @@ format:
     mainfont: Darker Grotesque
     toc: false
     page-layout: article
-
-
 

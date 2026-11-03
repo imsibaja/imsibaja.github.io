@@ -28,6 +28,7 @@ Climate change is driving more frequent and intense extreme weather events with 
 - Streamlining geospatial data collection, processing, and visualization.
 - Analyzing intersections of environmental effects and income disparities.
 
+> **Reproducibility:** To rerun the full analysis, refer to the [GitHub repository](https://github.com/imsibaja/imsibaja.github.io).
 
 ## Data
 
