@@ -48,7 +48,7 @@ css: styles.scss
         <div class="project-info">
           <h3>Coastal Species Range Shift Analysis</h3>
           <p>Capstone project using GAM models and geospatial datasets to quantify shifts in coastal species distributions for The Nature Conservancy, bundled into a tidy shiny app.</p>
-          <a href="https://tnc-dangermond.shinyapps.io/crisp/">View Project</a>
+          <a href="https://imsibaja.github.io/crisp-reskin/index.html">View Project</a>
         </div>
       </div>
 
